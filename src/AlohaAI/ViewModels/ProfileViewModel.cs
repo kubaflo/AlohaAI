@@ -46,6 +46,7 @@ public class ProfileViewModel : BaseViewModel
     }
 
     public ObservableCollection<PathProgressItem> PathProgress { get; } = [];
+    public ObservableCollection<AchievementItem> Achievements { get; } = [];
 
     public ICommand LoadDataCommand { get; }
     public ICommand OpenSettingsCommand { get; }
@@ -103,6 +104,51 @@ public class ProfileViewModel : BaseViewModel
             }
 
             LessonsCompleted = totalCompleted;
+
+            // Compute achievements
+            Achievements.Clear();
+            Achievements.Add(new AchievementItem
+            {
+                Icon = "icon_explore.png",
+                Title = "First Steps",
+                Description = "Complete your first lesson",
+                IsUnlocked = totalCompleted >= 1
+            });
+            Achievements.Add(new AchievementItem
+            {
+                Icon = "icon_notebook.png",
+                Title = "Curious Mind",
+                Description = "Complete 10 lessons",
+                IsUnlocked = totalCompleted >= 10
+            });
+            Achievements.Add(new AchievementItem
+            {
+                Icon = "icon_trophy.png",
+                Title = "Knowledge Seeker",
+                Description = "Complete 25 lessons",
+                IsUnlocked = totalCompleted >= 25
+            });
+            Achievements.Add(new AchievementItem
+            {
+                Icon = "icon_clock.png",
+                Title = "Streak Starter",
+                Description = "Reach a 3-day streak",
+                IsUnlocked = BestStreak >= 3
+            });
+            Achievements.Add(new AchievementItem
+            {
+                Icon = "icon_flowers.png",
+                Title = "Week Warrior",
+                Description = "Reach a 7-day streak",
+                IsUnlocked = BestStreak >= 7
+            });
+            Achievements.Add(new AchievementItem
+            {
+                Icon = "icon_rocket.png",
+                Title = "XP Hunter",
+                Description = "Earn 500 XP",
+                IsUnlocked = TotalXp >= 500
+            });
         }
         catch (Exception ex)
         {
@@ -124,4 +170,16 @@ public class PathProgressItem
     public double Progress { get; set; }
     public Color BarColor { get; set; } = Colors.Blue;
     public string ProgressText => $"{CompletedLessons}/{TotalLessons}";
+}
+
+public class AchievementItem
+{
+    public string Icon { get; set; } = "icon_trophy.png";
+    public string Title { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public bool IsUnlocked { get; set; }
+    public double IconOpacity => IsUnlocked ? 1.0 : 0.3;
+    public Color TextColor => IsUnlocked ? Colors.White : Color.FromArgb("#666666");
+    public Color DescColor => IsUnlocked ? Color.FromArgb("#AAAAAA") : Color.FromArgb("#444444");
+    public string StatusText => IsUnlocked ? "✓" : "🔒";
 }

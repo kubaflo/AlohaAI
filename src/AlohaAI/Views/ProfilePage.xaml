@@ -84,6 +84,32 @@
 
             <VerticalStackLayout Padding="20,20,20,0" Spacing="16">
 
+                <!-- Achievements -->
+                <Label Text="Achievements" FontSize="18" FontAttributes="Bold" TextColor="White" />
+
+                <CollectionView ItemsSource="{Binding Achievements}" SelectionMode="None">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="3" HorizontalItemSpacing="8" VerticalItemSpacing="8" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="vm:AchievementItem">
+                            <Border BackgroundColor="{StaticResource CardDark}"
+                                    StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="10"
+                                    HeightRequest="110">
+                                <VerticalStackLayout Spacing="6" VerticalOptions="Center" HorizontalOptions="Center">
+                                    <Image Source="{Binding Icon}" WidthRequest="32" HeightRequest="32"
+                                           Opacity="{Binding IconOpacity}" HorizontalOptions="Center" />
+                                    <Label Text="{Binding Title}" FontSize="11" FontAttributes="Bold"
+                                           TextColor="{Binding TextColor}" HorizontalOptions="Center"
+                                           HorizontalTextAlignment="Center" MaxLines="2" LineBreakMode="WordWrap" />
+                                    <Label Text="{Binding StatusText}" FontSize="10"
+                                           TextColor="{Binding DescColor}" HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
                 <!-- Path Progress Breakdown -->
                 <Label Text="Path Progress" FontSize="18" FontAttributes="Bold" TextColor="White" />
 

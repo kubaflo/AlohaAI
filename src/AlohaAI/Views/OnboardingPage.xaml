@@ -12,67 +12,80 @@
         </LinearGradientBrush>
     </ContentPage.Background>
 
-    <Grid RowDefinitions="*,Auto" Padding="32">
-        <VerticalStackLayout VerticalOptions="Center" Spacing="24">
+    <Grid RowDefinitions="*,Auto,Auto" Padding="32">
 
-            <!-- Logo -->
-            <Image Source="icon_applogo.png" WidthRequest="120" HeightRequest="120" HorizontalOptions="Center" />
-
-            <Label Text="Welcome to AlohaAI"
-                   FontSize="32" FontAttributes="Bold"
-                   TextColor="White" HorizontalOptions="Center"
-                   HorizontalTextAlignment="Center" />
-
-            <Label Text="Learn AI concepts through bite-sized lessons, quizzes, and hands-on examples"
-                   FontSize="16" TextColor="White" Opacity="0.9"
-                   HorizontalOptions="Center" HorizontalTextAlignment="Center"
-                   LineHeight="1.4" />
-
-            <!-- Feature highlights -->
-            <VerticalStackLayout Spacing="16" Margin="0,20,0,0">
-                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
-                    <Border BackgroundColor="#FFFFFF30" StrokeShape="RoundRectangle 12" Stroke="Transparent"
-                            WidthRequest="48" HeightRequest="48">
-                        <Image Source="icon_explore.png" WidthRequest="36" HeightRequest="36"
-                               HorizontalOptions="Center" VerticalOptions="Center" />
-                    </Border>
-                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                        <Label Text="Agentic AI &amp; ML" FontSize="16" FontAttributes="Bold" TextColor="White" />
-                        <Label Text="Agents, MCP, RAG, transformers &amp; more" FontSize="13" TextColor="White" Opacity="0.8" />
-                    </VerticalStackLayout>
-                </Grid>
-
-                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
-                    <Border BackgroundColor="#FFFFFF30" StrokeShape="RoundRectangle 12" Stroke="Transparent"
-                            WidthRequest="48" HeightRequest="48">
-                        <Image Source="icon_notebook.png" WidthRequest="36" HeightRequest="36"
-                               HorizontalOptions="Center" VerticalOptions="Center" />
-                    </Border>
-                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                        <Label Text="Bite-sized Lessons" FontSize="16" FontAttributes="Bold" TextColor="White" />
-                        <Label Text="Learn at your own pace, anywhere" FontSize="13" TextColor="White" Opacity="0.8" />
-                    </VerticalStackLayout>
-                </Grid>
-
-                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
-                    <Border BackgroundColor="#FFFFFF30" StrokeShape="RoundRectangle 12" Stroke="Transparent"
-                            WidthRequest="48" HeightRequest="48">
-                        <Image Source="icon_trophy.png" WidthRequest="36" HeightRequest="36"
-                               HorizontalOptions="Center" VerticalOptions="Center" />
-                    </Border>
-                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                        <Label Text="Streaks &amp; XP" FontSize="16" FontAttributes="Bold" TextColor="White" />
-                        <Label Text="Stay motivated with daily goals" FontSize="13" TextColor="White" Opacity="0.8" />
-                    </VerticalStackLayout>
-                </Grid>
-            </VerticalStackLayout>
+        <!-- Step 0: Welcome -->
+        <VerticalStackLayout x:Name="Step0" VerticalOptions="Center" Spacing="24" IsVisible="True">
+            <Image Source="icon_applogo.png" WidthRequest="140" HeightRequest="140" HorizontalOptions="Center" />
+            <Label Text="AlohaAI" FontSize="38" FontAttributes="Bold"
+                   TextColor="White" HorizontalOptions="Center" />
+            <Label Text="Your pocket guide to the world of AI"
+                   FontSize="17" TextColor="White" Opacity="0.9"
+                   HorizontalOptions="Center" HorizontalTextAlignment="Center" LineHeight="1.4" />
         </VerticalStackLayout>
 
+        <!-- Step 1: Learn -->
+        <VerticalStackLayout x:Name="Step1" VerticalOptions="Center" Spacing="24" IsVisible="False">
+            <Border BackgroundColor="#FFFFFF20" StrokeShape="RoundRectangle 36" Stroke="Transparent"
+                    WidthRequest="100" HeightRequest="100" HorizontalOptions="Center">
+                <Image Source="icon_explore.png" WidthRequest="64" HeightRequest="64"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+            </Border>
+            <Label Text="Learn Agentic AI" FontSize="28" FontAttributes="Bold"
+                   TextColor="White" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+            <Label Text="Master cutting-edge concepts like Agents, MCP, RAG, and Semantic Kernel through bite-sized lessons"
+                   FontSize="16" TextColor="White" Opacity="0.85"
+                   HorizontalOptions="Center" HorizontalTextAlignment="Center" LineHeight="1.5"
+                   Margin="12,0" />
+        </VerticalStackLayout>
+
+        <!-- Step 2: Practice -->
+        <VerticalStackLayout x:Name="Step2" VerticalOptions="Center" Spacing="24" IsVisible="False">
+            <Border BackgroundColor="#FFFFFF20" StrokeShape="RoundRectangle 36" Stroke="Transparent"
+                    WidthRequest="100" HeightRequest="100" HorizontalOptions="Center">
+                <Image Source="icon_notebook.png" WidthRequest="64" HeightRequest="64"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+            </Border>
+            <Label Text="Test Your Knowledge" FontSize="28" FontAttributes="Bold"
+                   TextColor="White" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+            <Label Text="Reinforce learning with interactive quizzes after each module — track your scores and improve over time"
+                   FontSize="16" TextColor="White" Opacity="0.85"
+                   HorizontalOptions="Center" HorizontalTextAlignment="Center" LineHeight="1.5"
+                   Margin="12,0" />
+        </VerticalStackLayout>
+
+        <!-- Step 3: Grow -->
+        <VerticalStackLayout x:Name="Step3" VerticalOptions="Center" Spacing="24" IsVisible="False">
+            <Border BackgroundColor="#FFFFFF20" StrokeShape="RoundRectangle 36" Stroke="Transparent"
+                    WidthRequest="100" HeightRequest="100" HorizontalOptions="Center">
+                <Image Source="icon_trophy.png" WidthRequest="64" HeightRequest="64"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+            </Border>
+            <Label Text="Build Your Streak" FontSize="28" FontAttributes="Bold"
+                   TextColor="White" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+            <Label Text="Earn XP, unlock achievements, and stay motivated with daily learning goals and streak tracking"
+                   FontSize="16" TextColor="White" Opacity="0.85"
+                   HorizontalOptions="Center" HorizontalTextAlignment="Center" LineHeight="1.5"
+                   Margin="12,0" />
+        </VerticalStackLayout>
+
+        <!-- Page Indicators -->
+        <HorizontalStackLayout Grid.Row="1" HorizontalOptions="Center" Spacing="10" Margin="0,0,0,20">
+            <Border x:Name="Dot0" BackgroundColor="White" StrokeShape="RoundRectangle 4" Stroke="Transparent"
+                    WidthRequest="24" HeightRequest="8" />
+            <Border x:Name="Dot1" BackgroundColor="#FFFFFF40" StrokeShape="RoundRectangle 4" Stroke="Transparent"
+                    WidthRequest="8" HeightRequest="8" />
+            <Border x:Name="Dot2" BackgroundColor="#FFFFFF40" StrokeShape="RoundRectangle 4" Stroke="Transparent"
+                    WidthRequest="8" HeightRequest="8" />
+            <Border x:Name="Dot3" BackgroundColor="#FFFFFF40" StrokeShape="RoundRectangle 4" Stroke="Transparent"
+                    WidthRequest="8" HeightRequest="8" />
+        </HorizontalStackLayout>
+
         <!-- CTA Button -->
-        <Button Grid.Row="1"
-                x:Name="GetStartedButton"
-                Text="Get Started →"
-                Clicked="OnGetStartedClicked"
+        <Button Grid.Row="2"
+                x:Name="NextButton"
+                Text="Next →"
+                Clicked="OnNextClicked"
                 BackgroundColor="White"
                 TextColor="#5B8FD4"
                 FontSize="18"
