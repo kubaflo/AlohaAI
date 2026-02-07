@@ -15,12 +15,28 @@ public partial class LessonPage : ContentPage
     {
         if (e.PropertyName == nameof(ViewModels.LessonViewModel.MarkdownContent) && sender is ViewModels.LessonViewModel vm)
         {
-            ContentArea.Children.Clear();
-            if (!string.IsNullOrEmpty(vm.MarkdownContent))
+            MainThread.BeginInvokeOnMainThread(() =>
             {
-                var rendered = MarkdownRenderer.Render(vm.MarkdownContent);
-                ContentArea.Children.Add(rendered);
-            }
+                ContentArea.Children.Clear();
+                if (!string.IsNullOrEmpty(vm.MarkdownContent))
+                {
+                    try
+                    {
+                        var rendered = MarkdownRenderer.Render(vm.MarkdownContent);
+                        ContentArea.Children.Add(rendered);
+                    }
+                    catch (Exception ex)
+                    {
+                        ContentArea.Children.Add(new Label
+                        {
+                            Text = vm.MarkdownContent,
+                            FontSize = 15,
+                            Padding = new Thickness(0, 8)
+                        });
+                        System.Diagnostics.Debug.WriteLine($"Markdown render error: {ex.Message}");
+                    }
+                }
+            });
         }
     }
 }

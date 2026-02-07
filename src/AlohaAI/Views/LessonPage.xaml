@@ -23,7 +23,6 @@
                            FontSize="12" TextColor="{StaticResource XPColor}" />
                 </VerticalStackLayout>
                 <Button Grid.Column="1"
-                        Text="{Binding IsCompleted, Converter={StaticResource InvertedBoolConverter}, StringFormat='{}Mark Complete'}"
                         Command="{Binding MarkCompleteCommand}"
                         IsEnabled="{Binding IsCompleted, Converter={StaticResource InvertedBoolConverter}}"
                         BackgroundColor="{StaticResource Primary}"
@@ -31,7 +30,16 @@
                         CornerRadius="10"
                         FontAttributes="Bold"
                         Padding="20,0"
-                        HeightRequest="44" />
+                        HeightRequest="44">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding IsCompleted}" Value="True">
+                            <Setter Property="Text" Value="✅ Done" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Button" Binding="{Binding IsCompleted}" Value="False">
+                            <Setter Property="Text" Value="Mark Complete" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
             </Grid>
         </Border>
     </Grid>

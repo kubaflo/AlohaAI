@@ -34,6 +34,22 @@ public static class MarkdownRenderer
                 continue;
             }
 
+            // Table (lines starting with |)
+            if (line.TrimStart().StartsWith('|'))
+            {
+                var tableLines = new List<string>();
+                while (i < lines.Length && lines[i].TrimStart().StartsWith('|'))
+                {
+                    var stripped = lines[i].Trim().Trim('|').Replace(" ", "");
+                    var isSeparator = stripped.Length > 0 && stripped.All(c => c == '-' || c == ':' || c == '|');
+                    if (!isSeparator)
+                        tableLines.Add(lines[i]);
+                    i++;
+                }
+                layout.Add(CreateTable(tableLines));
+                continue;
+            }
+
             // Empty line
             if (string.IsNullOrWhiteSpace(line))
             {
@@ -70,11 +86,13 @@ public static class MarkdownRenderer
                 continue;
             }
 
-            // Numbered list
-            if (line.TrimStart().Length > 2 && char.IsDigit(line.TrimStart()[0]) && line.TrimStart()[1] == '.')
+            // Numbered list (e.g., "1. text", "10. text")
+            var trimmedForNum = line.TrimStart();
+            var dotIdx = trimmedForNum.IndexOf(". ");
+            if (dotIdx > 0 && dotIdx <= 3 && trimmedForNum[..dotIdx].All(char.IsDigit))
             {
-                var numText = line.TrimStart()[3..];
-                var num = line.TrimStart()[0].ToString();
+                var num = trimmedForNum[..dotIdx];
+                var numText = trimmedForNum[(dotIdx + 2)..];
                 layout.Add(CreateNumberedItem(num, numText));
                 i++;
                 continue;
@@ -208,6 +226,67 @@ public static class MarkdownRenderer
                 TextColor = isDark ? Color.FromArgb("#E6EDF3") : Color.FromArgb("#24292F"),
                 LineHeight = 1.4
             }
+        };
+    }
+
+    private static View CreateTable(List<string> rows)
+    {
+        var isDark = Application.Current?.RequestedTheme == AppTheme.Dark;
+
+        var parsedRows = rows
+            .Select(r => r.Trim().Trim('|').Split('|').Select(c => c.Trim()).ToArray())
+            .Where(r => r.Length > 0 && !r.All(c => c.Replace("-", "").Replace(":", "").Trim().Length == 0))
+            .ToList();
+
+        if (parsedRows.Count == 0)
+            return new Label { Text = "" };
+
+        var colCount = parsedRows.Max(r => r.Length);
+        var grid = new Grid
+        {
+            ColumnSpacing = 0,
+            RowSpacing = 0,
+            Padding = new Thickness(0, 8)
+        };
+
+        for (var c = 0; c < colCount; c++)
+            grid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Star));
+        for (var r = 0; r < parsedRows.Count; r++)
+            grid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
+
+        for (var r = 0; r < parsedRows.Count; r++)
+        {
+            for (var c = 0; c < parsedRows[r].Length; c++)
+            {
+                var isHeader = r == 0;
+                var cellBorder = new Border
+                {
+                    BackgroundColor = isHeader
+                        ? (isDark ? Color.FromArgb("#1E2328") : Color.FromArgb("#E9ECEF"))
+                        : Colors.Transparent,
+                    Stroke = isDark ? Color.FromArgb("#2D3136") : Color.FromArgb("#DEE2E6"),
+                    StrokeThickness = 0.5,
+                    Padding = new Thickness(10, 8),
+                    Content = new Label
+                    {
+                        Text = parsedRows[r][c],
+                        FontSize = 13,
+                        FontAttributes = isHeader ? FontAttributes.Bold : FontAttributes.None,
+                        TextColor = isDark ? Colors.White : Color.FromArgb("#212529")
+                    }
+                };
+                grid.SetColumn(cellBorder, c);
+                grid.SetRow(cellBorder, r);
+                grid.Children.Add(cellBorder);
+            }
+        }
+
+        return new Border
+        {
+            StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle { CornerRadius = 8 },
+            Stroke = isDark ? Color.FromArgb("#2D3136") : Color.FromArgb("#DEE2E6"),
+            StrokeThickness = 1,
+            Content = grid
         };
     }
 

@@ -32,8 +32,7 @@
                                     <Label Grid.Column="1" Text="{Binding ProgressText}"
                                            FontSize="14" Opacity="0.5" VerticalOptions="Center" />
                                 </Grid>
-                                <Label Text="{Binding Description}" FontSize="12" Opacity="0.6"
-                                       IsVisible="{Binding Description, Converter={StaticResource InvertedBoolConverter}}" />
+                                <Label Text="{Binding Description}" FontSize="12" Opacity="0.6" />
 
                                 <!-- Lessons List -->
                                 <CollectionView ItemsSource="{Binding Lessons}" SelectionMode="None">

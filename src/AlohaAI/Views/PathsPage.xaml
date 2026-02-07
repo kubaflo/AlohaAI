@@ -39,7 +39,7 @@
                                             StrokeShape="RoundRectangle 10"
                                             Stroke="Transparent"
                                             WidthRequest="44" HeightRequest="44">
-                                        <Label Text="🤖" FontSize="22"
+                                        <Label Text="{Binding IconEmoji}" FontSize="22"
                                                HorizontalOptions="Center" VerticalOptions="Center" />
                                     </Border>
                                     <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
