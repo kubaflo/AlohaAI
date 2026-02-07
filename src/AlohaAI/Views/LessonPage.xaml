@@ -6,7 +6,7 @@
              x:DataType="vm:LessonViewModel"
              Title="{Binding Title}"
              BackgroundColor="{StaticResource Gray900}">
-    <Grid RowDefinitions="Auto,*,Auto">
+    <Grid RowDefinitions="Auto,Auto,*,Auto">
         <!-- Gradient accent top bar -->
         <Border HeightRequest="3" Stroke="Transparent">
             <Border.Background>
@@ -18,8 +18,25 @@
             </Border.Background>
         </Border>
 
+        <!-- Lesson Progress Header -->
+        <Border Grid.Row="1" BackgroundColor="{StaticResource CardDark}" Stroke="Transparent" Padding="20,10">
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                <VerticalStackLayout VerticalOptions="Center" Spacing="4">
+                    <Label Text="{Binding LessonPositionText}" FontSize="13" TextColor="{StaticResource Gray400}" />
+                    <Grid HeightRequest="4">
+                        <Border BackgroundColor="{StaticResource Gray700}" StrokeShape="RoundRectangle 2" Stroke="Transparent" />
+                        <Border BackgroundColor="{StaticResource Primary}" StrokeShape="RoundRectangle 2" Stroke="Transparent"
+                                HorizontalOptions="Start"
+                                WidthRequest="{Binding LessonProgress, Converter={StaticResource ProgressToWidthConverter}, ConverterParameter=260}" />
+                    </Grid>
+                </VerticalStackLayout>
+                <Label Grid.Column="1" Text="{Binding ModuleTitle}" FontSize="12" TextColor="{StaticResource Gray500}"
+                       VerticalOptions="Center" MaxLines="1" LineBreakMode="TailTruncation" />
+            </Grid>
+        </Border>
+
         <!-- Lesson Content -->
-        <ScrollView Grid.Row="1">
+        <ScrollView Grid.Row="2">
             <VerticalStackLayout x:Name="ContentArea" Padding="20" Spacing="12" />
         </ScrollView>
 
@@ -38,7 +55,7 @@
         </Border>
 
         <!-- Bottom Action Bar -->
-        <Border Grid.Row="2"
+        <Border Grid.Row="3"
                 BackgroundColor="{StaticResource CardDark}"
                 Stroke="Transparent"
                 Padding="20,12">

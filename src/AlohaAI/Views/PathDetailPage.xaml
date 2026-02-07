@@ -5,39 +5,63 @@
              x:Class="AlohaAI.Views.PathDetailPage"
              x:DataType="vm:PathDetailViewModel"
              Title="{Binding Title}"
+             Shell.NavBarIsVisible="False"
              BackgroundColor="{StaticResource Gray900}">
     <Grid>
         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
                            HorizontalOptions="Center" VerticalOptions="Center"
                            Color="{StaticResource Primary}" />
     <ScrollView>
-        <VerticalStackLayout x:Name="MainContent" Padding="20" Spacing="16">
+        <VerticalStackLayout x:Name="MainContent" Spacing="0">
 
-            <!-- Path Header -->
-            <VerticalStackLayout Spacing="4" Margin="0,0,0,0">
-                <Label Text="{Binding Title}" FontSize="26" FontAttributes="Bold" />
-                <Label Text="{Binding PathDescription}" FontSize="14" Opacity="0.6" />
-            </VerticalStackLayout>
+            <!-- Gradient Header -->
+            <Border StrokeShape="RoundRectangle 0,0,24,24" Stroke="Transparent" Padding="20,0,20,20">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#5B9FE6" Offset="0.0" />
+                        <GradientStop Color="#7B68AE" Offset="0.45" />
+                        <GradientStop Color="#2D1B69" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <VerticalStackLayout Spacing="12" Padding="0,50,0,0">
+                    <!-- Back button -->
+                    <HorizontalStackLayout Spacing="6">
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                        </HorizontalStackLayout.GestureRecognizers>
+                        <Label Text="←" FontSize="20" TextColor="White" VerticalOptions="Center" />
+                        <Label Text="Back" FontSize="15" TextColor="White" Opacity="0.8" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
 
-            <!-- Path Progress Summary -->
-            <Border BackgroundColor="{StaticResource CardDark}"
-                    StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
-                <VerticalStackLayout Spacing="8">
-                    <Grid ColumnDefinitions="*,Auto">
-                        <Label Text="Overall Progress" FontSize="14" FontAttributes="Bold" />
+                    <!-- Path icon + title -->
+                    <HorizontalStackLayout Spacing="14">
+                        <Border BackgroundColor="#FFFFFF20" StrokeShape="RoundRectangle 14" Stroke="Transparent"
+                                WidthRequest="52" HeightRequest="52">
+                            <Image Source="{Binding PathIcon}" WidthRequest="36" HeightRequest="36"
+                                   HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Border>
+                        <VerticalStackLayout VerticalOptions="Center" Spacing="2">
+                            <Label Text="{Binding Title}" FontSize="24" FontAttributes="Bold" TextColor="White" />
+                            <Label Text="{Binding PathDescription}" FontSize="13" TextColor="White" Opacity="0.75"
+                                   MaxLines="2" LineBreakMode="TailTruncation" />
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+
+                    <!-- Progress bar in header -->
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12" Margin="0,4,0,0">
+                        <Grid HeightRequest="6">
+                            <Border BackgroundColor="#FFFFFF30" StrokeShape="RoundRectangle 3" Stroke="Transparent" />
+                            <Border BackgroundColor="White" StrokeShape="RoundRectangle 3" Stroke="Transparent"
+                                    HorizontalOptions="Start"
+                                    WidthRequest="{Binding OverallProgress, Converter={StaticResource ProgressToWidthConverter}, ConverterParameter=280}" />
+                        </Grid>
                         <Label Grid.Column="1" Text="{Binding OverallProgressText}"
-                               FontSize="14" Opacity="0.6" />
-                    </Grid>
-                    <Grid HeightRequest="8">
-                        <Border BackgroundColor="{StaticResource Gray700}"
-                                StrokeShape="RoundRectangle 4" Stroke="Transparent" />
-                        <Border BackgroundColor="{Binding PathColor}"
-                                StrokeShape="RoundRectangle 4" Stroke="Transparent"
-                                HorizontalOptions="Start"
-                                WidthRequest="{Binding OverallProgress, Converter={StaticResource ProgressToWidthConverter}, ConverterParameter=320}" />
+                               FontSize="13" TextColor="White" Opacity="0.9" VerticalOptions="Center" />
                     </Grid>
                 </VerticalStackLayout>
             </Border>
+
+            <VerticalStackLayout Padding="20,20,20,20" Spacing="16">
 
             <!-- Modules -->
             <CollectionView ItemsSource="{Binding Modules}" SelectionMode="None">
@@ -63,14 +87,24 @@
                                 <CollectionView ItemsSource="{Binding Lessons}" SelectionMode="None">
                                     <CollectionView.ItemTemplate>
                                         <DataTemplate x:DataType="vm:LessonDisplayItem">
-                                            <Grid ColumnDefinitions="Auto,*,Auto" Padding="0,6" ColumnSpacing="12">
+                                            <Grid ColumnDefinitions="Auto,*,Auto" Padding="0,8" ColumnSpacing="12">
                                                 <Grid.GestureRecognizers>
                                                     <TapGestureRecognizer
                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PathDetailViewModel}}, Path=SelectLessonCommand}"
                                                         CommandParameter="{Binding .}" />
                                                 </Grid.GestureRecognizers>
-                                                <Label Text="{Binding StatusIcon}" FontSize="16" VerticalOptions="Center" />
-                                                <Label Grid.Column="1" Text="{Binding Title}" FontSize="15" VerticalOptions="Center" />
+                                                <Border WidthRequest="24" HeightRequest="24"
+                                                        StrokeShape="RoundRectangle 12"
+                                                        StrokeThickness="2"
+                                                        Stroke="{Binding StatusColor}"
+                                                        BackgroundColor="{Binding StatusBackground}"
+                                                        VerticalOptions="Center">
+                                                    <Label Text="✓" FontSize="12" TextColor="White"
+                                                           IsVisible="{Binding IsCompleted}"
+                                                           HorizontalOptions="Center" VerticalOptions="Center" />
+                                                </Border>
+                                                <Label Grid.Column="1" Text="{Binding Title}" FontSize="15"
+                                                       TextColor="{Binding TitleColor}" VerticalOptions="Center" />
                                                 <Label Grid.Column="2" Text="{Binding Xp, StringFormat='+{0} XP'}"
                                                        FontSize="12" TextColor="{StaticResource XPColor}" VerticalOptions="Center" />
                                             </Grid>
@@ -94,6 +128,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
+            </VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
     </Grid>

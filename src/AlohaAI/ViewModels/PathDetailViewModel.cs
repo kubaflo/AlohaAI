@@ -32,6 +32,13 @@ public class PathDetailViewModel : BaseViewModel
         set => SetProperty(ref _pathColor, value);
     }
 
+    private string _pathIcon = "icon_explore.png";
+    public string PathIcon
+    {
+        get => _pathIcon;
+        set => SetProperty(ref _pathIcon, value);
+    }
+
     private double _overallProgress;
     public double OverallProgress
     {
@@ -51,6 +58,7 @@ public class PathDetailViewModel : BaseViewModel
     public ICommand LoadDataCommand { get; }
     public ICommand SelectLessonCommand { get; }
     public ICommand StartQuizCommand { get; }
+    public ICommand GoBackCommand { get; }
 
     public PathDetailViewModel(IContentService contentService, IProgressService progressService)
     {
@@ -68,6 +76,7 @@ public class PathDetailViewModel : BaseViewModel
             if (!string.IsNullOrEmpty(moduleId))
                 await Shell.Current.GoToAsync($"quiz?pathId={PathId}&moduleId={moduleId}");
         });
+        GoBackCommand = new AsyncRelayCommand(async () => await Shell.Current.GoToAsync(".."));
     }
 
     private async Task LoadDataAsync()
@@ -83,6 +92,13 @@ public class PathDetailViewModel : BaseViewModel
                 Title = path.Title;
                 PathDescription = path.Description;
                 PathColor = Color.FromArgb(path.Color);
+                PathIcon = path.Id switch
+                {
+                    "agentic-ai" => "icon_explore.png",
+                    "ml-fundamentals" => "icon_books.png",
+                    "ai-in-practice" => "icon_rocket.png",
+                    _ => "icon_explore.png"
+                };
             }
 
             var modules = await _contentService.GetModulesAsync(PathId);
@@ -153,5 +169,7 @@ public class LessonDisplayItem
     public string Title { get; set; } = string.Empty;
     public int Xp { get; set; }
     public bool IsCompleted { get; set; }
-    public string StatusIcon => IsCompleted ? "✅" : "○";
+    public string StatusColor => IsCompleted ? "#4CAF50" : "#555555";
+    public string StatusBackground => IsCompleted ? "#4CAF50" : "Transparent";
+    public string TitleColor => IsCompleted ? "#AAAAAA" : "#FFFFFF";
 }

@@ -68,6 +68,27 @@ public class LessonViewModel : BaseViewModel
         set => SetProperty(ref _hasNextLesson, value);
     }
 
+    private string _lessonPositionText = string.Empty;
+    public string LessonPositionText
+    {
+        get => _lessonPositionText;
+        set => SetProperty(ref _lessonPositionText, value);
+    }
+
+    private double _lessonProgress;
+    public double LessonProgress
+    {
+        get => _lessonProgress;
+        set => SetProperty(ref _lessonProgress, value);
+    }
+
+    private string _moduleTitle = string.Empty;
+    public string ModuleTitle
+    {
+        get => _moduleTitle;
+        set => SetProperty(ref _moduleTitle, value);
+    }
+
     public ICommand LoadLessonCommand { get; }
     public ICommand MarkCompleteCommand { get; }
     public ICommand GoBackCommand { get; }
@@ -106,6 +127,20 @@ public class LessonViewModel : BaseViewModel
             }
 
             IsCompleted = await _progressService.IsLessonCompletedAsync(PathId, ModuleId, LessonId);
+
+            // Compute lesson position and progress
+            if (module != null)
+            {
+                ModuleTitle = module.Title;
+                var currentIndex = module.Lessons.FindIndex(l => l.Id == LessonId);
+                if (currentIndex >= 0)
+                {
+                    var position = currentIndex + 1;
+                    var total = module.Lessons.Count;
+                    LessonPositionText = $"Lesson {position} of {total}";
+                    LessonProgress = (double)position / total;
+                }
+            }
 
             // Find next lesson
             HasNextLesson = false;

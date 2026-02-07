@@ -7,6 +7,7 @@
              Title="Search"
              Shell.NavBarIsVisible="False"
              BackgroundColor="{StaticResource Gray900}">
+    <ScrollView>
     <VerticalStackLayout Padding="20" Spacing="16">
         <!-- Header -->
         <Label Text="Search" FontSize="28" FontAttributes="Bold" TextColor="White" Margin="0,20,0,0" />
@@ -34,6 +35,35 @@
                         WidthRequest="44" />
             </Grid>
         </Border>
+
+        <!-- Filter Chips -->
+        <HorizontalStackLayout Spacing="8">
+            <Border BackgroundColor="{Binding AllFilterBackground}"
+                    StrokeShape="RoundRectangle 16" Stroke="{Binding AllFilterStroke}" StrokeThickness="1"
+                    Padding="14,8">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding FilterCommand}" CommandParameter="" />
+                </Border.GestureRecognizers>
+                <Label Text="All" FontSize="13" TextColor="{Binding AllFilterText}" />
+            </Border>
+            <CollectionView ItemsSource="{Binding FilterChips}" SelectionMode="None"
+                            ItemsLayout="HorizontalList" HeightRequest="40">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:FilterChipItem">
+                        <Border BackgroundColor="{Binding Background}"
+                                StrokeShape="RoundRectangle 16" Stroke="{Binding StrokeColor}" StrokeThickness="1"
+                                Padding="14,8" Margin="0,0,8,0">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SearchViewModel}}, Path=FilterCommand}"
+                                    CommandParameter="{Binding PathId}" />
+                            </Border.GestureRecognizers>
+                            <Label Text="{Binding Title}" FontSize="13" TextColor="{Binding TextColor}" />
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </HorizontalStackLayout>
 
         <!-- Results -->
         <CollectionView ItemsSource="{Binding Results}" SelectionMode="None" IsVisible="{Binding HasResults}">
@@ -78,5 +108,42 @@
             <Label Text="No results found" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
             <Label Text="Try a different search term" FontSize="14" Opacity="0.5" HorizontalOptions="Center" />
         </VerticalStackLayout>
+
+        <!-- Browse by Topic (when no search) -->
+        <VerticalStackLayout IsVisible="{Binding ShowBrowse}" Spacing="12" Margin="0,8,0,0">
+            <Label Text="Browse Topics" FontSize="18" FontAttributes="Bold" TextColor="White" />
+            <CollectionView ItemsSource="{Binding BrowseItems}" SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="8" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:BrowseTopicItem">
+                        <Border BackgroundColor="{StaticResource CardDark}"
+                                StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SearchViewModel}}, Path=BrowseTopicCommand}"
+                                    CommandParameter="{Binding PathId}" />
+                            </Border.GestureRecognizers>
+                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                <Border BackgroundColor="{Binding Color}"
+                                        StrokeShape="RoundRectangle 10" Stroke="Transparent"
+                                        WidthRequest="40" HeightRequest="40">
+                                    <Image Source="{Binding Icon}" WidthRequest="28" HeightRequest="28"
+                                           HorizontalOptions="Center" VerticalOptions="Center" />
+                                </Border>
+                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                                    <Label Text="{Binding Title}" FontSize="15" FontAttributes="Bold" TextColor="White" />
+                                    <Label Text="{Binding LessonCount, StringFormat='{0} lessons'}" FontSize="12"
+                                           TextColor="{StaticResource Gray400}" />
+                                </VerticalStackLayout>
+                                <Label Grid.Column="2" Text="→" FontSize="16" TextColor="{StaticResource Gray500}" VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
     </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

@@ -47,11 +47,56 @@ public class SearchViewModel : BaseViewModel
         set => SetProperty(ref _showEmpty, value);
     }
 
+    private bool _showBrowse = true;
+    public bool ShowBrowse
+    {
+        get => _showBrowse;
+        set => SetProperty(ref _showBrowse, value);
+    }
+
+    private string _activeFilter = string.Empty;
+    public string ActiveFilter
+    {
+        get => _activeFilter;
+        set
+        {
+            SetProperty(ref _activeFilter, value);
+            UpdateFilterChipStyles();
+            DebouncedSearch();
+        }
+    }
+
+    private string _allFilterBackground = "#5B8FD4";
+    public string AllFilterBackground
+    {
+        get => _allFilterBackground;
+        set => SetProperty(ref _allFilterBackground, value);
+    }
+
+    private string _allFilterStroke = "#5B8FD4";
+    public string AllFilterStroke
+    {
+        get => _allFilterStroke;
+        set => SetProperty(ref _allFilterStroke, value);
+    }
+
+    private string _allFilterText = "White";
+    public string AllFilterText
+    {
+        get => _allFilterText;
+        set => SetProperty(ref _allFilterText, value);
+    }
+
     public ObservableCollection<SearchResultItem> Results { get; } = [];
+    public ObservableCollection<FilterChipItem> FilterChips { get; } = [];
+    public ObservableCollection<BrowseTopicItem> BrowseItems { get; } = [];
 
     public ICommand SearchCommand { get; }
     public ICommand SelectResultCommand { get; }
     public ICommand ClearCommand { get; }
+    public ICommand FilterCommand { get; }
+    public ICommand BrowseTopicCommand { get; }
+    public ICommand LoadBrowseCommand { get; }
 
     public SearchViewModel(IContentService contentService)
     {
@@ -70,19 +115,92 @@ public class SearchViewModel : BaseViewModel
             Results.Clear();
             HasResults = false;
             ShowEmpty = false;
+            ShowBrowse = true;
         });
+        FilterCommand = new RelayCommand<string>(pathId =>
+        {
+            ActiveFilter = pathId ?? string.Empty;
+        });
+        BrowseTopicCommand = new RelayCommand<string>(pathId =>
+        {
+            if (!string.IsNullOrEmpty(pathId))
+            {
+                ActiveFilter = pathId;
+                SearchQuery = " ";
+            }
+        });
+        LoadBrowseCommand = new AsyncRelayCommand(LoadBrowseAsync);
+        LoadBrowseCommand.Execute(null);
+    }
+
+    private async Task LoadBrowseAsync()
+    {
+        try
+        {
+            var paths = await _contentService.GetPathsAsync();
+            FilterChips.Clear();
+            BrowseItems.Clear();
+
+            foreach (var path in paths)
+            {
+                FilterChips.Add(new FilterChipItem
+                {
+                    PathId = path.Id,
+                    Title = path.Title,
+                    Color = path.Color,
+                    IsActive = false
+                });
+
+                var modules = await _contentService.GetModulesAsync(path.Id);
+                var lessonCount = modules.Sum(m => m.Lessons.Count);
+                BrowseItems.Add(new BrowseTopicItem
+                {
+                    PathId = path.Id,
+                    Title = path.Title,
+                    Color = path.Color,
+                    LessonCount = lessonCount,
+                    Icon = path.Id switch
+                    {
+                        "agentic-ai" => "icon_explore.png",
+                        "ml-fundamentals" => "icon_books.png",
+                        "ai-in-practice" => "icon_rocket.png",
+                        _ => "icon_explore.png"
+                    }
+                });
+            }
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Browse load error: {ex.Message}");
+        }
+    }
+
+    private void UpdateFilterChipStyles()
+    {
+        var isAll = string.IsNullOrEmpty(ActiveFilter);
+        AllFilterBackground = isAll ? "#5B8FD4" : "Transparent";
+        AllFilterStroke = isAll ? "#5B8FD4" : "#555555";
+        AllFilterText = isAll ? "White" : "#AAAAAA";
+
+        foreach (var chip in FilterChips)
+        {
+            chip.IsActive = chip.PathId == ActiveFilter;
+        }
     }
 
     private async Task SearchAsync()
     {
         var query = SearchQuery?.Trim();
-        if (string.IsNullOrEmpty(query) || query.Length < 2)
+        if (string.IsNullOrEmpty(query) || query.Length < 1)
         {
             Results.Clear();
             HasResults = false;
             ShowEmpty = false;
+            ShowBrowse = true;
             return;
         }
+
+        ShowBrowse = false;
 
         try
         {
@@ -91,13 +209,19 @@ public class SearchViewModel : BaseViewModel
 
             foreach (var path in paths)
             {
+                if (!string.IsNullOrEmpty(ActiveFilter) && path.Id != ActiveFilter)
+                    continue;
+
                 var modules = await _contentService.GetModulesAsync(path.Id);
                 foreach (var module in modules)
                 {
                     foreach (var lesson in module.Lessons)
                     {
-                        if (lesson.Title.Contains(query, StringComparison.OrdinalIgnoreCase) ||
-                            module.Title.Contains(query, StringComparison.OrdinalIgnoreCase))
+                        var matchesSearch = query.Length < 2 ||
+                            lesson.Title.Contains(query, StringComparison.OrdinalIgnoreCase) ||
+                            module.Title.Contains(query, StringComparison.OrdinalIgnoreCase);
+
+                        if (matchesSearch)
                         {
                             Results.Add(new SearchResultItem
                             {
@@ -136,4 +260,37 @@ public class SearchResultItem
     public int Xp { get; set; }
     public string PathColor { get; set; } = "#5B8FD4";
     public string Subtitle => $"{PathTitle} → {ModuleTitle}";
+}
+
+public class FilterChipItem : BaseViewModel
+{
+    public string PathId { get; set; } = string.Empty;
+    public new string Title { get; set; } = string.Empty;
+    public string Color { get; set; } = "#5B8FD4";
+
+    private bool _isActive;
+    public bool IsActive
+    {
+        get => _isActive;
+        set
+        {
+            SetProperty(ref _isActive, value);
+            OnPropertyChanged(nameof(Background));
+            OnPropertyChanged(nameof(StrokeColor));
+            OnPropertyChanged(nameof(TextColor));
+        }
+    }
+
+    public string Background => IsActive ? Color : "Transparent";
+    public string StrokeColor => IsActive ? Color : "#555555";
+    public string TextColor => IsActive ? "White" : "#AAAAAA";
+}
+
+public class BrowseTopicItem
+{
+    public string PathId { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
+    public string Color { get; set; } = "#5B8FD4";
+    public string Icon { get; set; } = "icon_explore.png";
+    public int LessonCount { get; set; }
 }
