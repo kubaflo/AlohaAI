@@ -5,10 +5,11 @@
              x:Class="AlohaAI.Views.SearchPage"
              x:DataType="vm:SearchViewModel"
              Title="Search"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource Gray900}">
     <VerticalStackLayout Padding="20" Spacing="16">
         <!-- Header -->
-        <Label Text="Search" FontSize="28" FontAttributes="Bold" Margin="0,20,0,0" />
+        <Label Text="Search" FontSize="28" FontAttributes="Bold" TextColor="White" Margin="0,20,0,0" />
 
         <!-- Search Bar -->
         <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"

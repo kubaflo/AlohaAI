@@ -5,7 +5,8 @@
              x:Class="AlohaAI.Views.PathsPage"
              x:DataType="vm:PathsViewModel"
              Title="Learning Paths"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource Gray900}">
     <Grid>
         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
                            HorizontalOptions="Center" VerticalOptions="Center"
@@ -15,10 +16,11 @@
             <Label Text="Learning Paths"
                    FontSize="28"
                    FontAttributes="Bold"
+                   TextColor="White"
                    Margin="0,20,0,4" />
             <Label Text="Choose a path to start learning"
                    FontSize="14"
-                   Opacity="0.6"
+                   TextColor="{StaticResource Gray400}"
                    Margin="0,0,0,8" />
 
             <CollectionView ItemsSource="{Binding Paths}" SelectionMode="None">

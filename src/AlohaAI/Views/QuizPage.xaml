@@ -4,7 +4,8 @@
              xmlns:vm="clr-namespace:AlohaAI.ViewModels"
              x:Class="AlohaAI.Views.QuizPage"
              x:DataType="vm:QuizViewModel"
-             Title="Quiz">
+             Title="Quiz"
+             BackgroundColor="{StaticResource Gray900}">
     <Grid>
         <!-- Question View -->
         <Grid IsVisible="{Binding ShowQuestion}" RowDefinitions="Auto,*,Auto" Padding="20">

@@ -4,7 +4,8 @@
              xmlns:vm="clr-namespace:AlohaAI.ViewModels"
              x:Class="AlohaAI.Views.SettingsPage"
              x:DataType="vm:SettingsViewModel"
-             Title="Settings">
+             Title="Settings"
+             BackgroundColor="{StaticResource Gray900}">
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="16">
 

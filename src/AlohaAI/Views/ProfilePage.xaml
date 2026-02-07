@@ -5,124 +5,125 @@
              x:Class="AlohaAI.Views.ProfilePage"
              x:DataType="vm:ProfileViewModel"
              Title="Profile"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource Gray900}">
     <Grid>
         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
                            HorizontalOptions="Center" VerticalOptions="Center"
                            Color="{StaticResource Primary}" />
     <ScrollView>
-        <VerticalStackLayout x:Name="MainContent" Padding="20" Spacing="20">
+        <VerticalStackLayout x:Name="MainContent" Spacing="0">
 
-            <!-- Header -->
-            <VerticalStackLayout Spacing="4" Margin="0,20,0,0" HorizontalOptions="Center">
-                <Border StrokeShape="RoundRectangle 30"
-                        Stroke="Transparent"
-                        WidthRequest="60" HeightRequest="60"
-                        HorizontalOptions="Center">
-                    <Border.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="#5B9FE6" Offset="0.0" />
-                            <GradientStop Color="#7B68AE" Offset="0.5" />
-                            <GradientStop Color="#2D1B69" Offset="1.0" />
-                        </LinearGradientBrush>
-                    </Border.Background>
-                    <Label Text="🌺" FontSize="28" HorizontalOptions="Center" VerticalOptions="Center" />
-                </Border>
-                <Label Text="{Binding Level, StringFormat='Level {0}'}"
-                       FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,8,0,0" />
-                <Label Text="{Binding TotalXp, StringFormat='{0} XP'}"
-                       FontSize="14" TextColor="{StaticResource XPColor}" HorizontalOptions="Center" />
-            </VerticalStackLayout>
-
-            <!-- Stats Grid -->
-            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="12" RowSpacing="12">
-                <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
-                        StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
-                    <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
-                        <Label Text="🔥" FontSize="24" HorizontalOptions="Center" />
-                        <Label Text="{Binding CurrentStreak}" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
-                        <Label Text="Current Streak" FontSize="11" Opacity="0.6" HorizontalOptions="Center" />
-                    </VerticalStackLayout>
-                </Border>
-                <Border Grid.Column="1"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
-                        StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
-                    <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
-                        <Label Text="🏆" FontSize="24" HorizontalOptions="Center" />
-                        <Label Text="{Binding BestStreak}" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
-                        <Label Text="Best Streak" FontSize="11" Opacity="0.6" HorizontalOptions="Center" />
-                    </VerticalStackLayout>
-                </Border>
-                <Border Grid.Row="1"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
-                        StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
-                    <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
-                        <Label Text="📖" FontSize="24" HorizontalOptions="Center" />
-                        <Label Text="{Binding LessonsCompleted}" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
-                        <Label Text="Lessons Done" FontSize="11" Opacity="0.6" HorizontalOptions="Center" />
-                    </VerticalStackLayout>
-                </Border>
-                <Border Grid.Row="1" Grid.Column="1"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
-                        StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
-                    <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
-                        <Label Text="⭐" FontSize="24" HorizontalOptions="Center" />
-                        <Label Text="{Binding TotalXp}" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
-                        <Label Text="Total XP" FontSize="11" Opacity="0.6" HorizontalOptions="Center" />
-                    </VerticalStackLayout>
-                </Border>
-            </Grid>
-
-            <!-- Path Progress Breakdown -->
-            <Label Text="Path Progress" FontSize="18" FontAttributes="Bold" Margin="0,4,0,0" />
-
-            <CollectionView ItemsSource="{Binding PathProgress}" SelectionMode="None">
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="8" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="vm:PathProgressItem">
-                        <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
-                                StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
-                            <VerticalStackLayout Spacing="8">
-                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
-                                    <Label Text="{Binding Icon}" FontSize="20" VerticalOptions="Center" />
-                                    <Label Grid.Column="1" Text="{Binding Title}" FontSize="15" FontAttributes="Bold" VerticalOptions="Center" />
-                                    <Label Grid.Column="2" Text="{Binding ProgressText}" FontSize="13" Opacity="0.5" VerticalOptions="Center" />
-                                </Grid>
-                                <Grid HeightRequest="6">
-                                    <Border BackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray700}}"
-                                            StrokeShape="RoundRectangle 3" Stroke="Transparent" />
-                                    <Border BackgroundColor="{Binding BarColor}"
-                                            StrokeShape="RoundRectangle 3" Stroke="Transparent"
-                                            HorizontalOptions="Start"
-                                            WidthRequest="{Binding Progress, Converter={StaticResource ProgressToWidthConverter}, ConverterParameter=300}" />
-                                </Grid>
-                            </VerticalStackLayout>
+            <!-- Gradient Header -->
+            <Border StrokeShape="RoundRectangle 0,0,24,24"
+                    Stroke="Transparent"
+                    Padding="20,40,20,24">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#5B9FE6" Offset="0.0" />
+                        <GradientStop Color="#7B68AE" Offset="0.5" />
+                        <GradientStop Color="#2D1B69" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <VerticalStackLayout Spacing="16">
+                    <!-- Avatar & Level -->
+                    <HorizontalStackLayout Spacing="16" HorizontalOptions="Center">
+                        <Border StrokeShape="RoundRectangle 28"
+                                Stroke="#FFFFFF40"
+                                StrokeThickness="2"
+                                WidthRequest="56" HeightRequest="56"
+                                BackgroundColor="#FFFFFF20">
+                            <Label Text="🌺" FontSize="26" HorizontalOptions="Center" VerticalOptions="Center" />
                         </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                        <VerticalStackLayout VerticalOptions="Center" Spacing="2">
+                            <Label Text="{Binding Level, StringFormat='Level {0}'}"
+                                   FontSize="22" FontAttributes="Bold" TextColor="White" />
+                            <Label Text="{Binding TotalXp, StringFormat='{0} XP earned'}"
+                                   FontSize="14" TextColor="#FFD54F" />
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
 
-            <!-- Settings Link -->
-            <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
-                    StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
-                <Border.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding OpenSettingsCommand}" />
-                </Border.GestureRecognizers>
-                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                    <Label Text="⚙️" FontSize="20" VerticalOptions="Center" />
-                    <Label Grid.Column="1" Text="Settings" FontSize="16" VerticalOptions="Center" />
-                    <Label Grid.Column="2" Text="→" FontSize="16" Opacity="0.4" VerticalOptions="Center" />
-                </Grid>
+                    <!-- Horizontal Stats Row -->
+                    <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="8">
+                        <VerticalStackLayout HorizontalOptions="Center" Spacing="2">
+                            <Label Text="{Binding CurrentStreak}" FontSize="22" FontAttributes="Bold"
+                                   TextColor="White" HorizontalOptions="Center" />
+                            <Label Text="🔥 Streak" FontSize="11" TextColor="#FFFFFFB0" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="2">
+                            <Label Text="{Binding BestStreak}" FontSize="22" FontAttributes="Bold"
+                                   TextColor="White" HorizontalOptions="Center" />
+                            <Label Text="🏆 Best" FontSize="11" TextColor="#FFFFFFB0" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="2">
+                            <Label Text="{Binding LessonsCompleted}" FontSize="22" FontAttributes="Bold"
+                                   TextColor="White" HorizontalOptions="Center" />
+                            <Label Text="📖 Lessons" FontSize="11" TextColor="#FFFFFFB0" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="3" HorizontalOptions="Center" Spacing="2">
+                            <Label Text="{Binding TotalXp}" FontSize="22" FontAttributes="Bold"
+                                   TextColor="White" HorizontalOptions="Center" />
+                            <Label Text="⭐ XP" FontSize="11" TextColor="#FFFFFFB0" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
             </Border>
 
-            <!-- About -->
-            <VerticalStackLayout Spacing="4" HorizontalOptions="Center" Margin="0,8,0,20">
-                <Label Text="AlohaAI v1.0.0" FontSize="12" Opacity="0.4" HorizontalOptions="Center" />
-                <Label Text="Open source • MIT License" FontSize="12" Opacity="0.4" HorizontalOptions="Center" />
-            </VerticalStackLayout>
+            <VerticalStackLayout Padding="20,20,20,0" Spacing="16">
 
+                <!-- Path Progress Breakdown -->
+                <Label Text="Path Progress" FontSize="18" FontAttributes="Bold" TextColor="White" />
+
+                <CollectionView ItemsSource="{Binding PathProgress}" SelectionMode="None">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="8" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="vm:PathProgressItem">
+                            <Border BackgroundColor="{StaticResource CardDark}"
+                                    StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
+                                <VerticalStackLayout Spacing="8">
+                                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                                        <Label Text="{Binding Icon}" FontSize="20" VerticalOptions="Center" />
+                                        <Label Grid.Column="1" Text="{Binding Title}" FontSize="15"
+                                               FontAttributes="Bold" TextColor="White" VerticalOptions="Center" />
+                                        <Label Grid.Column="2" Text="{Binding ProgressText}" FontSize="13"
+                                               TextColor="{StaticResource Gray400}" VerticalOptions="Center" />
+                                    </Grid>
+                                    <Grid HeightRequest="6">
+                                        <Border BackgroundColor="{StaticResource Gray700}"
+                                                StrokeShape="RoundRectangle 3" Stroke="Transparent" />
+                                        <Border BackgroundColor="{Binding BarColor}"
+                                                StrokeShape="RoundRectangle 3" Stroke="Transparent"
+                                                HorizontalOptions="Start"
+                                                WidthRequest="{Binding Progress, Converter={StaticResource ProgressToWidthConverter}, ConverterParameter=300}" />
+                                    </Grid>
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- Settings Link -->
+                <Border BackgroundColor="{StaticResource CardDark}"
+                        StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenSettingsCommand}" />
+                    </Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                        <Label Text="⚙️" FontSize="20" VerticalOptions="Center" />
+                        <Label Grid.Column="1" Text="Settings" FontSize="16" TextColor="White" VerticalOptions="Center" />
+                        <Label Grid.Column="2" Text="→" FontSize="16" TextColor="{StaticResource Gray500}" VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+
+                <!-- About -->
+                <VerticalStackLayout Spacing="4" HorizontalOptions="Center" Margin="0,8,0,20">
+                    <Label Text="AlohaAI v1.0.0" FontSize="12" TextColor="{StaticResource Gray500}" HorizontalOptions="Center" />
+                    <Label Text="Open source • MIT License" FontSize="12" TextColor="{StaticResource Gray500}" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
     </Grid>

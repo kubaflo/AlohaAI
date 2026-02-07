@@ -12,6 +12,9 @@ public partial class App : Application
 		InitializeComponent();
 		_progressService = progressService;
 
+		// Force dark mode as default for the tropical sunset theme
+		UserAppTheme = AppTheme.Dark;
+
 		AppDomain.CurrentDomain.UnhandledException += (s, e) =>
 			System.Diagnostics.Debug.WriteLine($"Unhandled: {e.ExceptionObject}");
 
