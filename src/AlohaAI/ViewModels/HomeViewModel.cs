@@ -1,13 +1,29 @@
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using AlohaAI.Services;
 
 namespace AlohaAI.ViewModels;
+
+public class HomePathItem
+{
+    public string Id { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public string IconEmoji { get; set; } = "📘";
+    public Color Color { get; set; } = Colors.Blue;
+    public int CompletedLessons { get; set; }
+    public int TotalLessons { get; set; }
+    public double Progress { get; set; }
+    public string ProgressText => $"{CompletedLessons}/{TotalLessons} Lessons";
+}
 
 public class HomeViewModel : BaseViewModel
 {
     private readonly IContentService _contentService;
     private readonly IProgressService _progressService;
     private readonly IStreakService _streakService;
+
+    public ObservableCollection<HomePathItem> PathItems { get; } = [];
 
     private int _currentStreak;
     public int CurrentStreak
@@ -112,6 +128,35 @@ public class HomeViewModel : BaseViewModel
                 var path = await _contentService.GetPathAsync(lastLesson.PathId);
                 ContinuePathTitle = path?.Title ?? "Continue Learning";
                 HasContinue = true;
+            }
+
+            // Load path items with progress
+            var paths = await _contentService.GetPathsAsync();
+            PathItems.Clear();
+            foreach (var path in paths)
+            {
+                var modules = await _contentService.GetModulesAsync(path.Id);
+                var totalLessons = modules.Sum(m => m.Lessons.Count);
+                var progress = await _progressService.GetPathProgressAsync(path.Id, totalLessons);
+                var completedLessons = await _progressService.GetCompletedLessonCountAsync(path.Id);
+
+                PathItems.Add(new HomePathItem
+                {
+                    Id = path.Id,
+                    Title = path.Title,
+                    Description = path.Description,
+                    IconEmoji = path.Id switch
+                    {
+                        "agentic-ai" => "🤖",
+                        "ml-fundamentals" => "🧠",
+                        "ai-in-practice" => "🚀",
+                        _ => "📘"
+                    },
+                    Color = Color.FromArgb(path.Color),
+                    CompletedLessons = completedLessons,
+                    TotalLessons = totalLessons,
+                    Progress = progress
+                });
             }
         }
         catch (Exception ex)

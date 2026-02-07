@@ -99,84 +99,48 @@
                     </Grid>
                 </Border>
 
-                <!-- Learning Paths as individual cards with progress -->
-                <!-- Agentic AI -->
-                <Border BackgroundColor="{StaticResource CardDark}"
-                        StrokeShape="RoundRectangle 16" Stroke="Transparent" Padding="16">
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigateToPathCommand}" CommandParameter="agentic-ai" />
-                    </Border.GestureRecognizers>
-                    <VerticalStackLayout Spacing="10">
-                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                            <Border BackgroundColor="#5B8FD4" StrokeShape="RoundRectangle 10" Stroke="Transparent"
-                                    WidthRequest="42" HeightRequest="42">
-                                <Label Text="🤖" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
+                <!-- Learning Paths with progress -->
+                <CollectionView ItemsSource="{Binding PathItems}" SelectionMode="None">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="vm:HomePathItem">
+                            <Border BackgroundColor="{StaticResource CardDark}"
+                                    StrokeShape="RoundRectangle 16" Stroke="Transparent" Padding="16">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=NavigateToPathCommand}"
+                                        CommandParameter="{Binding Id}" />
+                                </Border.GestureRecognizers>
+                                <VerticalStackLayout Spacing="10">
+                                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                        <Border BackgroundColor="{Binding Color}" StrokeShape="RoundRectangle 10" Stroke="Transparent"
+                                                WidthRequest="42" HeightRequest="42">
+                                            <Label Text="{Binding IconEmoji}" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
+                                        </Border>
+                                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                                            <Label Text="{Binding Title}" FontSize="17" FontAttributes="Bold" TextColor="White" />
+                                            <Label Text="{Binding Description}" FontSize="12" TextColor="{StaticResource Gray400}"
+                                                   MaxLines="1" LineBreakMode="TailTruncation" />
+                                        </VerticalStackLayout>
+                                        <Label Grid.Column="2" Text="→" FontSize="18" TextColor="{StaticResource Gray500}" VerticalOptions="Center" />
+                                    </Grid>
+                                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                        <Grid HeightRequest="5">
+                                            <Border BackgroundColor="{StaticResource Gray700}" StrokeShape="RoundRectangle 2.5" Stroke="Transparent" />
+                                            <Border BackgroundColor="{Binding Color}" StrokeShape="RoundRectangle 2.5" Stroke="Transparent"
+                                                    HorizontalOptions="Start"
+                                                    WidthRequest="{Binding Progress, Converter={StaticResource ProgressToWidthConverter}, ConverterParameter=260}" />
+                                        </Grid>
+                                        <Label Grid.Column="1" Text="{Binding ProgressText}" FontSize="11"
+                                               TextColor="{StaticResource Gray400}" VerticalOptions="Center" />
+                                    </Grid>
+                                </VerticalStackLayout>
                             </Border>
-                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                <Label Text="Agentic AI" FontSize="17" FontAttributes="Bold" />
-                                <Label Text="Agents, MCP, RAG &amp; orchestration" FontSize="12" Opacity="0.5" />
-                            </VerticalStackLayout>
-                            <Label Grid.Column="2" Text="→" FontSize="18" Opacity="0.3" VerticalOptions="Center" />
-                        </Grid>
-                        <Grid HeightRequest="5">
-                            <Border BackgroundColor="{StaticResource Gray700}" StrokeShape="RoundRectangle 2.5" Stroke="Transparent" />
-                            <Border BackgroundColor="#5B8FD4" StrokeShape="RoundRectangle 2.5" Stroke="Transparent"
-                                    HorizontalOptions="Start" WidthRequest="0" />
-                        </Grid>
-                    </VerticalStackLayout>
-                </Border>
-
-                <!-- ML Fundamentals -->
-                <Border BackgroundColor="{StaticResource CardDark}"
-                        StrokeShape="RoundRectangle 16" Stroke="Transparent" Padding="16">
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigateToPathCommand}" CommandParameter="ml-fundamentals" />
-                    </Border.GestureRecognizers>
-                    <VerticalStackLayout Spacing="10">
-                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                            <Border BackgroundColor="#7B68AE" StrokeShape="RoundRectangle 10" Stroke="Transparent"
-                                    WidthRequest="42" HeightRequest="42">
-                                <Label Text="🧠" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
-                            </Border>
-                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                <Label Text="ML Fundamentals" FontSize="17" FontAttributes="Bold" />
-                                <Label Text="From basics to transformers" FontSize="12" Opacity="0.5" />
-                            </VerticalStackLayout>
-                            <Label Grid.Column="2" Text="→" FontSize="18" Opacity="0.3" VerticalOptions="Center" />
-                        </Grid>
-                        <Grid HeightRequest="5">
-                            <Border BackgroundColor="{StaticResource Gray700}" StrokeShape="RoundRectangle 2.5" Stroke="Transparent" />
-                            <Border BackgroundColor="#7B68AE" StrokeShape="RoundRectangle 2.5" Stroke="Transparent"
-                                    HorizontalOptions="Start" WidthRequest="0" />
-                        </Grid>
-                    </VerticalStackLayout>
-                </Border>
-
-                <!-- AI in Practice -->
-                <Border BackgroundColor="{StaticResource CardDark}"
-                        StrokeShape="RoundRectangle 16" Stroke="Transparent" Padding="16">
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigateToPathCommand}" CommandParameter="ai-in-practice" />
-                    </Border.GestureRecognizers>
-                    <VerticalStackLayout Spacing="10">
-                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                            <Border BackgroundColor="#E88BBF" StrokeShape="RoundRectangle 10" Stroke="Transparent"
-                                    WidthRequest="42" HeightRequest="42">
-                                <Label Text="🚀" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
-                            </Border>
-                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                <Label Text="AI in Practice" FontSize="17" FontAttributes="Bold" />
-                                <Label Text="Cloud services, frameworks &amp; copilots" FontSize="12" Opacity="0.5" />
-                            </VerticalStackLayout>
-                            <Label Grid.Column="2" Text="→" FontSize="18" Opacity="0.3" VerticalOptions="Center" />
-                        </Grid>
-                        <Grid HeightRequest="5">
-                            <Border BackgroundColor="{StaticResource Gray700}" StrokeShape="RoundRectangle 2.5" Stroke="Transparent" />
-                            <Border BackgroundColor="#E88BBF" StrokeShape="RoundRectangle 2.5" Stroke="Transparent"
-                                    HorizontalOptions="Start" WidthRequest="0" />
-                        </Grid>
-                    </VerticalStackLayout>
-                </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
                 <!-- Daily Goal -->
                 <Border BackgroundColor="{StaticResource CardDark}"
