@@ -60,6 +60,13 @@ public class HomeViewModel : BaseViewModel
         set => SetProperty(ref _continuePathTitle, value);
     }
 
+    private string _continueLessonTitle = string.Empty;
+    public string ContinueLessonTitle
+    {
+        get => _continueLessonTitle;
+        set => SetProperty(ref _continueLessonTitle, value);
+    }
+
     private bool _hasContinue;
     public bool HasContinue
     {
@@ -128,6 +135,27 @@ public class HomeViewModel : BaseViewModel
                 var path = await _contentService.GetPathAsync(lastLesson.PathId);
                 ContinuePathTitle = path?.Title ?? "Continue Learning";
                 HasContinue = true;
+
+                // Find next uncompleted lesson in the path
+                if (path != null)
+                {
+                    var modules = await _contentService.GetModulesAsync(path.Id);
+                    foreach (var module in modules)
+                    {
+                        foreach (var lesson in module.Lessons)
+                        {
+                            var lessonId = System.IO.Path.GetFileNameWithoutExtension(lesson.File);
+                            var completed = await _progressService.IsLessonCompletedAsync(path.Id, module.Id, lessonId);
+                            if (!completed)
+                            {
+                                ContinueLessonTitle = lesson.Title;
+                                goto foundNext;
+                            }
+                        }
+                    }
+                    ContinueLessonTitle = "All lessons complete!";
+                    foundNext:;
+                }
             }
 
             // Load path items with progress

@@ -71,8 +71,9 @@
                     </Border.GestureRecognizers>
                     <Grid ColumnDefinitions="*,Auto">
                         <VerticalStackLayout Spacing="4">
-                            <Label Text="Continue Learning" FontSize="11" TextColor="White" Opacity="0.8" FontAttributes="Bold" />
-                            <Label Text="{Binding ContinuePathTitle}" FontSize="17" FontAttributes="Bold" TextColor="White" />
+                            <Label Text="{Binding ContinuePathTitle}" FontSize="11" TextColor="White" Opacity="0.8" FontAttributes="Bold" />
+                            <Label Text="{Binding ContinueLessonTitle}" FontSize="17" FontAttributes="Bold" TextColor="White"
+                                   MaxLines="1" LineBreakMode="TailTruncation" />
                         </VerticalStackLayout>
                         <Label Grid.Column="1" Text="→" FontSize="22" TextColor="White" VerticalOptions="Center" />
                     </Grid>
@@ -98,6 +99,9 @@
                         <Label Grid.Column="1" Text="→" FontSize="22" TextColor="White" VerticalOptions="Center" />
                     </Grid>
                 </Border>
+
+                <!-- Section header -->
+                <Label Text="Your Paths" FontSize="18" FontAttributes="Bold" TextColor="White" Margin="0,4,0,-4" />
 
                 <!-- Learning Paths with progress -->
                 <CollectionView ItemsSource="{Binding PathItems}" SelectionMode="None">
