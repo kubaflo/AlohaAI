@@ -127,15 +127,8 @@
                                                 Stroke="Transparent" />
                                         <Border StrokeShape="RoundRectangle 4" Stroke="Transparent"
                                                 HorizontalOptions="Start"
+                                                BackgroundColor="{Binding Color}"
                                                 WidthRequest="{Binding Progress, Converter={StaticResource ProgressToWidthConverter}, ConverterParameter=300}">
-                                            <Border.Background>
-                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                                    <GradientStop Color="#FF6B6B" Offset="0.0" />
-                                                    <GradientStop Color="#FFD54F" Offset="0.35" />
-                                                    <GradientStop Color="#4CAF50" Offset="0.65" />
-                                                    <GradientStop Color="#5B8FD4" Offset="1.0" />
-                                                </LinearGradientBrush>
-                                            </Border.Background>
                                             <Border.Shadow>
                                                 <Shadow Brush="{Binding Color}" Offset="0,0" Radius="6" Opacity="0.6" />
                                             </Border.Shadow>
