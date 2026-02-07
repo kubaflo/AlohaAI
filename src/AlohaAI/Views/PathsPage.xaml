@@ -29,7 +29,7 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="vm:PathDisplayItem">
-                        <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                        <Border BackgroundColor="{StaticResource CardDark}"
                                 StrokeShape="RoundRectangle 16"
                                 Stroke="Transparent"
                                 Padding="20">
@@ -74,7 +74,7 @@
 
                                 <!-- Progress Bar -->
                                 <Grid Grid.Row="2" HeightRequest="6">
-                                    <Border BackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray700}}"
+                                    <Border BackgroundColor="{StaticResource Gray700}"
                                             StrokeShape="RoundRectangle 3"
                                             Stroke="Transparent" />
                                     <Border BackgroundColor="{Binding Color}"

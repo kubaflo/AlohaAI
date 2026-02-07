@@ -210,12 +210,11 @@ public static class MarkdownRenderer
 
     private static View CreateCodeBlock(string code)
     {
-        var isDark = Application.Current?.RequestedTheme == AppTheme.Dark;
         return new Border
         {
-            BackgroundColor = isDark ? Color.FromArgb("#0D1117") : Color.FromArgb("#F6F8FA"),
-            StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle { CornerRadius = 8 },
-            Stroke = isDark ? Color.FromArgb("#231E30") : Color.FromArgb("#D6D0DC"),
+            BackgroundColor = Color.FromArgb("#0E0A1A"),
+            StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle { CornerRadius = 12 },
+            Stroke = Color.FromArgb("#2D2538"),
             StrokeThickness = 1,
             Padding = new Thickness(16, 12),
             Content = new Label
@@ -223,8 +222,8 @@ public static class MarkdownRenderer
                 Text = code,
                 FontFamily = "OpenSansRegular",
                 FontSize = 13,
-                TextColor = isDark ? Color.FromArgb("#E6EDF3") : Color.FromArgb("#24292F"),
-                LineHeight = 1.4
+                TextColor = Color.FromArgb("#E6EDF3"),
+                LineHeight = 1.5
             }
         };
     }

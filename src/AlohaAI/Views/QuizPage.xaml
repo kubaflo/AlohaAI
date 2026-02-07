@@ -29,7 +29,7 @@
                             <DataTemplate x:DataType="vm:QuizOptionItem">
                                 <Border BackgroundColor="{Binding BackgroundColor}"
                                         StrokeShape="RoundRectangle 12"
-                                        Stroke="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray700}}"
+                                        Stroke="{StaticResource Gray700}"
                                         StrokeThickness="1"
                                         Padding="16,14">
                                     <Border.GestureRecognizers>
@@ -46,7 +46,7 @@
                     <!-- Explanation -->
                     <Border x:Name="ExplanationCard"
                             IsVisible="{Binding ShowExplanation}"
-                            BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                            BackgroundColor="{StaticResource CardDark}"
                             StrokeShape="RoundRectangle 12"
                             Stroke="Transparent"
                             Padding="16">
@@ -101,7 +101,7 @@
                 </Label.Triggers>
             </Label>
 
-            <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+            <Border BackgroundColor="{StaticResource CardDark}"
                     StrokeShape="RoundRectangle 16" Stroke="Transparent" Padding="24">
                 <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" RowSpacing="8" ColumnSpacing="16">
                     <Label Text="Score" FontSize="13" Opacity="0.6" HorizontalOptions="Center" />

@@ -6,9 +6,20 @@
              x:DataType="vm:LessonViewModel"
              Title="{Binding Title}"
              BackgroundColor="{StaticResource Gray900}">
-    <Grid RowDefinitions="*,Auto">
+    <Grid RowDefinitions="Auto,*,Auto">
+        <!-- Gradient accent top bar -->
+        <Border HeightRequest="3" Stroke="Transparent">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#5B9FE6" Offset="0.0" />
+                    <GradientStop Color="#7B68AE" Offset="0.5" />
+                    <GradientStop Color="#E88BBF" Offset="1.0" />
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+
         <!-- Lesson Content -->
-        <ScrollView>
+        <ScrollView Grid.Row="1">
             <VerticalStackLayout x:Name="ContentArea" Padding="20" Spacing="12" />
         </ScrollView>
 
@@ -27,8 +38,8 @@
         </Border>
 
         <!-- Bottom Action Bar -->
-        <Border Grid.Row="1"
-                BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+        <Border Grid.Row="2"
+                BackgroundColor="{StaticResource CardDark}"
                 Stroke="Transparent"
                 Padding="20,12">
             <VerticalStackLayout Spacing="8">
