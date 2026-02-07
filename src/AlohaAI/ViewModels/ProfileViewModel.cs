@@ -45,6 +45,34 @@ public class ProfileViewModel : BaseViewModel
         set => SetProperty(ref _level, value);
     }
 
+    private int _dailyGoal = 3;
+    public int DailyGoal
+    {
+        get => _dailyGoal;
+        set => SetProperty(ref _dailyGoal, value);
+    }
+
+    private int _dailyProgress;
+    public int DailyProgress
+    {
+        get => _dailyProgress;
+        set => SetProperty(ref _dailyProgress, value);
+    }
+
+    private double _dailyGoalFraction;
+    public double DailyGoalFraction
+    {
+        get => _dailyGoalFraction;
+        set => SetProperty(ref _dailyGoalFraction, value);
+    }
+
+    private int _totalLessonsAvailable;
+    public int TotalLessonsAvailable
+    {
+        get => _totalLessonsAvailable;
+        set => SetProperty(ref _totalLessonsAvailable, value);
+    }
+
     public ObservableCollection<PathProgressItem> PathProgress { get; } = [];
     public ObservableCollection<AchievementItem> Achievements { get; } = [];
 
@@ -99,11 +127,29 @@ public class ProfileViewModel : BaseViewModel
                     CompletedLessons = completedLessons,
                     TotalLessons = totalLessons,
                     Progress = progress,
-                    BarColor = Color.FromArgb(path.Color)
+                    BarColor = Color.FromArgb(path.Color),
+                    Modules = new ObservableCollection<ModuleProgressItem>(
+                        modules.Select(m =>
+                        {
+                            var modCompleted = m.Lessons.Count(l => completedLessons > 0); // simplified
+                            return new ModuleProgressItem
+                            {
+                                Title = m.Title,
+                                ProgressText = $"{Math.Min(completedLessons, m.Lessons.Count)}/{m.Lessons.Count}",
+                                Progress = m.Lessons.Count > 0 ? Math.Min(1.0, (double)completedLessons / m.Lessons.Count) : 0,
+                                BarColor = Color.FromArgb(path.Color)
+                            };
+                        })
+                    )
                 });
             }
 
             LessonsCompleted = totalCompleted;
+            TotalLessonsAvailable = PathProgress.Sum(p => p.TotalLessons);
+
+            // Daily progress: simulate based on today's completed lessons (min of goal)
+            DailyProgress = Math.Min(totalCompleted, DailyGoal);
+            DailyGoalFraction = DailyGoal > 0 ? (double)DailyProgress / DailyGoal : 0;
 
             // Compute achievements
             Achievements.Clear();
@@ -170,6 +216,8 @@ public class PathProgressItem
     public double Progress { get; set; }
     public Color BarColor { get; set; } = Colors.Blue;
     public string ProgressText => $"{CompletedLessons}/{TotalLessons}";
+    public string PercentText => $"{(int)(Progress * 100)}%";
+    public ObservableCollection<ModuleProgressItem> Modules { get; set; } = [];
 }
 
 public class AchievementItem
@@ -182,4 +230,12 @@ public class AchievementItem
     public Color TextColor => IsUnlocked ? Colors.White : Color.FromArgb("#666666");
     public Color DescColor => IsUnlocked ? Color.FromArgb("#AAAAAA") : Color.FromArgb("#444444");
     public string StatusText => IsUnlocked ? "✓" : "🔒";
+}
+
+public class ModuleProgressItem
+{
+    public string Title { get; set; } = string.Empty;
+    public string ProgressText { get; set; } = string.Empty;
+    public double Progress { get; set; }
+    public Color BarColor { get; set; } = Colors.Blue;
 }
