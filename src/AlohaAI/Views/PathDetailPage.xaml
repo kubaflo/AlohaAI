@@ -2,21 +2,23 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:AlohaAI.ViewModels"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              x:Class="AlohaAI.Views.PathDetailPage"
              x:DataType="vm:PathDetailViewModel"
              Title="{Binding Title}"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             ios:Page.SafeAreaEdges="None">
     <Grid>
         <!-- Layer 0: Sunset Gradient Background -->
         <BoxView InputTransparent="True">
             <BoxView.Background>
                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                    <GradientStop Color="#0E0A1A" Offset="0.0" />
-                    <GradientStop Color="#1A0F33" Offset="0.3" />
-                    <GradientStop Color="#2D1B69" Offset="0.55" />
-                    <GradientStop Color="#5B4A8C" Offset="0.75" />
-                    <GradientStop Color="#8B5A7C" Offset="0.88" />
-                    <GradientStop Color="#D97B6B" Offset="1.0" />
+                    <GradientStop Color="#080510" Offset="0.0" />
+                    <GradientStop Color="#1B0D3D" Offset="0.25" />
+                    <GradientStop Color="#3A1D7A" Offset="0.50" />
+                    <GradientStop Color="#6B3FA0" Offset="0.70" />
+                    <GradientStop Color="#B85A6A" Offset="0.85" />
+                    <GradientStop Color="#E8734F" Offset="1.0" />
                 </LinearGradientBrush>
             </BoxView.Background>
         </BoxView>
@@ -51,7 +53,7 @@
                         <GradientStop Color="#2D1B69" Offset="1.0" />
                     </LinearGradientBrush>
                 </Border.Background>
-                <VerticalStackLayout Spacing="12" Padding="0,50,0,0">
+                <VerticalStackLayout Spacing="12" Padding="0,70,0,0">
                     <!-- Back button -->
                     <Border BackgroundColor="#33FFFFFF" StrokeShape="RoundRectangle 12" StrokeThickness="0"
                             Padding="10,6" HorizontalOptions="Start">

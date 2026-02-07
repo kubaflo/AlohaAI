@@ -402,17 +402,17 @@
 
     <Style TargetType="Page" ApplyToDerivedTypes="True">
         <Setter Property="Padding" Value="0"/>
-        <Setter Property="BackgroundColor" Value="#0E0A1A" />
+        <Setter Property="BackgroundColor" Value="#080510" />
     </Style>
 
     <Style TargetType="Shell" ApplyToDerivedTypes="True">
-        <Setter Property="Shell.BackgroundColor" Value="#0E0A1A" />
+        <Setter Property="Shell.BackgroundColor" Value="#080510" />
         <Setter Property="Shell.ForegroundColor" Value="White" />
         <Setter Property="Shell.TitleColor" Value="White" />
         <Setter Property="Shell.DisabledColor" Value="{StaticResource Gray600}" />
         <Setter Property="Shell.UnselectedColor" Value="{StaticResource Gray500}" />
         <Setter Property="Shell.NavBarHasShadow" Value="False" />
-        <Setter Property="Shell.TabBarBackgroundColor" Value="#0E0A1A" />
+        <Setter Property="Shell.TabBarBackgroundColor" Value="#080510" />
         <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource Tertiary}" />
         <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource Tertiary}" />
         <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource Gray500}" />

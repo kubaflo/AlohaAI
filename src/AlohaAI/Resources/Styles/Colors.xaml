@@ -42,14 +42,14 @@
     <Color x:Key="Gray700">#342D42</Color>
     <Color x:Key="Gray800">#231E30</Color>
     <Color x:Key="Gray900">#18132A</Color>
-    <Color x:Key="Gray950">#0E0A1A</Color>
+    <Color x:Key="Gray950">#080510</Color>
 
     <!-- Surface Colors -->
     <Color x:Key="SurfaceDark">#18132A</Color>
     <Color x:Key="SurfaceLight">#FFFFFF</Color>
     <Color x:Key="CardDark">#231E30</Color>
     <Color x:Key="CardLight">#F5F3F7</Color>
-    <Color x:Key="CodeBlockDark">#0E0A1A</Color>
+    <Color x:Key="CodeBlockDark">#080510</Color>
     <Color x:Key="CodeBlockLight">#F0EDF4</Color>
 
     <!-- Glassmorphism & Ambient -->

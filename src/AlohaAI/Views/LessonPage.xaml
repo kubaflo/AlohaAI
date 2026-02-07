@@ -2,19 +2,22 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:AlohaAI.ViewModels"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              x:Class="AlohaAI.Views.LessonPage"
              x:DataType="vm:LessonViewModel"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             ios:Page.SafeAreaEdges="None">
     <Grid RowDefinitions="Auto,Auto,*,Auto">
         <!-- Layer 0: Sunset Gradient Background spanning all rows -->
         <BoxView Grid.RowSpan="4" InputTransparent="True">
             <BoxView.Background>
                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                    <GradientStop Color="#0E0A1A" Offset="0.0" />
-                    <GradientStop Color="#1A0F33" Offset="0.35" />
-                    <GradientStop Color="#2D1B69" Offset="0.65" />
-                    <GradientStop Color="#5B4A8C" Offset="0.85" />
-                    <GradientStop Color="#8B5A7C" Offset="1.0" />
+                    <GradientStop Color="#080510" Offset="0.0" />
+                    <GradientStop Color="#1B0D3D" Offset="0.25" />
+                    <GradientStop Color="#3A1D7A" Offset="0.50" />
+                    <GradientStop Color="#6B3FA0" Offset="0.70" />
+                    <GradientStop Color="#B85A6A" Offset="0.85" />
+                    <GradientStop Color="#E8734F" Offset="1.0" />
                 </LinearGradientBrush>
             </BoxView.Background>
         </BoxView>
