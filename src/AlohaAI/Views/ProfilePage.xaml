@@ -39,7 +39,7 @@
                                 StrokeThickness="2"
                                 WidthRequest="56" HeightRequest="56"
                                 BackgroundColor="#FFFFFF20">
-                            <Image Source="icon_flowers.png" WidthRequest="40" HeightRequest="40"
+                            <Image Source="mascot.png" WidthRequest="40" HeightRequest="40"
                                    HorizontalOptions="Center" VerticalOptions="Center" />
                         </Border>
                         <VerticalStackLayout VerticalOptions="Center" Spacing="2">

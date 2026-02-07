@@ -31,7 +31,7 @@
             <!-- Header: Logo + Settings -->
             <Grid Padding="24,70,24,0" ColumnDefinitions="*,Auto">
                 <VerticalStackLayout Spacing="2">
-                    <Image Source="icon_flowers.png" WidthRequest="92" HeightRequest="92"
+                    <Image Source="mascot.png" WidthRequest="92" HeightRequest="92"
                            HorizontalOptions="Start" Margin="0,0,0,6" />
                     <Image Source="icon_logotext.png" WidthRequest="240" HeightRequest="60"
                            Aspect="AspectFit" HorizontalOptions="Start" />

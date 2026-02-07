@@ -11,22 +11,22 @@
     <TabBar>
         <ShellContent
             Title="Home"
-            Icon="home.svg"
+            Icon="tab_home.png"
             ContentTemplate="{DataTemplate views:HomePage}"
             Route="home" />
         <ShellContent
             Title="Paths"
-            Icon="paths.svg"
+            Icon="tab_paths.png"
             ContentTemplate="{DataTemplate views:PathsPage}"
             Route="paths" />
         <ShellContent
             Title="Search"
-            Icon="search.svg"
+            Icon="tab_search.png"
             ContentTemplate="{DataTemplate views:SearchPage}"
             Route="search" />
         <ShellContent
             Title="Profile"
-            Icon="profile.svg"
+            Icon="tab_profile.png"
             ContentTemplate="{DataTemplate views:ProfilePage}"
             Route="profile" />
     </TabBar>

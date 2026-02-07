@@ -137,7 +137,7 @@ public class ProfileViewModel : BaseViewModel
             });
             Achievements.Add(new AchievementItem
             {
-                Icon = "icon_flowers.png",
+                Icon = "icon_trophy.png",
                 Title = "Week Warrior",
                 Description = "Reach a 7-day streak",
                 IsUnlocked = BestStreak >= 7
