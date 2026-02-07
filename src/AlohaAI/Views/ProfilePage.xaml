@@ -67,6 +67,37 @@
                 </Border>
             </Grid>
 
+            <!-- Path Progress Breakdown -->
+            <Label Text="Path Progress" FontSize="18" FontAttributes="Bold" Margin="0,4,0,0" />
+
+            <CollectionView ItemsSource="{Binding PathProgress}" SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="8" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:PathProgressItem">
+                        <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                                StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
+                            <VerticalStackLayout Spacing="8">
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                                    <Label Text="{Binding Icon}" FontSize="20" VerticalOptions="Center" />
+                                    <Label Grid.Column="1" Text="{Binding Title}" FontSize="15" FontAttributes="Bold" VerticalOptions="Center" />
+                                    <Label Grid.Column="2" Text="{Binding ProgressText}" FontSize="13" Opacity="0.5" VerticalOptions="Center" />
+                                </Grid>
+                                <Grid HeightRequest="6">
+                                    <Border BackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray700}}"
+                                            StrokeShape="RoundRectangle 3" Stroke="Transparent" />
+                                    <Border BackgroundColor="{Binding BarColor}"
+                                            StrokeShape="RoundRectangle 3" Stroke="Transparent"
+                                            HorizontalOptions="Start"
+                                            WidthRequest="{Binding Progress, Converter={StaticResource ProgressToWidthConverter}, ConverterParameter=300}" />
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
             <!-- Settings Link -->
             <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
                     StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">

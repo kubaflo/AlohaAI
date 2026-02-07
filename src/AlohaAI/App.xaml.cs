@@ -1,10 +1,16 @@
-﻿namespace AlohaAI;
+﻿using AlohaAI.Services;
+using AlohaAI.Views;
+
+namespace AlohaAI;
 
 public partial class App : Application
 {
-	public App()
+	private readonly IProgressService _progressService;
+
+	public App(IProgressService progressService)
 	{
 		InitializeComponent();
+		_progressService = progressService;
 
 		AppDomain.CurrentDomain.UnhandledException += (s, e) =>
 			System.Diagnostics.Debug.WriteLine($"Unhandled: {e.ExceptionObject}");
@@ -18,6 +24,6 @@ public partial class App : Application
 
 	protected override Window CreateWindow(IActivationState? activationState)
 	{
-		return new Window(new AppShell());
+		return new Window(new LoadingPage(_progressService));
 	}
 }

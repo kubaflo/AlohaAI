@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AlohaAI.Views.OnboardingPage"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             BackgroundColor="{StaticResource Primary}">
+
+    <Grid RowDefinitions="*,Auto" Padding="32">
+        <VerticalStackLayout VerticalOptions="Center" Spacing="24">
+
+            <!-- Logo -->
+            <Label Text="🌺" FontSize="72" HorizontalOptions="Center" />
+
+            <Label Text="Welcome to AlohaAI"
+                   FontSize="32" FontAttributes="Bold"
+                   TextColor="White" HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center" />
+
+            <Label Text="Learn AI concepts through bite-sized lessons, quizzes, and hands-on examples"
+                   FontSize="16" TextColor="White" Opacity="0.9"
+                   HorizontalOptions="Center" HorizontalTextAlignment="Center"
+                   LineHeight="1.4" />
+
+            <!-- Feature highlights -->
+            <VerticalStackLayout Spacing="16" Margin="0,20,0,0">
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                    <Border BackgroundColor="White" StrokeShape="RoundRectangle 12" Stroke="Transparent"
+                            WidthRequest="44" HeightRequest="44" Opacity="0.2">
+                        <Label Text="🤖" FontSize="22" HorizontalOptions="Center" VerticalOptions="Center" />
+                    </Border>
+                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                        <Label Text="Agentic AI &amp; ML" FontSize="16" FontAttributes="Bold" TextColor="White" />
+                        <Label Text="Agents, MCP, RAG, transformers &amp; more" FontSize="13" TextColor="White" Opacity="0.8" />
+                    </VerticalStackLayout>
+                </Grid>
+
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                    <Border BackgroundColor="White" StrokeShape="RoundRectangle 12" Stroke="Transparent"
+                            WidthRequest="44" HeightRequest="44" Opacity="0.2">
+                        <Label Text="📖" FontSize="22" HorizontalOptions="Center" VerticalOptions="Center" />
+                    </Border>
+                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                        <Label Text="Bite-sized Lessons" FontSize="16" FontAttributes="Bold" TextColor="White" />
+                        <Label Text="Learn at your own pace, anywhere" FontSize="13" TextColor="White" Opacity="0.8" />
+                    </VerticalStackLayout>
+                </Grid>
+
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                    <Border BackgroundColor="White" StrokeShape="RoundRectangle 12" Stroke="Transparent"
+                            WidthRequest="44" HeightRequest="44" Opacity="0.2">
+                        <Label Text="🔥" FontSize="22" HorizontalOptions="Center" VerticalOptions="Center" />
+                    </Border>
+                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                        <Label Text="Streaks &amp; XP" FontSize="16" FontAttributes="Bold" TextColor="White" />
+                        <Label Text="Stay motivated with daily goals" FontSize="13" TextColor="White" Opacity="0.8" />
+                    </VerticalStackLayout>
+                </Grid>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+
+        <!-- CTA Button -->
+        <Button Grid.Row="1"
+                x:Name="GetStartedButton"
+                Text="Get Started →"
+                Clicked="OnGetStartedClicked"
+                BackgroundColor="White"
+                TextColor="{StaticResource Primary}"
+                FontSize="18"
+                FontAttributes="Bold"
+                CornerRadius="16"
+                HeightRequest="56"
+                Margin="0,0,0,20" />
+    </Grid>
+</ContentPage>

@@ -135,4 +135,26 @@ public class ProgressService : IProgressService
         await db.DeleteAllAsync<UserProgress>();
         await db.DeleteAllAsync<UserStreak>();
     }
+
+    public async Task<string?> GetSettingAsync(string key)
+    {
+        var db = await GetDbAsync();
+        var setting = await db.Table<UserSetting>().Where(s => s.Key == key).FirstOrDefaultAsync();
+        return setting?.Value;
+    }
+
+    public async Task SaveSettingAsync(string key, string value)
+    {
+        var db = await GetDbAsync();
+        var existing = await db.Table<UserSetting>().Where(s => s.Key == key).FirstOrDefaultAsync();
+        if (existing != null)
+        {
+            existing.Value = value;
+            await db.UpdateAsync(existing);
+        }
+        else
+        {
+            await db.InsertAsync(new UserSetting { Key = key, Value = value });
+        }
+    }
 }
