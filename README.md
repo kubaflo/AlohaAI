@@ -34,8 +34,9 @@ AlohaAI is an open-source mobile learning app built with .NET MAUI that teaches 
 - 🔍 **Search** — Find any lesson across all paths instantly
 - 🎬 **Smooth animations** — Page transitions, XP popups, quiz feedback
 - 🌺 **Onboarding** — Welcome screen for first-time users
-- 🌙 **Dark & light themes** — Modern UI with system theme support
+- 🌴 **Tropical sunset theme** — Dark mode with gradient headers and vibrant accent colors
 - 📱 **Offline-first** — All content embedded, no internet required
+- 📳 **Haptic feedback** — Tactile responses on quiz answers and lesson completion
 - 🔓 **100% open source** — MIT licensed, community contributions welcome
 
 ## 🛠️ Tech Stack
@@ -101,6 +102,15 @@ AlohaAI/
 | Dashboard with streak, XP, daily goals | Real-time search across all lessons | Per-path progress breakdown |
 
 **42 lessons** • **12 quizzes** • **3 learning paths** • **Fully offline**
+
+## 🎨 Design
+
+AlohaAI features a **tropical sunset dark theme** inspired by Hawaii's vibrant landscapes:
+
+- **Gradient headers** — Sky blue → purple → deep navy (`#5B9FE6` → `#7B68AE` → `#2D1B69`)
+- **Dark mode default** — Deep purple-tinted surfaces for reduced eye strain
+- **Accent colors** — Hibiscus pink (`#E88BBF`), warm gold XP (`#FFD54F`), sunset streak (`#F5A623`)
+- **Rounded cards** — Modern card-based layout with subtle elevation
 
 ## 🤝 Contributing
 
