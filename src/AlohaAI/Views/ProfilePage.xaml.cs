@@ -7,4 +7,11 @@ public partial class ProfilePage : ContentPage
         InitializeComponent();
         BindingContext = viewModel;
     }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        if (BindingContext is ViewModels.ProfileViewModel vm)
+            vm.LoadDataCommand.Execute(null);
+    }
 }

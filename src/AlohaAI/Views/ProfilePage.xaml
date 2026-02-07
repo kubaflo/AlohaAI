@@ -4,12 +4,84 @@
              xmlns:vm="clr-namespace:AlohaAI.ViewModels"
              x:Class="AlohaAI.Views.ProfilePage"
              x:DataType="vm:ProfileViewModel"
-             Title="Profile">
+             Title="Profile"
+             Shell.NavBarIsVisible="False">
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="16">
-            <Label Text="Your Profile"
-                   FontSize="24"
-                   FontAttributes="Bold" />
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Header -->
+            <VerticalStackLayout Spacing="4" Margin="0,20,0,0" HorizontalOptions="Center">
+                <Border BackgroundColor="{StaticResource Primary}"
+                        StrokeShape="RoundRectangle 30"
+                        Stroke="Transparent"
+                        WidthRequest="60" HeightRequest="60"
+                        HorizontalOptions="Center">
+                    <Label Text="🌺" FontSize="28" HorizontalOptions="Center" VerticalOptions="Center" />
+                </Border>
+                <Label Text="{Binding Level, StringFormat='Level {0}'}"
+                       FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,8,0,0" />
+                <Label Text="{Binding TotalXp, StringFormat='{0} XP'}"
+                       FontSize="14" TextColor="{StaticResource XPColor}" HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+            <!-- Stats Grid -->
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="12" RowSpacing="12">
+                <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                        StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
+                    <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
+                        <Label Text="🔥" FontSize="24" HorizontalOptions="Center" />
+                        <Label Text="{Binding CurrentStreak}" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
+                        <Label Text="Current Streak" FontSize="11" Opacity="0.6" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Border>
+                <Border Grid.Column="1"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                        StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
+                    <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
+                        <Label Text="🏆" FontSize="24" HorizontalOptions="Center" />
+                        <Label Text="{Binding BestStreak}" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
+                        <Label Text="Best Streak" FontSize="11" Opacity="0.6" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Border>
+                <Border Grid.Row="1"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                        StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
+                    <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
+                        <Label Text="📖" FontSize="24" HorizontalOptions="Center" />
+                        <Label Text="{Binding LessonsCompleted}" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
+                        <Label Text="Lessons Done" FontSize="11" Opacity="0.6" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="1"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                        StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
+                    <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
+                        <Label Text="⭐" FontSize="24" HorizontalOptions="Center" />
+                        <Label Text="{Binding TotalXp}" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
+                        <Label Text="Total XP" FontSize="11" Opacity="0.6" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <!-- Settings Link -->
+            <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                    StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenSettingsCommand}" />
+                </Border.GestureRecognizers>
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                    <Label Text="⚙️" FontSize="20" VerticalOptions="Center" />
+                    <Label Grid.Column="1" Text="Settings" FontSize="16" VerticalOptions="Center" />
+                    <Label Grid.Column="2" Text="→" FontSize="16" Opacity="0.4" VerticalOptions="Center" />
+                </Grid>
+            </Border>
+
+            <!-- About -->
+            <VerticalStackLayout Spacing="4" HorizontalOptions="Center" Margin="0,8,0,20">
+                <Label Text="AlohaAI v1.0.0" FontSize="12" Opacity="0.4" HorizontalOptions="Center" />
+                <Label Text="Open source • MIT License" FontSize="12" Opacity="0.4" HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

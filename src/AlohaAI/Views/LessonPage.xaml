@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AlohaAI.ViewModels"
+             x:Class="AlohaAI.Views.LessonPage"
+             x:DataType="vm:LessonViewModel"
+             Title="{Binding Title}">
+    <Grid RowDefinitions="*,Auto">
+        <!-- Lesson Content -->
+        <ScrollView>
+            <VerticalStackLayout x:Name="ContentArea" Padding="20" Spacing="12" />
+        </ScrollView>
+
+        <!-- Bottom Action Bar -->
+        <Border Grid.Row="1"
+                BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                Stroke="Transparent"
+                Padding="20,12">
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                <VerticalStackLayout VerticalOptions="Center" Spacing="2">
+                    <Label Text="{Binding Title}" FontSize="14" FontAttributes="Bold" MaxLines="1" LineBreakMode="TailTruncation" />
+                    <Label Text="{Binding LessonXp, StringFormat='+{0} XP on completion'}"
+                           FontSize="12" TextColor="{StaticResource XPColor}" />
+                </VerticalStackLayout>
+                <Button Grid.Column="1"
+                        Text="{Binding IsCompleted, Converter={StaticResource InvertedBoolConverter}, StringFormat='{}Mark Complete'}"
+                        Command="{Binding MarkCompleteCommand}"
+                        IsEnabled="{Binding IsCompleted, Converter={StaticResource InvertedBoolConverter}}"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White"
+                        CornerRadius="10"
+                        FontAttributes="Bold"
+                        Padding="20,0"
+                        HeightRequest="44" />
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

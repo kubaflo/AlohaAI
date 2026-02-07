@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AlohaAI.ViewModels"
+             x:Class="AlohaAI.Views.SettingsPage"
+             x:DataType="vm:SettingsViewModel"
+             Title="Settings">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+
+            <Label Text="Settings" FontSize="26" FontAttributes="Bold" Margin="0,0,0,8" />
+
+            <!-- Theme Toggle -->
+            <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                    StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                    <Label Text="🌙" FontSize="20" VerticalOptions="Center" />
+                    <Label Grid.Column="1" Text="Dark Mode" FontSize="16" VerticalOptions="Center" />
+                    <Switch Grid.Column="2" IsToggled="{Binding IsDarkMode}" VerticalOptions="Center"
+                            OnColor="{StaticResource Primary}" />
+                </Grid>
+            </Border>
+
+            <!-- About Section -->
+            <Label Text="About" FontSize="20" FontAttributes="Bold" Margin="0,16,0,0" />
+
+            <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                    StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
+                <VerticalStackLayout Spacing="12">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Version" FontSize="14" />
+                        <Label Grid.Column="1" Text="1.0.0" FontSize="14" Opacity="0.6" />
+                    </Grid>
+                    <BoxView HeightRequest="1" Color="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray700}}" />
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Framework" FontSize="14" />
+                        <Label Grid.Column="1" Text=".NET MAUI" FontSize="14" Opacity="0.6" />
+                    </Grid>
+                    <BoxView HeightRequest="1" Color="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray700}}" />
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="License" FontSize="14" />
+                        <Label Grid.Column="1" Text="MIT" FontSize="14" Opacity="0.6" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

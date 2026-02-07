@@ -7,4 +7,11 @@ public partial class HomePage : ContentPage
         InitializeComponent();
         BindingContext = viewModel;
     }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        if (BindingContext is ViewModels.HomeViewModel vm)
+            vm.LoadDataCommand.Execute(null);
+    }
 }

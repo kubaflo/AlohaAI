@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AlohaAI.ViewModels"
+             x:Class="AlohaAI.Views.QuizPage"
+             x:DataType="vm:QuizViewModel"
+             Title="Quiz">
+    <Grid>
+        <!-- Question View -->
+        <Grid IsVisible="{Binding ShowQuestion}" RowDefinitions="Auto,*,Auto" Padding="20">
+
+            <!-- Progress -->
+            <VerticalStackLayout Spacing="8" Margin="0,10,0,0">
+                <Label Text="{Binding ProgressText}" FontSize="13" Opacity="0.6" HorizontalOptions="Center" />
+                <ProgressBar Progress="{Binding ProgressValue}" ProgressColor="{StaticResource Primary}" />
+            </VerticalStackLayout>
+
+            <!-- Question + Options -->
+            <ScrollView Grid.Row="1">
+                <VerticalStackLayout Spacing="16" Margin="0,24,0,0">
+                    <Label Text="{Binding QuestionText}" FontSize="20" FontAttributes="Bold" LineHeight="1.3" />
+
+                    <CollectionView ItemsSource="{Binding Options}" SelectionMode="None">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="8" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="vm:QuizOptionItem">
+                                <Border BackgroundColor="{Binding BackgroundColor}"
+                                        StrokeShape="RoundRectangle 12"
+                                        Stroke="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray700}}"
+                                        StrokeThickness="1"
+                                        Padding="16,14">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:QuizViewModel}}, Path=SelectOptionCommand}"
+                                            CommandParameter="{Binding .}" />
+                                    </Border.GestureRecognizers>
+                                    <Label Text="{Binding Text}" FontSize="15" Opacity="{Binding TextOpacity}" />
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <!-- Explanation -->
+                    <Border IsVisible="{Binding ShowExplanation}"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                            StrokeShape="RoundRectangle 12"
+                            Stroke="Transparent"
+                            Padding="16">
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="💡 Explanation" FontSize="14" FontAttributes="Bold" />
+                            <Label Text="{Binding ExplanationText}" FontSize="14" Opacity="0.8" LineHeight="1.4" />
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+            </ScrollView>
+
+            <!-- Next Button -->
+            <Button Grid.Row="2"
+                    Text="Next →"
+                    IsVisible="{Binding ShowExplanation}"
+                    Command="{Binding NextQuestionCommand}"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="White"
+                    CornerRadius="12"
+                    FontAttributes="Bold"
+                    HeightRequest="50"
+                    Margin="0,12,0,0" />
+        </Grid>
+
+        <!-- Results View -->
+        <VerticalStackLayout IsVisible="{Binding ShowResults}"
+                             Padding="20"
+                             Spacing="20"
+                             VerticalOptions="Center">
+            <Label Text="{Binding Passed, StringFormat='{}{0}'}"
+                   FontSize="48"
+                   HorizontalOptions="Center">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding Passed}" Value="True">
+                        <Setter Property="Text" Value="🎉" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label" Binding="{Binding Passed}" Value="False">
+                        <Setter Property="Text" Value="📚" />
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
+
+            <Label HorizontalOptions="Center" FontSize="24" FontAttributes="Bold">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding Passed}" Value="True">
+                        <Setter Property="Text" Value="Quiz Passed!" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label" Binding="{Binding Passed}" Value="False">
+                        <Setter Property="Text" Value="Keep Learning!" />
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
+
+            <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                    StrokeShape="RoundRectangle 16" Stroke="Transparent" Padding="24">
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" RowSpacing="8" ColumnSpacing="16">
+                    <Label Text="Score" FontSize="13" Opacity="0.6" HorizontalOptions="Center" />
+                    <Label Grid.Column="1" Text="XP Earned" FontSize="13" Opacity="0.6" HorizontalOptions="Center" />
+                    <Label Grid.Row="1" Text="{Binding Score, StringFormat='{0}'}" FontSize="28"
+                           FontAttributes="Bold" HorizontalOptions="Center" />
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding XpEarned, StringFormat='+{0}'}"
+                           FontSize="28" FontAttributes="Bold" TextColor="{StaticResource XPColor}" HorizontalOptions="Center" />
+                </Grid>
+            </Border>
+
+            <Label Text="{Binding TotalQuestions, StringFormat='out of {0} questions'}"
+                   FontSize="14" Opacity="0.6" HorizontalOptions="Center" />
+
+            <Button Text="Done"
+                    Command="{Binding FinishCommand}"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="White"
+                    CornerRadius="12"
+                    FontAttributes="Bold"
+                    HeightRequest="50" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

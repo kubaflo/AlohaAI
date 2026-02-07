@@ -7,4 +7,11 @@ public partial class PathsPage : ContentPage
         InitializeComponent();
         BindingContext = viewModel;
     }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        if (BindingContext is ViewModels.PathsViewModel vm)
+            vm.LoadPathsCommand.Execute(null);
+    }
 }

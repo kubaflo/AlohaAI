@@ -4,17 +4,143 @@
              xmlns:vm="clr-namespace:AlohaAI.ViewModels"
              x:Class="AlohaAI.Views.HomePage"
              x:DataType="vm:HomeViewModel"
-             Title="Home">
+             Title="Home"
+             Shell.NavBarIsVisible="False">
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="16">
-            <Label Text="🔥 AlohaAI"
-                   FontSize="28"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center" />
-            <Label Text="Welcome back! Ready to learn?"
-                   FontSize="16"
-                   HorizontalOptions="Center"
-                   Opacity="0.7" />
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Header -->
+            <VerticalStackLayout Spacing="4" Margin="0,20,0,0">
+                <Label Text="🌺 AlohaAI"
+                       FontSize="32"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" />
+                <Label Text="Your AI learning journey"
+                       FontSize="14"
+                       HorizontalOptions="Center"
+                       Opacity="0.6" />
+            </VerticalStackLayout>
+
+            <!-- Stats Row -->
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12">
+                <!-- Streak -->
+                <Border Grid.Column="0"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                        StrokeShape="RoundRectangle 12"
+                        Stroke="Transparent"
+                        Padding="12">
+                    <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
+                        <Label Text="🔥" FontSize="24" HorizontalOptions="Center" />
+                        <Label Text="{Binding CurrentStreak}"
+                               FontSize="22" FontAttributes="Bold" HorizontalOptions="Center" />
+                        <Label Text="day streak" FontSize="11" Opacity="0.6" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- XP -->
+                <Border Grid.Column="1"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                        StrokeShape="RoundRectangle 12"
+                        Stroke="Transparent"
+                        Padding="12">
+                    <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
+                        <Label Text="⭐" FontSize="24" HorizontalOptions="Center" />
+                        <Label Text="{Binding TotalXp}"
+                               FontSize="22" FontAttributes="Bold" HorizontalOptions="Center" />
+                        <Label Text="total XP" FontSize="11" Opacity="0.6" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Today -->
+                <Border Grid.Column="2"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                        StrokeShape="RoundRectangle 12"
+                        Stroke="Transparent"
+                        Padding="12">
+                    <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
+                        <Label Text="📖" FontSize="24" HorizontalOptions="Center" />
+                        <Label Text="{Binding TodayLessons}"
+                               FontSize="22" FontAttributes="Bold" HorizontalOptions="Center" />
+                        <Label Text="today" FontSize="11" Opacity="0.6" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <!-- Continue Learning Card -->
+            <Border IsVisible="{Binding HasContinue}"
+                    BackgroundColor="{StaticResource Primary}"
+                    StrokeShape="RoundRectangle 16"
+                    Stroke="Transparent"
+                    Padding="20">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ContinueLearningCommand}" />
+                </Border.GestureRecognizers>
+                <Grid ColumnDefinitions="*,Auto">
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Continue Learning" FontSize="12" TextColor="White" Opacity="0.8" />
+                        <Label Text="{Binding ContinuePathTitle}" FontSize="18" FontAttributes="Bold" TextColor="White" />
+                    </VerticalStackLayout>
+                    <Label Grid.Column="1" Text="→" FontSize="24" TextColor="White" VerticalOptions="Center" />
+                </Grid>
+            </Border>
+
+            <!-- Start Learning Card (when no progress) -->
+            <Border IsVisible="{Binding HasContinue, Converter={StaticResource InvertedBoolConverter}}"
+                    BackgroundColor="{StaticResource Primary}"
+                    StrokeShape="RoundRectangle 16"
+                    Stroke="Transparent"
+                    Padding="20">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToPathsCommand}" />
+                </Border.GestureRecognizers>
+                <Grid ColumnDefinitions="*,Auto">
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Ready to start?" FontSize="12" TextColor="White" Opacity="0.8" />
+                        <Label Text="Browse Learning Paths" FontSize="18" FontAttributes="Bold" TextColor="White" />
+                    </VerticalStackLayout>
+                    <Label Grid.Column="1" Text="→" FontSize="24" TextColor="White" VerticalOptions="Center" />
+                </Grid>
+            </Border>
+
+            <!-- Quick Topics -->
+            <Label Text="What you'll learn" FontSize="20" FontAttributes="Bold" Margin="0,8,0,0" />
+
+            <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                    StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
+                <VerticalStackLayout Spacing="12">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                        <Border BackgroundColor="#4A90D9" StrokeShape="RoundRectangle 8" Stroke="Transparent"
+                                WidthRequest="40" HeightRequest="40">
+                            <Label Text="🤖" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                            <Label Text="Agentic AI" FontSize="16" FontAttributes="Bold" />
+                            <Label Text="Agents, MCP, RAG, tools &amp; orchestration" FontSize="12" Opacity="0.6" />
+                        </VerticalStackLayout>
+                    </Grid>
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                        <Border BackgroundColor="#2ECC71" StrokeShape="RoundRectangle 8" Stroke="Transparent"
+                                WidthRequest="40" HeightRequest="40">
+                            <Label Text="🧠" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                            <Label Text="ML Fundamentals" FontSize="16" FontAttributes="Bold" />
+                            <Label Text="From basics to transformers" FontSize="12" Opacity="0.6" />
+                        </VerticalStackLayout>
+                    </Grid>
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                        <Border BackgroundColor="#9B59B6" StrokeShape="RoundRectangle 8" Stroke="Transparent"
+                                WidthRequest="40" HeightRequest="40">
+                            <Label Text="🚀" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                            <Label Text="AI in Practice" FontSize="16" FontAttributes="Bold" />
+                            <Label Text="Cloud services, frameworks &amp; copilots" FontSize="12" Opacity="0.6" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

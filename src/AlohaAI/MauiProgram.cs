@@ -27,11 +27,19 @@ public static class MauiProgram
 		builder.Services.AddTransient<HomeViewModel>();
 		builder.Services.AddTransient<PathsViewModel>();
 		builder.Services.AddTransient<ProfileViewModel>();
+		builder.Services.AddTransient<PathDetailViewModel>();
+		builder.Services.AddTransient<LessonViewModel>();
+		builder.Services.AddTransient<QuizViewModel>();
+		builder.Services.AddTransient<SettingsViewModel>();
 
 		// Views
 		builder.Services.AddTransient<HomePage>();
 		builder.Services.AddTransient<PathsPage>();
 		builder.Services.AddTransient<ProfilePage>();
+		builder.Services.AddTransient<PathDetailPage>();
+		builder.Services.AddTransient<LessonPage>();
+		builder.Services.AddTransient<QuizPage>();
+		builder.Services.AddTransient<SettingsPage>();
 
 #if DEBUG
 		builder.Logging.AddDebug();
