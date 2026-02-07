@@ -1,6 +1,6 @@
 # 🌺 AlohaAI
 
-**Learn Agentic AI, Machine Learning & Microsoft AI — one bite-sized lesson at a time.**
+**Learn Agentic AI, Machine Learning & AI concepts — one bite-sized lesson at a time.**
 
 AlohaAI is an open-source mobile learning app built with .NET MAUI that teaches AI concepts through interactive lessons, quizzes, progress tracking, and daily learning streaks — inspired by [Enki](https://www.enki.com).
 
@@ -19,19 +19,22 @@ AlohaAI is an open-source mobile learning app built with .NET MAUI that teaches 
 - Neural Networks
 - LLMs & Foundation Models
 
-### 💜 AI with Microsoft
-- Azure AI Services
-- Semantic Kernel
-- Copilot Ecosystem
+### 🚀 AI in Practice
+- Cloud AI Services (Azure AI, Cognitive Services)
+- Semantic Kernel & AI frameworks
+- Copilot Ecosystem & AI-assisted development
 
 ## ✨ Features
 
 - 📖 **Bite-sized lessons** — Learn in 5-minute sessions with Markdown-rendered content
-- 🧩 **Interactive quizzes** — Multiple choice, true/false, fill-in-the-blank, sequencing
-- 🔥 **Learning streaks** — Track consecutive learning days
-- 📊 **Progress tracking** — See your completion across all paths and modules
+- 🧩 **Interactive quizzes** — Test your knowledge after each module
+- 🔥 **Learning streaks** — Track consecutive learning days with daily goals
+- 📊 **Progress tracking** — Per-path progress breakdown on your profile
 - ⭐ **XP & levels** — Earn experience points for completing lessons and quizzes
-- 🌙 **Dark & light themes** — Modern UI with theme switching
+- 🔍 **Search** — Find any lesson across all paths instantly
+- 🎬 **Smooth animations** — Page transitions, XP popups, quiz feedback
+- 🌺 **Onboarding** — Welcome screen for first-time users
+- 🌙 **Dark & light themes** — Modern UI with system theme support
 - 📱 **Offline-first** — All content embedded, no internet required
 - 🔓 **100% open source** — MIT licensed, community contributions welcome
 
@@ -77,20 +80,27 @@ dotnet build src/AlohaAI/AlohaAI.csproj -f net10.0-ios -t:Run
 ```
 AlohaAI/
 ├── src/AlohaAI/          # .NET MAUI app
-│   ├── Models/           # Data models
-│   ├── ViewModels/       # MVVM view models
-│   ├── Views/            # XAML pages
-│   ├── Services/         # Business logic & data access
-│   ├── Controls/         # Reusable custom controls
+│   ├── Models/           # Data models (UserProgress, LearningPath, etc.)
+│   ├── ViewModels/       # MVVM view models (Home, Paths, Search, etc.)
+│   ├── Views/            # XAML pages (8 pages + onboarding)
+│   ├── Services/         # ContentService, ProgressService, StreakService
 │   ├── Converters/       # Value converters
-│   ├── Helpers/          # Utilities
-│   └── Resources/        # Fonts, images, styles, raw content
+│   ├── Helpers/          # MarkdownRenderer (tables, code blocks, etc.)
+│   └── Resources/        # Fonts, images, styles
 ├── content/              # Learning content (JSON + Markdown)
-│   ├── agentic-ai/       # Agentic AI learning path
-│   ├── ml-fundamentals/  # ML Fundamentals path
-│   └── ai-with-microsoft/# AI with Microsoft path
-└── tests/                # Unit tests
+│   ├── agentic-ai/       # Agentic AI learning path (5 modules, 18 lessons)
+│   ├── ml-fundamentals/  # ML Fundamentals path (4 modules, 12 lessons)
+│   └── ai-in-practice/   # AI in Practice path (3 modules, 12 lessons)
+└── tests/                # Unit tests (content validation)
 ```
+
+## 📱 App Overview
+
+| Home | Search | Profile |
+|---|---|---|
+| Dashboard with streak, XP, daily goals | Real-time search across all lessons | Per-path progress breakdown |
+
+**42 lessons** • **12 quizzes** • **3 learning paths** • **Fully offline**
 
 ## 🤝 Contributing
 

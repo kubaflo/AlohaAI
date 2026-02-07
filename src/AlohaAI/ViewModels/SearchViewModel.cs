@@ -7,6 +7,7 @@ namespace AlohaAI.ViewModels;
 public class SearchViewModel : BaseViewModel
 {
     private readonly IContentService _contentService;
+    private CancellationTokenSource? _debounceToken;
 
     private string _searchQuery = string.Empty;
     public string SearchQuery
@@ -15,8 +16,21 @@ public class SearchViewModel : BaseViewModel
         set
         {
             SetProperty(ref _searchQuery, value);
-            SearchCommand.Execute(null);
+            DebouncedSearch();
         }
+    }
+
+    private void DebouncedSearch()
+    {
+        _debounceToken?.Cancel();
+        _debounceToken = new CancellationTokenSource();
+        var token = _debounceToken.Token;
+
+        Task.Delay(300, token).ContinueWith(_ =>
+        {
+            if (!token.IsCancellationRequested)
+                MainThread.BeginInvokeOnMainThread(() => SearchCommand.Execute(null));
+        }, TaskContinuationOptions.OnlyOnRanToCompletion);
     }
 
     private bool _hasResults;

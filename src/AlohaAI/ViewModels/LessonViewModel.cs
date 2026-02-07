@@ -103,6 +103,9 @@ public class LessonViewModel : BaseViewModel
         await _progressService.MarkLessonCompleteAsync(PathId, ModuleId, LessonId, LessonXp);
         await _streakService.RecordActivityAsync();
         IsCompleted = true;
+        HapticFeedback.Default.Perform(HapticFeedbackType.Click);
+        // Delay to show XP popup animation before navigating back
+        await Task.Delay(1800);
         await Shell.Current.GoToAsync("..");
     }
 }
