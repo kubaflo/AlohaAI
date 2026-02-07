@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AlohaAI.ViewModels"
+             x:Class="AlohaAI.Views.HomePage"
+             x:DataType="vm:HomeViewModel"
+             Title="Home">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+            <Label Text="🔥 AlohaAI"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+            <Label Text="Welcome back! Ready to learn?"
+                   FontSize="16"
+                   HorizontalOptions="Center"
+                   Opacity="0.7" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
