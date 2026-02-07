@@ -23,10 +23,10 @@ public partial class LoadingPage : ContentPage
 
             if (Application.Current?.Windows.Count > 0)
             {
-                if (onboarded == "true")
-                    Application.Current.Windows[0].Page = new AppShell();
-                else
-                    Application.Current.Windows[0].Page = new OnboardingPage(_progressService);
+                // Mark onboarding as done so we always go to main shell
+                if (onboarded != "true")
+                    await _progressService.SaveSettingAsync("onboarding_completed", "true");
+                Application.Current.Windows[0].Page = new AppShell();
             }
         }
         catch (Exception ex)
