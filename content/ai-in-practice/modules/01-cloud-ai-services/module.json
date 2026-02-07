@@ -1,0 +1,12 @@
+{
+  "id": "01-cloud-ai-services",
+  "title": "Cloud AI Services",
+  "description": "Explore hosted AI services in the cloud — from large language model APIs to search, knowledge bases, and visual development tools.",
+  "lessons": [
+    "cloud-ai-overview",
+    "language-models-apis",
+    "search-and-knowledge",
+    "ai-studio-tools"
+  ],
+  "xpRange": "10-15"
+}

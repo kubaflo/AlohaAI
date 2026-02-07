@@ -1,0 +1,11 @@
+{
+  "id": "03-ai-assistants-copilots",
+  "title": "AI Assistants & Copilots",
+  "description": "Understand how modern AI assistants and copilots work under the hood, how to extend them, and the patterns that make them effective.",
+  "lessons": [
+    "anatomy-of-copilot",
+    "building-extensions",
+    "copilot-patterns"
+  ],
+  "xpRange": "10-15"
+}

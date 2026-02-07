@@ -1,0 +1,11 @@
+{
+  "id": "03-neural-networks",
+  "title": "Neural Networks",
+  "description": "Understand how neural networks learn — from single perceptrons to deep architectures like CNNs, RNNs, and the Transformer.",
+  "lessons": [
+    { "id": "perceptrons-basics", "file": "lessons/perceptrons-basics.md", "xp": 10 },
+    { "id": "backpropagation", "file": "lessons/backpropagation.md", "xp": 15 },
+    { "id": "cnns-and-rnns", "file": "lessons/cnns-and-rnns.md", "xp": 15 },
+    { "id": "transformers", "file": "lessons/transformers.md", "xp": 20 }
+  ]
+}

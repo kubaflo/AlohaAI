@@ -1,0 +1,10 @@
+{
+  "id": "01-what-is-ml",
+  "title": "What is Machine Learning",
+  "description": "Explore the foundations of machine learning — what it is, how it differs from traditional programming, and the core types of learning algorithms.",
+  "lessons": [
+    { "id": "ai-vs-ml-vs-dl", "file": "lessons/ai-vs-ml-vs-dl.md", "xp": 10 },
+    { "id": "types-of-ml", "file": "lessons/types-of-ml.md", "xp": 10 },
+    { "id": "ml-workflow", "file": "lessons/ml-workflow.md", "xp": 10 }
+  ]
+}
