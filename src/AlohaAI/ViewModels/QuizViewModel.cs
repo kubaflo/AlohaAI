@@ -52,6 +52,13 @@ public class QuizViewModel : BaseViewModel
         set => SetProperty(ref _progressValue, value);
     }
 
+    private string _quizTitle = "Quiz";
+    public string QuizTitle
+    {
+        get => _quizTitle;
+        set => SetProperty(ref _quizTitle, value);
+    }
+
     private string _explanationText = string.Empty;
     public string ExplanationText
     {
@@ -114,6 +121,14 @@ public class QuizViewModel : BaseViewModel
     public ICommand SelectOptionCommand { get; }
     public ICommand NextQuestionCommand { get; }
     public ICommand FinishCommand { get; }
+    public ICommand GoBackCommand { get; }
+
+    public string ResultIcon => Passed ? "icon_trophy.png" : "icon_books.png";
+    public string ResultTitle => Passed ? "Quiz Passed!" : "Keep Learning!";
+    public string ResultSubtitle => Passed
+        ? $"Great job! You got {Score} out of {TotalQuestions} correct."
+        : $"You got {Score} out of {TotalQuestions}. Review the lessons and try again!";
+    public string ScoreDisplay => $"{Score}/{TotalQuestions}";
 
     public QuizViewModel(IContentService contentService, IProgressService progressService, IStreakService streakService)
     {
@@ -125,6 +140,7 @@ public class QuizViewModel : BaseViewModel
         SelectOptionCommand = new RelayCommand<QuizOptionItem>(SelectOption);
         NextQuestionCommand = new RelayCommand(NextQuestion);
         FinishCommand = new AsyncRelayCommand(FinishQuizAsync);
+        GoBackCommand = new AsyncRelayCommand(async () => await Shell.Current.GoToAsync(".."));
     }
 
     private async Task LoadQuizAsync()
@@ -142,6 +158,7 @@ public class QuizViewModel : BaseViewModel
             }
 
             Title = "Quiz";
+            QuizTitle = _quiz.Title ?? "Quiz";
             _currentIndex = 0;
             _correctCount = 0;
             TotalQuestions = _quiz.Questions.Count;
@@ -221,6 +238,10 @@ public class QuizViewModel : BaseViewModel
             XpEarned = _quiz?.Questions.Sum(q => q.Xp) ?? 0;
             var scorePercent = TotalQuestions > 0 ? (double)_correctCount / TotalQuestions * 100 : 0;
             Passed = scorePercent >= (_quiz?.PassingScore ?? 70);
+            OnPropertyChanged(nameof(ResultIcon));
+            OnPropertyChanged(nameof(ResultTitle));
+            OnPropertyChanged(nameof(ResultSubtitle));
+            OnPropertyChanged(nameof(ScoreDisplay));
         }
     }
 
@@ -250,15 +271,40 @@ public class QuizOptionItem : BaseViewModel
             SetProperty(ref _state, value);
             OnPropertyChanged(nameof(BackgroundColor));
             OnPropertyChanged(nameof(TextOpacity));
+            OnPropertyChanged(nameof(IndicatorColor));
+            OnPropertyChanged(nameof(IndicatorStroke));
+            OnPropertyChanged(nameof(IndicatorText));
         }
     }
 
     public Color BackgroundColor => State switch
     {
+        OptionState.Correct => Color.FromArgb("#1A66BB6A"),
+        OptionState.Incorrect => Color.FromArgb("#1AEF5350"),
+        OptionState.Dimmed => Colors.Transparent,
+        _ => Color.FromArgb("#231E30")
+    };
+
+    public Color IndicatorColor => State switch
+    {
         OptionState.Correct => Color.FromArgb("#66BB6A"),
         OptionState.Incorrect => Color.FromArgb("#EF5350"),
-        OptionState.Dimmed => Colors.Transparent,
         _ => Colors.Transparent
+    };
+
+    public Color IndicatorStroke => State switch
+    {
+        OptionState.Correct => Color.FromArgb("#66BB6A"),
+        OptionState.Incorrect => Color.FromArgb("#EF5350"),
+        OptionState.Dimmed => Color.FromArgb("#444444"),
+        _ => Color.FromArgb("#666666")
+    };
+
+    public string IndicatorText => State switch
+    {
+        OptionState.Correct => "✓",
+        OptionState.Incorrect => "✗",
+        _ => ((char)('A' + Index)).ToString()
     };
 
     public double TextOpacity => State == OptionState.Dimmed ? 0.4 : 1.0;

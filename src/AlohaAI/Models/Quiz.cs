@@ -7,6 +7,9 @@ public class Quiz
     [JsonPropertyName("moduleId")]
     public string ModuleId { get; set; } = string.Empty;
 
+    [JsonPropertyName("title")]
+    public string Title { get; set; } = "Quiz";
+
     [JsonPropertyName("passingScore")]
     public int PassingScore { get; set; } = 70;
 
