@@ -3,30 +3,51 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <!-- Note: For Android please see also Platforms\Android\Resources\values\colors.xml -->
+    <!-- AlohaAI Brand Colors -->
+    <Color x:Key="Primary">#4A90D9</Color>
+    <Color x:Key="PrimaryDark">#6BA3E0</Color>
+    <Color x:Key="PrimaryDarkText">#FFFFFF</Color>
+    <Color x:Key="Secondary">#2ECC71</Color>
+    <Color x:Key="SecondaryDarkText">#FFFFFF</Color>
+    <Color x:Key="Tertiary">#9B59B6</Color>
+    <Color x:Key="Accent">#F39C12</Color>
 
-    <Color x:Key="Primary">#512BD4</Color>
-    <Color x:Key="PrimaryDark">#ac99ea</Color>
-    <Color x:Key="PrimaryDarkText">#242424</Color>
-    <Color x:Key="Secondary">#DFD8F7</Color>
-    <Color x:Key="SecondaryDarkText">#9880e5</Color>
-    <Color x:Key="Tertiary">#2B0B98</Color>
+    <!-- Learning Path Colors -->
+    <Color x:Key="AgenticAIColor">#4A90D9</Color>
+    <Color x:Key="MLFundamentalsColor">#2ECC71</Color>
+    <Color x:Key="MicrosoftAIColor">#9B59B6</Color>
 
-    <Color x:Key="White">White</Color>
-    <Color x:Key="Black">Black</Color>
-    <Color x:Key="Magenta">#D600AA</Color>
-    <Color x:Key="MidnightBlue">#190649</Color>
-    <Color x:Key="OffBlack">#1f1f1f</Color>
+    <!-- Streak / Gamification -->
+    <Color x:Key="StreakColor">#FF6B35</Color>
+    <Color x:Key="XPColor">#F1C40F</Color>
+    <Color x:Key="SuccessColor">#27AE60</Color>
+    <Color x:Key="ErrorColor">#E74C3C</Color>
 
-    <Color x:Key="Gray100">#E1E1E1</Color>
-    <Color x:Key="Gray200">#C8C8C8</Color>
-    <Color x:Key="Gray300">#ACACAC</Color>
-    <Color x:Key="Gray400">#919191</Color>
-    <Color x:Key="Gray500">#6E6E6E</Color>
-    <Color x:Key="Gray600">#404040</Color>
-    <Color x:Key="Gray900">#212121</Color>
-    <Color x:Key="Gray950">#141414</Color>
+    <!-- Neutrals -->
+    <Color x:Key="White">#FFFFFF</Color>
+    <Color x:Key="Black">#000000</Color>
 
+    <Color x:Key="Gray50">#F8F9FA</Color>
+    <Color x:Key="Gray100">#E9ECEF</Color>
+    <Color x:Key="Gray200">#DEE2E6</Color>
+    <Color x:Key="Gray300">#CED4DA</Color>
+    <Color x:Key="Gray400">#ADB5BD</Color>
+    <Color x:Key="Gray500">#6C757D</Color>
+    <Color x:Key="Gray600">#495057</Color>
+    <Color x:Key="Gray700">#343A40</Color>
+    <Color x:Key="Gray800">#23272B</Color>
+    <Color x:Key="Gray900">#1A1D21</Color>
+    <Color x:Key="Gray950">#0D0F11</Color>
+
+    <!-- Surface Colors (Dark-first) -->
+    <Color x:Key="SurfaceDark">#1A1D21</Color>
+    <Color x:Key="SurfaceLight">#FFFFFF</Color>
+    <Color x:Key="CardDark">#23272B</Color>
+    <Color x:Key="CardLight">#F8F9FA</Color>
+    <Color x:Key="CodeBlockDark">#0D1117</Color>
+    <Color x:Key="CodeBlockLight">#F6F8FA</Color>
+
+    <!-- Brushes -->
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
     <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}"/>

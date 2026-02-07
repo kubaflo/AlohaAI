@@ -1,4 +1,5 @@
-﻿using AlohaAI.ViewModels;
+﻿using AlohaAI.Services;
+using AlohaAI.ViewModels;
 using AlohaAI.Views;
 using Microsoft.Extensions.Logging;
 
@@ -16,6 +17,11 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
+
+		// Services
+		builder.Services.AddSingleton<IContentService, ContentService>();
+		builder.Services.AddSingleton<IProgressService, ProgressService>();
+		builder.Services.AddSingleton<IStreakService, StreakService>();
 
 		// ViewModels
 		builder.Services.AddTransient<HomeViewModel>();

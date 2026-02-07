@@ -1,0 +1,327 @@
+namespace AlohaAI.Helpers;
+
+/// <summary>
+/// Converts Markdown text into MAUI views for display.
+/// Supports headers, paragraphs, bold, italic, code blocks, inline code, and bullet lists.
+/// </summary>
+public static class MarkdownRenderer
+{
+    public static View Render(string markdown)
+    {
+        var layout = new VerticalStackLayout { Spacing = 12 };
+        if (string.IsNullOrWhiteSpace(markdown))
+            return layout;
+
+        var lines = markdown.Split('\n');
+        var i = 0;
+
+        while (i < lines.Length)
+        {
+            var line = lines[i];
+
+            // Code block
+            if (line.TrimStart().StartsWith("```"))
+            {
+                var codeLines = new List<string>();
+                i++;
+                while (i < lines.Length && !lines[i].TrimStart().StartsWith("```"))
+                {
+                    codeLines.Add(lines[i]);
+                    i++;
+                }
+                i++; // skip closing ```
+                layout.Add(CreateCodeBlock(string.Join('\n', codeLines)));
+                continue;
+            }
+
+            // Empty line
+            if (string.IsNullOrWhiteSpace(line))
+            {
+                i++;
+                continue;
+            }
+
+            // Headers
+            if (line.StartsWith("### "))
+            {
+                layout.Add(CreateHeader(line[4..], 18));
+                i++;
+                continue;
+            }
+            if (line.StartsWith("## "))
+            {
+                layout.Add(CreateHeader(line[3..], 22));
+                i++;
+                continue;
+            }
+            if (line.StartsWith("# "))
+            {
+                layout.Add(CreateHeader(line[2..], 26));
+                i++;
+                continue;
+            }
+
+            // Bullet list
+            if (line.TrimStart().StartsWith("- ") || line.TrimStart().StartsWith("* "))
+            {
+                var bulletText = line.TrimStart()[2..];
+                layout.Add(CreateBullet(bulletText));
+                i++;
+                continue;
+            }
+
+            // Numbered list
+            if (line.TrimStart().Length > 2 && char.IsDigit(line.TrimStart()[0]) && line.TrimStart()[1] == '.')
+            {
+                var numText = line.TrimStart()[3..];
+                var num = line.TrimStart()[0].ToString();
+                layout.Add(CreateNumberedItem(num, numText));
+                i++;
+                continue;
+            }
+
+            // Blockquote
+            if (line.TrimStart().StartsWith("> "))
+            {
+                layout.Add(CreateBlockquote(line.TrimStart()[2..]));
+                i++;
+                continue;
+            }
+
+            // Regular paragraph
+            layout.Add(CreateParagraph(line));
+            i++;
+        }
+
+        return layout;
+    }
+
+    private static View CreateHeader(string text, int fontSize)
+    {
+        return new Label
+        {
+            Text = text.Trim(),
+            FontSize = fontSize,
+            FontAttributes = FontAttributes.Bold,
+            TextColor = Application.Current?.RequestedTheme == AppTheme.Dark
+                ? Colors.White : Color.FromArgb("#1A1D21"),
+            Margin = new Thickness(0, 8, 0, 4)
+        };
+    }
+
+    private static View CreateParagraph(string text)
+    {
+        var label = new Label
+        {
+            FontSize = 15,
+            LineHeight = 1.5,
+            TextColor = Application.Current?.RequestedTheme == AppTheme.Dark
+                ? Color.FromArgb("#DEE2E6") : Color.FromArgb("#343A40")
+        };
+
+        label.FormattedText = ParseInlineFormatting(text);
+        return label;
+    }
+
+    private static View CreateBullet(string text)
+    {
+        var grid = new Grid
+        {
+            ColumnDefinitions =
+            {
+                new ColumnDefinition(new GridLength(20)),
+                new ColumnDefinition(GridLength.Star)
+            }
+        };
+
+        grid.Add(new Label
+        {
+            Text = "•",
+            FontSize = 15,
+            VerticalOptions = LayoutOptions.Start,
+            TextColor = Application.Current?.RequestedTheme == AppTheme.Dark
+                ? Color.FromArgb("#6BA3E0") : Color.FromArgb("#4A90D9")
+        }, 0);
+
+        var contentLabel = new Label
+        {
+            FontSize = 15,
+            LineHeight = 1.5,
+            TextColor = Application.Current?.RequestedTheme == AppTheme.Dark
+                ? Color.FromArgb("#DEE2E6") : Color.FromArgb("#343A40")
+        };
+        contentLabel.FormattedText = ParseInlineFormatting(text);
+        grid.Add(contentLabel, 1);
+
+        return grid;
+    }
+
+    private static View CreateNumberedItem(string number, string text)
+    {
+        var grid = new Grid
+        {
+            ColumnDefinitions =
+            {
+                new ColumnDefinition(new GridLength(24)),
+                new ColumnDefinition(GridLength.Star)
+            }
+        };
+
+        grid.Add(new Label
+        {
+            Text = $"{number}.",
+            FontSize = 15,
+            FontAttributes = FontAttributes.Bold,
+            VerticalOptions = LayoutOptions.Start,
+            TextColor = Application.Current?.RequestedTheme == AppTheme.Dark
+                ? Color.FromArgb("#6BA3E0") : Color.FromArgb("#4A90D9")
+        }, 0);
+
+        var contentLabel = new Label
+        {
+            FontSize = 15,
+            LineHeight = 1.5,
+            TextColor = Application.Current?.RequestedTheme == AppTheme.Dark
+                ? Color.FromArgb("#DEE2E6") : Color.FromArgb("#343A40")
+        };
+        contentLabel.FormattedText = ParseInlineFormatting(text);
+        grid.Add(contentLabel, 1);
+
+        return grid;
+    }
+
+    private static View CreateCodeBlock(string code)
+    {
+        var isDark = Application.Current?.RequestedTheme == AppTheme.Dark;
+        return new Border
+        {
+            BackgroundColor = isDark ? Color.FromArgb("#0D1117") : Color.FromArgb("#F6F8FA"),
+            StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle { CornerRadius = 8 },
+            Stroke = isDark ? Color.FromArgb("#23272B") : Color.FromArgb("#DEE2E6"),
+            StrokeThickness = 1,
+            Padding = new Thickness(16, 12),
+            Content = new Label
+            {
+                Text = code,
+                FontFamily = "OpenSansRegular",
+                FontSize = 13,
+                TextColor = isDark ? Color.FromArgb("#E6EDF3") : Color.FromArgb("#24292F"),
+                LineHeight = 1.4
+            }
+        };
+    }
+
+    private static View CreateBlockquote(string text)
+    {
+        var isDark = Application.Current?.RequestedTheme == AppTheme.Dark;
+        var quoteGrid = new Grid
+        {
+            ColumnDefinitions =
+            {
+                new ColumnDefinition(new GridLength(4)),
+                new ColumnDefinition(GridLength.Star)
+            }
+        };
+
+        quoteGrid.Add(new BoxView
+        {
+            Color = Color.FromArgb("#4A90D9"),
+            WidthRequest = 4,
+            VerticalOptions = LayoutOptions.Fill
+        }, 0);
+        quoteGrid.Add(new Label
+        {
+            Text = text,
+            FontSize = 14,
+            FontAttributes = FontAttributes.Italic,
+            TextColor = isDark ? Color.FromArgb("#ADB5BD") : Color.FromArgb("#6C757D"),
+            Margin = new Thickness(12, 0, 0, 0)
+        }, 1);
+
+        return new Border
+        {
+            BackgroundColor = isDark ? Color.FromArgb("#1A1D21") : Color.FromArgb("#F8F9FA"),
+            StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle { CornerRadius = 4 },
+            Stroke = Colors.Transparent,
+            StrokeThickness = 0,
+            Padding = new Thickness(16, 12),
+            Content = quoteGrid
+        };
+    }
+
+    private static FormattedString ParseInlineFormatting(string text)
+    {
+        var formatted = new FormattedString();
+        var i = 0;
+
+        while (i < text.Length)
+        {
+            // Bold: **text**
+            if (i + 1 < text.Length && text[i] == '*' && text[i + 1] == '*')
+            {
+                var end = text.IndexOf("**", i + 2, StringComparison.Ordinal);
+                if (end > 0)
+                {
+                    formatted.Spans.Add(new Span
+                    {
+                        Text = text[(i + 2)..end],
+                        FontAttributes = FontAttributes.Bold
+                    });
+                    i = end + 2;
+                    continue;
+                }
+            }
+
+            // Inline code: `text`
+            if (text[i] == '`')
+            {
+                var end = text.IndexOf('`', i + 1);
+                if (end > 0)
+                {
+                    var isDark = Application.Current?.RequestedTheme == AppTheme.Dark;
+                    formatted.Spans.Add(new Span
+                    {
+                        Text = text[(i + 1)..end],
+                        BackgroundColor = isDark ? Color.FromArgb("#23272B") : Color.FromArgb("#E9ECEF"),
+                        TextColor = isDark ? Color.FromArgb("#E6EDF3") : Color.FromArgb("#24292F"),
+                        FontSize = 13
+                    });
+                    i = end + 1;
+                    continue;
+                }
+            }
+
+            // Italic: *text*
+            if (text[i] == '*' && (i + 1 >= text.Length || text[i + 1] != '*'))
+            {
+                var end = text.IndexOf('*', i + 1);
+                if (end > 0)
+                {
+                    formatted.Spans.Add(new Span
+                    {
+                        Text = text[(i + 1)..end],
+                        FontAttributes = FontAttributes.Italic
+                    });
+                    i = end + 1;
+                    continue;
+                }
+            }
+
+            // Regular text - collect until next special char
+            var nextSpecial = text.Length;
+            for (var j = i + 1; j < text.Length; j++)
+            {
+                if (text[j] == '*' || text[j] == '`')
+                {
+                    nextSpecial = j;
+                    break;
+                }
+            }
+
+            formatted.Spans.Add(new Span { Text = text[i..nextSpecial] });
+            i = nextSpecial;
+        }
+
+        return formatted;
+    }
+}
