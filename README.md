@@ -106,12 +106,15 @@ AlohaAI/
 
 ## 🎨 Design
 
-AlohaAI features a **tropical sunset dark theme** inspired by Hawaii's vibrant landscapes:
+AlohaAI features an **immersive tropical sunset UI** inspired by Hawaii's vibrant landscapes:
 
+- **Sunset gradient backgrounds** — Multi-stop gradient (deep navy → purple → coral → sunset orange) across all pages
+- **Glassmorphism cards** — Semi-transparent frosted glass cards with gradient border strokes and soft shadows
+- **Ambient orbs** — Floating radial gradient orbs that add atmospheric depth to every screen
+- **Glowing elements** — Color-matched shadows on icons, progress bars, and CTA buttons
 - **Gradient headers** — Sky blue → purple → deep navy (`#5B9FE6` → `#7B68AE` → `#2D1B69`)
-- **Dark mode default** — Deep purple-tinted surfaces for reduced eye strain
 - **Accent colors** — Hibiscus pink (`#E88BBF`), warm gold XP (`#FFD54F`), sunset streak (`#F5A623`)
-- **Rounded cards** — Modern card-based layout with subtle elevation
+- **Dark mode default** — Deep purple-tinted surfaces (`#0E0A1A` base) for immersive reading
 
 ## 🤝 Contributing
 
