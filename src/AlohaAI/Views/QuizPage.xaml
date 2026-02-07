@@ -5,9 +5,21 @@
              x:Class="AlohaAI.Views.QuizPage"
              x:DataType="vm:QuizViewModel"
              Title="Quiz"
-             Shell.NavBarIsVisible="False"
-             BackgroundColor="{StaticResource Gray900}">
+             Shell.NavBarIsVisible="False">
     <Grid RowDefinitions="Auto,*">
+        <!-- Layer 0: Sunset Gradient Background -->
+        <BoxView Grid.RowSpan="2" InputTransparent="True">
+            <BoxView.Background>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="#0E0A1A" Offset="0.0" />
+                    <GradientStop Color="#1A0F33" Offset="0.3" />
+                    <GradientStop Color="#2D1B69" Offset="0.55" />
+                    <GradientStop Color="#5B4A8C" Offset="0.75" />
+                    <GradientStop Color="#8B5A7C" Offset="0.88" />
+                    <GradientStop Color="#D97B6B" Offset="1.0" />
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
 
         <!-- Gradient Header -->
         <Border Grid.Row="0" StrokeThickness="0" StrokeShape="RoundRectangle 0,0,20,20">
@@ -34,13 +46,35 @@
                            TextColor="#CCFFFFFF" VerticalOptions="Center" />
                 </Grid>
                 <!-- Progress Bar -->
-                <ProgressBar Progress="{Binding ProgressValue}" ProgressColor="#FFD54F"
-                             HeightRequest="4" />
+                <Grid HeightRequest="5">
+                    <Border BackgroundColor="#FFFFFF30" StrokeShape="RoundRectangle 2.5" Stroke="Transparent" />
+                    <Border BackgroundColor="#FFD54F" StrokeShape="RoundRectangle 2.5" Stroke="Transparent"
+                            HorizontalOptions="Start"
+                            WidthRequest="{Binding ProgressValue, Converter={StaticResource ProgressToWidthConverter}, ConverterParameter=340}">
+                        <Border.Shadow>
+                            <Shadow Brush="#FFD54F" Offset="0,0" Radius="6" Opacity="0.6" />
+                        </Border.Shadow>
+                    </Border>
+                </Grid>
             </VerticalStackLayout>
         </Border>
 
         <!-- Content Area -->
         <Grid Grid.Row="1">
+            <!-- Ambient Orb for quiz -->
+            <Border HorizontalOptions="Start" VerticalOptions="End"
+                    TranslationX="-60" TranslationY="-40"
+                    HeightRequest="200" WidthRequest="200"
+                    StrokeThickness="0" Stroke="Transparent" InputTransparent="True">
+                <Border.StrokeShape><RoundRectangle CornerRadius="100" /></Border.StrokeShape>
+                <Border.Background>
+                    <RadialGradientBrush Center="0.5,0.5" Radius="0.5">
+                        <GradientStop Color="#307B68AE" Offset="0" />
+                        <GradientStop Color="Transparent" Offset="1" />
+                    </RadialGradientBrush>
+                </Border.Background>
+            </Border>
+
             <!-- Question View -->
             <Grid IsVisible="{Binding ShowQuestion}" RowDefinitions="*,Auto" Padding="20,16,20,20">
 
@@ -57,10 +91,14 @@
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:DataType="vm:QuizOptionItem">
                                     <Border BackgroundColor="{Binding BackgroundColor}"
-                                            StrokeShape="RoundRectangle 12"
-                                            Stroke="#444444"
-                                            StrokeThickness="1"
-                                            Padding="16,14">
+                                            StrokeShape="RoundRectangle 16"
+                                            StrokeThickness="1.5" Padding="16,14">
+                                        <Border.Stroke>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                <GradientStop Color="#40FFFFFF" Offset="0.0" />
+                                                <GradientStop Color="#10FFFFFF" Offset="1.0" />
+                                            </LinearGradientBrush>
+                                        </Border.Stroke>
                                         <Border.GestureRecognizers>
                                             <TapGestureRecognizer
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type vm:QuizViewModel}}, Path=SelectOptionCommand}"
@@ -71,9 +109,9 @@
                                                     StrokeShape="RoundRectangle 12"
                                                     Stroke="{Binding IndicatorStroke}"
                                                     StrokeThickness="2"
-                                                    WidthRequest="24" HeightRequest="24"
+                                                    WidthRequest="28" HeightRequest="28"
                                                     VerticalOptions="Center" Margin="0,0,12,0">
-                                                <Label Text="{Binding IndicatorText}" FontSize="12"
+                                                <Label Text="{Binding IndicatorText}" FontSize="12" FontAttributes="Bold"
                                                        TextColor="White" HorizontalOptions="Center"
                                                        VerticalOptions="Center" />
                                             </Border>
@@ -89,16 +127,16 @@
                         <!-- Explanation -->
                         <Border x:Name="ExplanationCard"
                                 IsVisible="{Binding ShowExplanation}"
-                                BackgroundColor="{StaticResource CardDark}"
-                                StrokeShape="RoundRectangle 12"
-                                Stroke="#7B68AE"
-                                StrokeThickness="1"
+                                Style="{StaticResource GlassCard}"
                                 Padding="16">
                             <VerticalStackLayout Spacing="8">
-                                <Label Text="💡 Explanation" FontSize="14" FontAttributes="Bold"
-                                       TextColor="{StaticResource XPColor}" />
+                                <HorizontalStackLayout Spacing="6">
+                                    <Image Source="icon_xp.png" WidthRequest="18" HeightRequest="18" VerticalOptions="Center" />
+                                    <Label Text="Explanation" FontSize="14" FontAttributes="Bold"
+                                           TextColor="{StaticResource XPColor}" />
+                                </HorizontalStackLayout>
                                 <Label Text="{Binding ExplanationText}" FontSize="14"
-                                       TextColor="#CCCCCC" LineHeight="1.4" />
+                                       TextColor="{StaticResource Gray200}" LineHeight="1.4" />
                             </VerticalStackLayout>
                         </Border>
                     </VerticalStackLayout>
@@ -111,10 +149,14 @@
                         Command="{Binding NextQuestionCommand}"
                         BackgroundColor="{StaticResource Primary}"
                         TextColor="White"
-                        CornerRadius="12"
+                        CornerRadius="14"
                         FontAttributes="Bold"
                         HeightRequest="50"
-                        Margin="0,12,0,0" />
+                        Margin="0,12,0,0">
+                    <Button.Shadow>
+                        <Shadow Brush="{StaticResource Primary}" Offset="0,4" Radius="12" Opacity="0.4" />
+                    </Button.Shadow>
+                </Button>
             </Grid>
 
             <!-- Results View -->
@@ -130,13 +172,12 @@
                        FontSize="24" FontAttributes="Bold" TextColor="White" />
 
                 <Label Text="{Binding ResultSubtitle}" HorizontalOptions="Center"
-                       FontSize="14" TextColor="#AAAAAA" />
+                       FontSize="14" TextColor="{StaticResource Gray300}" />
 
-                <Border BackgroundColor="{StaticResource CardDark}"
-                        StrokeShape="RoundRectangle 16" Stroke="Transparent" Padding="24">
+                <Border Style="{StaticResource GlassCard}" Padding="24">
                     <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" RowSpacing="8" ColumnSpacing="16">
-                        <Label Text="Score" FontSize="13" TextColor="#AAAAAA" HorizontalOptions="Center" />
-                        <Label Grid.Column="1" Text="XP Earned" FontSize="13" TextColor="#AAAAAA" HorizontalOptions="Center" />
+                        <Label Text="Score" FontSize="13" TextColor="{StaticResource Gray300}" HorizontalOptions="Center" />
+                        <Label Grid.Column="1" Text="XP Earned" FontSize="13" TextColor="{StaticResource Gray300}" HorizontalOptions="Center" />
                         <Label Grid.Row="1" Text="{Binding ScoreDisplay}" FontSize="28"
                                FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" />
                         <Label Grid.Row="1" Grid.Column="1" Text="{Binding XpEarned, StringFormat='+{0}'}"
@@ -148,9 +189,13 @@
                         Command="{Binding FinishCommand}"
                         BackgroundColor="{StaticResource Primary}"
                         TextColor="White"
-                        CornerRadius="12"
+                        CornerRadius="14"
                         FontAttributes="Bold"
-                        HeightRequest="50" />
+                        HeightRequest="50">
+                    <Button.Shadow>
+                        <Shadow Brush="{StaticResource Primary}" Offset="0,4" Radius="12" Opacity="0.4" />
+                    </Button.Shadow>
+                </Button>
             </VerticalStackLayout>
         </Grid>
     </Grid>

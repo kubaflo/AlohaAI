@@ -27,13 +27,14 @@ AlohaAI is an open-source mobile learning app built with .NET MAUI that teaches 
 ## ✨ Features
 
 - 📖 **Bite-sized lessons** — Learn in 5-minute sessions with Markdown-rendered content
-- 🧩 **Interactive quizzes** — Test your knowledge after each module
+- 🧩 **Interactive quizzes** — Test your knowledge with A/B/C/D indicators and styled feedback
 - 🔥 **Learning streaks** — Track consecutive learning days with daily goals
 - 📊 **Progress tracking** — Per-path progress breakdown on your profile
 - ⭐ **XP & levels** — Earn experience points for completing lessons and quizzes
-- 🔍 **Search** — Find any lesson across all paths instantly
-- 🎬 **Smooth animations** — Page transitions, XP popups, quiz feedback
-- 🌺 **Onboarding** — Welcome screen for first-time users
+- 🏆 **Achievements** — Unlock milestones as you learn (First Steps, Curious Mind, Week Warrior, etc.)
+- 🔍 **Search with filters** — Find lessons with path-based filter chips and browse topics
+- 🎬 **Smooth animations** — Page transitions, XP popups, quiz feedback, onboarding carousel
+- 🌺 **Multi-step onboarding** — Beautiful 4-screen carousel with page indicators and slide animations
 - 🌴 **Tropical sunset theme** — Dark mode with gradient headers and vibrant accent colors
 - 📱 **Offline-first** — All content embedded, no internet required
 - 📳 **Haptic feedback** — Tactile responses on quiz answers and lesson completion

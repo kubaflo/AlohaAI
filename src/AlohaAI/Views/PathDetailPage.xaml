@@ -5,12 +5,40 @@
              x:Class="AlohaAI.Views.PathDetailPage"
              x:DataType="vm:PathDetailViewModel"
              Title="{Binding Title}"
-             Shell.NavBarIsVisible="False"
-             BackgroundColor="{StaticResource Gray900}">
+             Shell.NavBarIsVisible="False">
     <Grid>
+        <!-- Layer 0: Sunset Gradient Background -->
+        <BoxView InputTransparent="True">
+            <BoxView.Background>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="#0E0A1A" Offset="0.0" />
+                    <GradientStop Color="#1A0F33" Offset="0.3" />
+                    <GradientStop Color="#2D1B69" Offset="0.55" />
+                    <GradientStop Color="#5B4A8C" Offset="0.75" />
+                    <GradientStop Color="#8B5A7C" Offset="0.88" />
+                    <GradientStop Color="#D97B6B" Offset="1.0" />
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+
+        <!-- Ambient Orb -->
+        <Border HorizontalOptions="End" VerticalOptions="Center"
+                TranslationX="100" TranslationY="50"
+                HeightRequest="300" WidthRequest="300"
+                StrokeThickness="0" Stroke="Transparent" InputTransparent="True">
+            <Border.StrokeShape><RoundRectangle CornerRadius="150" /></Border.StrokeShape>
+            <Border.Background>
+                <RadialGradientBrush Center="0.5,0.5" Radius="0.5">
+                    <GradientStop Color="#355B9FE6" Offset="0" />
+                    <GradientStop Color="#105B9FE6" Offset="0.6" />
+                    <GradientStop Color="Transparent" Offset="1" />
+                </RadialGradientBrush>
+            </Border.Background>
+        </Border>
+
         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
                            HorizontalOptions="Center" VerticalOptions="Center"
-                           Color="{StaticResource Primary}" />
+                           Color="{StaticResource Primary}" ZIndex="99" />
     <ScrollView>
         <VerticalStackLayout x:Name="MainContent" Spacing="0">
 
@@ -25,13 +53,16 @@
                 </Border.Background>
                 <VerticalStackLayout Spacing="12" Padding="0,50,0,0">
                     <!-- Back button -->
-                    <HorizontalStackLayout Spacing="6">
-                        <HorizontalStackLayout.GestureRecognizers>
+                    <Border BackgroundColor="#33FFFFFF" StrokeShape="RoundRectangle 12" StrokeThickness="0"
+                            Padding="10,6" HorizontalOptions="Start">
+                        <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding GoBackCommand}" />
-                        </HorizontalStackLayout.GestureRecognizers>
-                        <Label Text="←" FontSize="20" TextColor="White" VerticalOptions="Center" />
-                        <Label Text="Back" FontSize="15" TextColor="White" Opacity="0.8" VerticalOptions="Center" />
-                    </HorizontalStackLayout>
+                        </Border.GestureRecognizers>
+                        <HorizontalStackLayout Spacing="6">
+                            <Label Text="←" FontSize="18" TextColor="White" VerticalOptions="Center" />
+                            <Label Text="Back" FontSize="14" TextColor="White" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Border>
 
                     <!-- Path icon + title -->
                     <HorizontalStackLayout Spacing="14">
@@ -53,7 +84,11 @@
                             <Border BackgroundColor="#FFFFFF30" StrokeShape="RoundRectangle 3" Stroke="Transparent" />
                             <Border BackgroundColor="White" StrokeShape="RoundRectangle 3" Stroke="Transparent"
                                     HorizontalOptions="Start"
-                                    WidthRequest="{Binding OverallProgress, Converter={StaticResource ProgressToWidthConverter}, ConverterParameter=280}" />
+                                    WidthRequest="{Binding OverallProgress, Converter={StaticResource ProgressToWidthConverter}, ConverterParameter=280}">
+                                <Border.Shadow>
+                                    <Shadow Brush="White" Offset="0,0" Radius="6" Opacity="0.5" />
+                                </Border.Shadow>
+                            </Border>
                         </Grid>
                         <Label Grid.Column="1" Text="{Binding OverallProgressText}"
                                FontSize="13" TextColor="White" Opacity="0.9" VerticalOptions="Center" />
@@ -70,18 +105,15 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="vm:ModuleDisplayItem">
-                        <Border BackgroundColor="{StaticResource CardDark}"
-                                StrokeShape="RoundRectangle 16"
-                                Stroke="Transparent"
-                                Padding="16">
+                        <Border Style="{StaticResource GlassCard}">
                             <VerticalStackLayout Spacing="12">
                                 <!-- Module Header -->
                                 <Grid ColumnDefinitions="*,Auto">
-                                    <Label Text="{Binding Title}" FontSize="18" FontAttributes="Bold" />
+                                    <Label Text="{Binding Title}" FontSize="18" FontAttributes="Bold" TextColor="White" />
                                     <Label Grid.Column="1" Text="{Binding ProgressText}"
-                                           FontSize="14" Opacity="0.5" VerticalOptions="Center" />
+                                           FontSize="14" TextColor="{StaticResource Gray300}" VerticalOptions="Center" />
                                 </Grid>
-                                <Label Text="{Binding Description}" FontSize="12" Opacity="0.6" />
+                                <Label Text="{Binding Description}" FontSize="12" TextColor="{StaticResource Gray400}" />
 
                                 <!-- Lessons List -->
                                 <CollectionView ItemsSource="{Binding Lessons}" SelectionMode="None">
@@ -113,15 +145,19 @@
                                 </CollectionView>
 
                                 <!-- Quiz Button -->
-                                <Button Text="📝 Take Quiz"
+                                <Button Text="Take Quiz"
                                         IsVisible="{Binding HasQuiz}"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PathDetailViewModel}}, Path=StartQuizCommand}"
                                         CommandParameter="{Binding Id}"
                                         BackgroundColor="{StaticResource Secondary}"
                                         TextColor="White"
-                                        CornerRadius="10"
+                                        CornerRadius="14"
                                         FontAttributes="Bold"
-                                        HeightRequest="44" />
+                                        HeightRequest="44">
+                                    <Button.Shadow>
+                                        <Shadow Brush="{StaticResource Secondary}" Offset="0,4" Radius="12" Opacity="0.4" />
+                                    </Button.Shadow>
+                                </Button>
                             </VerticalStackLayout>
                         </Border>
                     </DataTemplate>

@@ -5,87 +5,152 @@
              x:Class="AlohaAI.Views.SettingsPage"
              x:DataType="vm:SettingsViewModel"
              Title="Settings"
-             BackgroundColor="{StaticResource Gray900}">
+             Shell.NavBarIsVisible="False">
+    <Grid>
+        <!-- Layer 0: Sunset Gradient Background -->
+        <BoxView InputTransparent="True">
+            <BoxView.Background>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="#0E0A1A" Offset="0.0" />
+                    <GradientStop Color="#1A0F33" Offset="0.3" />
+                    <GradientStop Color="#2D1B69" Offset="0.55" />
+                    <GradientStop Color="#5B4A8C" Offset="0.75" />
+                    <GradientStop Color="#8B5A7C" Offset="0.88" />
+                    <GradientStop Color="#D97B6B" Offset="1.0" />
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+
+        <!-- Ambient Orb -->
+        <Border HorizontalOptions="End" VerticalOptions="Center"
+                TranslationX="100"
+                HeightRequest="250" WidthRequest="250"
+                StrokeThickness="0" Stroke="Transparent" InputTransparent="True">
+            <Border.StrokeShape><RoundRectangle CornerRadius="125" /></Border.StrokeShape>
+            <Border.Background>
+                <RadialGradientBrush Center="0.5,0.5" Radius="0.5">
+                    <GradientStop Color="#40F5A623" Offset="0" />
+                    <GradientStop Color="#10F5A623" Offset="0.6" />
+                    <GradientStop Color="Transparent" Offset="1" />
+                </RadialGradientBrush>
+            </Border.Background>
+        </Border>
+
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="16">
+        <VerticalStackLayout Spacing="0">
 
-            <Label Text="Settings" FontSize="26" FontAttributes="Bold" Margin="0,0,0,8" />
-
-            <!-- Theme Toggle -->
-            <Border BackgroundColor="{StaticResource CardDark}"
-                    StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
-                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                    <Label Text="🌙" FontSize="20" VerticalOptions="Center" />
-                    <Label Grid.Column="1" Text="Dark Mode" FontSize="16" VerticalOptions="Center" />
-                    <Switch Grid.Column="2" IsToggled="{Binding IsDarkMode}" VerticalOptions="Center"
-                            OnColor="{StaticResource Primary}" />
+            <!-- Gradient Header -->
+            <Border StrokeShape="RoundRectangle 0,0,20,20" StrokeThickness="0">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#5B9FE6" Offset="0.0" />
+                        <GradientStop Color="#7B68AE" Offset="0.5" />
+                        <GradientStop Color="#2D1B69" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12" Padding="20,60,20,20">
+                    <Border BackgroundColor="#33FFFFFF" StrokeShape="RoundRectangle 12" StrokeThickness="0"
+                            Padding="8,6" VerticalOptions="Center">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                        </Border.GestureRecognizers>
+                        <Label Text="←" FontSize="18" TextColor="White" />
+                    </Border>
+                    <Label Grid.Column="1" Text="Settings" FontSize="24" FontAttributes="Bold"
+                           TextColor="White" VerticalOptions="Center" />
                 </Grid>
             </Border>
 
-            <!-- About Section -->
-            <Label Text="About" FontSize="20" FontAttributes="Bold" Margin="0,16,0,0" />
+            <VerticalStackLayout Padding="20,20,20,20" Spacing="16">
 
-            <Border BackgroundColor="{StaticResource CardDark}"
-                    StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
-                <VerticalStackLayout Spacing="12">
-                    <Grid ColumnDefinitions="*,Auto">
-                        <Label Text="Version" FontSize="14" />
-                        <Label Grid.Column="1" Text="1.0.0" FontSize="14" Opacity="0.6" />
+                <!-- Appearance Section -->
+                <Label Text="Appearance" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource Gray300}" />
+
+                <Border Style="{StaticResource GlassCard}" Padding="16">
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                        <Image Source="icon_clock.png" WidthRequest="22" HeightRequest="22" VerticalOptions="Center" />
+                        <Label Grid.Column="1" Text="Dark Mode" FontSize="16" TextColor="White" VerticalOptions="Center" />
+                        <Switch Grid.Column="2" IsToggled="{Binding IsDarkMode}" VerticalOptions="Center"
+                                OnColor="{StaticResource Primary}" />
                     </Grid>
-                    <BoxView HeightRequest="1" Color="{StaticResource Gray700}" />
-                    <Grid ColumnDefinitions="*,Auto">
-                        <Label Text="Framework" FontSize="14" />
-                        <Label Grid.Column="1" Text=".NET MAUI" FontSize="14" Opacity="0.6" />
-                    </Grid>
-                    <BoxView HeightRequest="1" Color="{StaticResource Gray700}" />
-                    <Grid ColumnDefinitions="*,Auto">
-                        <Label Text="License" FontSize="14" />
-                        <Label Grid.Column="1" Text="MIT" FontSize="14" Opacity="0.6" />
-                    </Grid>
+                </Border>
+
+                <!-- About Section -->
+                <Label Text="About" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource Gray300}" Margin="0,8,0,0" />
+
+                <Border Style="{StaticResource GlassCard}" Padding="16">
+                    <VerticalStackLayout Spacing="12">
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                            <Image Source="icon_applogo.png" WidthRequest="22" HeightRequest="22" VerticalOptions="Center" />
+                            <Label Grid.Column="1" Text="Version" FontSize="15" TextColor="White" VerticalOptions="Center" />
+                            <Label Grid.Column="2" Text="1.0.0" FontSize="15" TextColor="{StaticResource Gray300}" VerticalOptions="Center" />
+                        </Grid>
+                        <BoxView HeightRequest="0.5" Color="#20FFFFFF" />
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                            <Image Source="icon_rocket.png" WidthRequest="22" HeightRequest="22" VerticalOptions="Center" />
+                            <Label Grid.Column="1" Text="Framework" FontSize="15" TextColor="White" VerticalOptions="Center" />
+                            <Label Grid.Column="2" Text=".NET MAUI" FontSize="15" TextColor="{StaticResource Gray300}" VerticalOptions="Center" />
+                        </Grid>
+                        <BoxView HeightRequest="0.5" Color="#20FFFFFF" />
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                            <Image Source="icon_notebook.png" WidthRequest="22" HeightRequest="22" VerticalOptions="Center" />
+                            <Label Grid.Column="1" Text="License" FontSize="15" TextColor="White" VerticalOptions="Center" />
+                            <Label Grid.Column="2" Text="MIT" FontSize="15" TextColor="{StaticResource Gray300}" VerticalOptions="Center" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Actions Section -->
+                <Label Text="Actions" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource Gray300}" Margin="0,8,0,0" />
+
+                <Border Style="{StaticResource GlassCard}" Padding="16">
+                    <VerticalStackLayout Spacing="12">
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OpenGitHubCommand}" />
+                            </Grid.GestureRecognizers>
+                            <Image Source="icon_books.png" WidthRequest="22" HeightRequest="22" VerticalOptions="Center" />
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label Text="GitHub Repository" FontSize="15" TextColor="White" />
+                                <Label Text="View source code &amp; contribute" FontSize="12" TextColor="{StaticResource Gray400}" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2" Text="→" FontSize="16" TextColor="{StaticResource Gray400}" VerticalOptions="Center" />
+                        </Grid>
+                        <BoxView HeightRequest="0.5" Color="#20FFFFFF" />
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowOnboardingCommand}" />
+                            </Grid.GestureRecognizers>
+                            <Image Source="icon_flowers.png" WidthRequest="22" HeightRequest="22" VerticalOptions="Center" />
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label Text="Show Welcome Screen" FontSize="15" TextColor="White" />
+                                <Label Text="View the onboarding experience again" FontSize="12" TextColor="{StaticResource Gray400}" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2" Text="→" FontSize="16" TextColor="{StaticResource Gray400}" VerticalOptions="Center" />
+                        </Grid>
+                        <BoxView HeightRequest="0.5" Color="#20FFFFFF" />
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ResetProgressCommand}" />
+                            </Grid.GestureRecognizers>
+                            <Image Source="icon_trophy.png" WidthRequest="22" HeightRequest="22" VerticalOptions="Center"
+                                   Opacity="0.6" />
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label Text="Reset Progress" FontSize="15" TextColor="{StaticResource ErrorColor}" />
+                                <Label Text="Clear all lesson progress and streaks" FontSize="12" TextColor="{StaticResource Gray400}" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Footer -->
+                <VerticalStackLayout Spacing="4" HorizontalOptions="Center" Margin="0,16,0,20">
+                    <Label Text="AlohaAI" FontSize="13" FontAttributes="Bold" TextColor="{StaticResource Gray400}" HorizontalOptions="Center" />
+                    <Label Text="Open source • MIT License" FontSize="12" TextColor="{StaticResource Gray500}" HorizontalOptions="Center" />
                 </VerticalStackLayout>
-            </Border>
 
-            <!-- Data -->
-            <Label Text="Data" FontSize="20" FontAttributes="Bold" Margin="0,16,0,0" />
-
-            <Border BackgroundColor="{StaticResource CardDark}"
-                    StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
-                <VerticalStackLayout Spacing="12">
-                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
-                        <Grid.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OpenGitHubCommand}" />
-                        </Grid.GestureRecognizers>
-                        <Label Text="🔗" FontSize="18" VerticalOptions="Center" />
-                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
-                            <Label Text="GitHub Repository" FontSize="14" />
-                            <Label Text="View source code &amp; contribute" FontSize="12" Opacity="0.5" />
-                        </VerticalStackLayout>
-                    </Grid>
-                    <BoxView HeightRequest="0.5" Color="{StaticResource Gray700}" />
-                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
-                        <Grid.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding ShowOnboardingCommand}" />
-                        </Grid.GestureRecognizers>
-                        <Label Text="🌺" FontSize="18" VerticalOptions="Center" />
-                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
-                            <Label Text="Show Welcome Screen" FontSize="14" />
-                            <Label Text="View the onboarding experience again" FontSize="12" Opacity="0.5" />
-                        </VerticalStackLayout>
-                    </Grid>
-                    <BoxView HeightRequest="0.5" Color="{StaticResource Gray700}" />
-                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
-                        <Grid.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding ResetProgressCommand}" />
-                        </Grid.GestureRecognizers>
-                        <Label Text="🗑️" FontSize="18" VerticalOptions="Center" />
-                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
-                            <Label Text="Reset Progress" FontSize="14" TextColor="{StaticResource ErrorColor}" />
-                            <Label Text="Clear all lesson progress and streaks" FontSize="12" Opacity="0.5" />
-                        </VerticalStackLayout>
-                    </Grid>
-                </VerticalStackLayout>
-            </Border>
-
+            </VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
+    </Grid>
 </ContentPage>

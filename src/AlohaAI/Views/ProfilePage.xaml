@@ -5,12 +5,40 @@
              x:Class="AlohaAI.Views.ProfilePage"
              x:DataType="vm:ProfileViewModel"
              Title="Profile"
-             Shell.NavBarIsVisible="False"
-             BackgroundColor="{StaticResource Gray900}">
+             Shell.NavBarIsVisible="False">
     <Grid>
+        <!-- Layer 0: Sunset Gradient Background -->
+        <BoxView InputTransparent="True">
+            <BoxView.Background>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="#0E0A1A" Offset="0.0" />
+                    <GradientStop Color="#1A0F33" Offset="0.3" />
+                    <GradientStop Color="#2D1B69" Offset="0.55" />
+                    <GradientStop Color="#5B4A8C" Offset="0.75" />
+                    <GradientStop Color="#8B5A7C" Offset="0.88" />
+                    <GradientStop Color="#D97B6B" Offset="1.0" />
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+
+        <!-- Ambient Orbs -->
+        <Border HorizontalOptions="Start" VerticalOptions="Center"
+                TranslationX="-120" TranslationY="100"
+                HeightRequest="300" WidthRequest="300"
+                StrokeThickness="0" Stroke="Transparent" InputTransparent="True">
+            <Border.StrokeShape><RoundRectangle CornerRadius="150" /></Border.StrokeShape>
+            <Border.Background>
+                <RadialGradientBrush Center="0.5,0.5" Radius="0.5">
+                    <GradientStop Color="#45E88BBF" Offset="0" />
+                    <GradientStop Color="#10E88BBF" Offset="0.6" />
+                    <GradientStop Color="Transparent" Offset="1" />
+                </RadialGradientBrush>
+            </Border.Background>
+        </Border>
+
         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
                            HorizontalOptions="Center" VerticalOptions="Center"
-                           Color="{StaticResource Primary}" />
+                           Color="{StaticResource Primary}" ZIndex="99" />
     <ScrollView>
         <VerticalStackLayout x:Name="MainContent" Spacing="0">
 
@@ -93,9 +121,7 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="vm:AchievementItem">
-                            <Border BackgroundColor="{StaticResource CardDark}"
-                                    StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="10"
-                                    HeightRequest="110">
+                            <Border Style="{StaticResource GlassCard}" Padding="10" HeightRequest="110">
                                 <VerticalStackLayout Spacing="6" VerticalOptions="Center" HorizontalOptions="Center">
                                     <Image Source="{Binding Icon}" WidthRequest="32" HeightRequest="32"
                                            Opacity="{Binding IconOpacity}" HorizontalOptions="Center" />
@@ -119,23 +145,26 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="vm:PathProgressItem">
-                            <Border BackgroundColor="{StaticResource CardDark}"
-                                    StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
+                            <Border Style="{StaticResource GlassCard}" Padding="16">
                                 <VerticalStackLayout Spacing="8">
                                     <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
                                         <Image Source="{Binding IconImage}" WidthRequest="28" HeightRequest="28" VerticalOptions="Center" />
                                         <Label Grid.Column="1" Text="{Binding Title}" FontSize="15"
                                                FontAttributes="Bold" TextColor="White" VerticalOptions="Center" />
                                         <Label Grid.Column="2" Text="{Binding ProgressText}" FontSize="13"
-                                               TextColor="{StaticResource Gray400}" VerticalOptions="Center" />
+                                               TextColor="{StaticResource Gray300}" VerticalOptions="Center" />
                                     </Grid>
                                     <Grid HeightRequest="6">
-                                        <Border BackgroundColor="{StaticResource Gray700}"
+                                        <Border BackgroundColor="#20FFFFFF"
                                                 StrokeShape="RoundRectangle 3" Stroke="Transparent" />
                                         <Border BackgroundColor="{Binding BarColor}"
                                                 StrokeShape="RoundRectangle 3" Stroke="Transparent"
                                                 HorizontalOptions="Start"
-                                                WidthRequest="{Binding Progress, Converter={StaticResource ProgressToWidthConverter}, ConverterParameter=300}" />
+                                                WidthRequest="{Binding Progress, Converter={StaticResource ProgressToWidthConverter}, ConverterParameter=300}">
+                                            <Border.Shadow>
+                                                <Shadow Brush="{Binding BarColor}" Offset="0,0" Radius="6" Opacity="0.6" />
+                                            </Border.Shadow>
+                                        </Border>
                                     </Grid>
                                 </VerticalStackLayout>
                             </Border>
@@ -144,15 +173,14 @@
                 </CollectionView>
 
                 <!-- Settings Link -->
-                <Border BackgroundColor="{StaticResource CardDark}"
-                        StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
+                <Border Style="{StaticResource GlassCard}" Padding="16">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OpenSettingsCommand}" />
                     </Border.GestureRecognizers>
                     <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                        <Label Text="⚙️" FontSize="20" VerticalOptions="Center" />
+                        <Image Source="icon_explore.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" />
                         <Label Grid.Column="1" Text="Settings" FontSize="16" TextColor="White" VerticalOptions="Center" />
-                        <Label Grid.Column="2" Text="→" FontSize="16" TextColor="{StaticResource Gray500}" VerticalOptions="Center" />
+                        <Label Grid.Column="2" Text="→" FontSize="16" TextColor="{StaticResource Gray400}" VerticalOptions="Center" />
                     </Grid>
                 </Border>
 

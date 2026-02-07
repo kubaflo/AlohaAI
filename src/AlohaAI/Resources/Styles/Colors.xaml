@@ -52,6 +52,13 @@
     <Color x:Key="CodeBlockDark">#0E0A1A</Color>
     <Color x:Key="CodeBlockLight">#F0EDF4</Color>
 
+    <!-- Glassmorphism & Ambient -->
+    <Color x:Key="GlassSurface">#40231E30</Color> <!-- Semi-transparent dark -->
+    <Color x:Key="GlassBorder">#33FFFFFF</Color>   <!-- Subtle highlight -->
+    <Color x:Key="AmbientBlue">#5B9FE6</Color>
+    <Color x:Key="AmbientPurple">#7B68AE</Color>
+    <Color x:Key="AmbientPink">#E88BBF</Color>
+
     <!-- Brushes -->
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
