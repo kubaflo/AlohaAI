@@ -29,35 +29,34 @@
         <VerticalStackLayout x:Name="MainContent" Spacing="0">
 
             <!-- Header: Logo + Settings -->
-            <Grid Padding="24,70,24,0" ColumnDefinitions="*,Auto">
-                <VerticalStackLayout Spacing="2">
-                    <Image Source="mascot.png" WidthRequest="92" HeightRequest="92"
-                           HorizontalOptions="Start" Margin="0,0,0,6" />
-                    <Image Source="icon_logotext.png" WidthRequest="240" HeightRequest="60"
-                           Aspect="AspectFit" HorizontalOptions="Start" />
-                </VerticalStackLayout>
-                <Image Grid.Column="1" Source="icon_gem.png" WidthRequest="34" HeightRequest="34"
-                       VerticalOptions="Start" Margin="0,10,0,0" Opacity="0.85" />
+            <Grid Padding="24,60,24,0" ColumnDefinitions="*,Auto">
+                <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                    <Image Source="mascot.png" WidthRequest="44" HeightRequest="44" />
+                    <Image Source="icon_logotext.png" WidthRequest="140" HeightRequest="36"
+                           Aspect="AspectFit" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+                <Image Grid.Column="1" Source="icon_gem.png" WidthRequest="30" HeightRequest="30"
+                       VerticalOptions="Center" Opacity="0.85" />
             </Grid>
 
             <!-- Welcome text -->
             <Label Text="Aloha! Welcome back!"
-                   FontSize="22"
+                   FontSize="20"
                    FontFamily="OpenSansSemibold"
                    TextColor="White"
-                   Padding="24,12,24,20" />
+                   Padding="24,8,24,14" />
 
             <!-- Learning Paths as rich cards -->
-            <VerticalStackLayout Padding="16,0,16,120" Spacing="14">
+            <VerticalStackLayout Padding="16,0,16,100" Spacing="12">
                 <CollectionView ItemsSource="{Binding PathItems}" SelectionMode="None">
                     <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="14" />
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="vm:HomePathItem">
-                            <Border StrokeShape="RoundRectangle 20" StrokeThickness="1" Padding="18,16">
+                            <Border StrokeShape="RoundRectangle 18" StrokeThickness="1" Padding="16,14">
                                 <Border.BackgroundColor>
-                                    <Color>#99201530</Color>
+                                    <Color>#CC1A1030</Color>
                                 </Border.BackgroundColor>
                                 <Border.Stroke>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -73,28 +72,30 @@
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=NavigateToPathCommand}"
                                         CommandParameter="{Binding Id}" />
                                 </Border.GestureRecognizers>
-                                <VerticalStackLayout Spacing="12">
+                                <VerticalStackLayout Spacing="10">
                                     <!-- Row 1: Icon + Title + Trophy Score -->
-                                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14">
-                                        <Border BackgroundColor="{Binding Color}" StrokeShape="RoundRectangle 36"
-                                                Stroke="Transparent" WidthRequest="72" HeightRequest="72">
+                                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                        <Border BackgroundColor="{Binding Color}" StrokeShape="RoundRectangle 28"
+                                                Stroke="Transparent" WidthRequest="56" HeightRequest="56">
                                             <Border.Shadow>
-                                                <Shadow Brush="{Binding Color}" Offset="0,4" Radius="14" Opacity="0.6" />
+                                                <Shadow Brush="{Binding Color}" Offset="0,3" Radius="16" Opacity="0.7" />
                                             </Border.Shadow>
-                                            <Image Source="{Binding IconImage}" WidthRequest="48" HeightRequest="48"
+                                            <Image Source="{Binding IconImage}" WidthRequest="32" HeightRequest="32"
                                                    HorizontalOptions="Center" VerticalOptions="Center" />
                                         </Border>
-                                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="3">
-                                            <Label Text="{Binding Title}" FontSize="20" FontAttributes="Bold"
+                                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                                            <Label Text="{Binding Title}" FontSize="17" FontAttributes="Bold"
                                                    FontFamily="OpenSansSemibold" TextColor="White" />
-                                            <Label Text="{Binding ProgressText}" FontSize="15"
+                                            <Label Text="{Binding Description}" FontSize="12"
+                                                   TextColor="#AAAAAA" MaxLines="2" LineBreakMode="TailTruncation" />
+                                            <Label Text="{Binding ProgressText}" FontSize="13"
                                                    TextColor="#BBBBBB" />
                                         </VerticalStackLayout>
-                                        <HorizontalStackLayout Grid.Column="2" VerticalOptions="Start" Spacing="4" Margin="0,4,0,0">
-                                            <Image Source="icon_trophy.png" WidthRequest="22" HeightRequest="22"
+                                        <HorizontalStackLayout Grid.Column="2" VerticalOptions="Start" Spacing="3" Margin="0,2,0,0">
+                                            <Image Source="icon_trophy.png" WidthRequest="18" HeightRequest="18"
                                                    VerticalOptions="Center" />
                                             <Label Text="{Binding CompletedLessons, StringFormat='{0}/{1}'}"
-                                                   FontSize="15" FontAttributes="Bold" TextColor="#FFD54F"
+                                                   FontSize="13" FontAttributes="Bold" TextColor="#FFD54F"
                                                    VerticalOptions="Center">
                                                 <Label.Text>
                                                     <MultiBinding StringFormat="{}{0}/{1}">
@@ -107,24 +108,24 @@
                                     </Grid>
 
                                     <!-- Row 2: Tags -->
-                                    <HorizontalStackLayout Spacing="8">
-                                        <Border BackgroundColor="#30FFD700" StrokeShape="RoundRectangle 8"
+                                    <HorizontalStackLayout Spacing="6">
+                                        <Border BackgroundColor="#30FFD700" StrokeShape="RoundRectangle 10"
                                                 Stroke="Transparent" Padding="10,4">
-                                            <Label Text="Course" FontSize="11" TextColor="#FFD700"
+                                            <Label Text="Course" FontSize="10" TextColor="#FFD700"
                                                    FontAttributes="Bold" />
                                         </Border>
-                                        <Border BackgroundColor="#305B8FD4" StrokeShape="RoundRectangle 8"
+                                        <Border BackgroundColor="#305B8FD4" StrokeShape="RoundRectangle 10"
                                                 Stroke="Transparent" Padding="10,4">
-                                            <Label Text="{Binding LevelTag}" FontSize="11" TextColor="#8BB8F4"
+                                            <Label Text="{Binding LevelTag}" FontSize="10" TextColor="#8BB8F4"
                                                    FontAttributes="Bold" />
                                         </Border>
                                     </HorizontalStackLayout>
 
                                     <!-- Row 3: Multi-segment progress bar -->
-                                    <Grid HeightRequest="6">
-                                        <Border BackgroundColor="#20FFFFFF" StrokeShape="RoundRectangle 3"
+                                    <Grid HeightRequest="8">
+                                        <Border BackgroundColor="#20FFFFFF" StrokeShape="RoundRectangle 4"
                                                 Stroke="Transparent" />
-                                        <Border StrokeShape="RoundRectangle 3" Stroke="Transparent"
+                                        <Border StrokeShape="RoundRectangle 4" Stroke="Transparent"
                                                 HorizontalOptions="Start"
                                                 WidthRequest="{Binding Progress, Converter={StaticResource ProgressToWidthConverter}, ConverterParameter=300}">
                                             <Border.Background>
@@ -142,7 +143,7 @@
                                     </Grid>
 
                                     <!-- Row 4: Continue hint -->
-                                    <Label Text="{Binding ContinueText}" FontSize="13" TextColor="#AAAAAA"
+                                    <Label Text="{Binding ContinueText}" FontSize="12" TextColor="#999999"
                                            MaxLines="1" LineBreakMode="TailTruncation"
                                            IsVisible="{Binding HasContinueText}" />
                                 </VerticalStackLayout>
