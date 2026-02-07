@@ -43,7 +43,8 @@
                     </CollectionView>
 
                     <!-- Explanation -->
-                    <Border IsVisible="{Binding ShowExplanation}"
+                    <Border x:Name="ExplanationCard"
+                            IsVisible="{Binding ShowExplanation}"
                             BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
                             StrokeShape="RoundRectangle 12"
                             Stroke="Transparent"
@@ -70,7 +71,8 @@
         </Grid>
 
         <!-- Results View -->
-        <VerticalStackLayout IsVisible="{Binding ShowResults}"
+        <VerticalStackLayout x:Name="ResultsView"
+                             IsVisible="{Binding ShowResults}"
                              Padding="20"
                              Spacing="20"
                              VerticalOptions="Center">

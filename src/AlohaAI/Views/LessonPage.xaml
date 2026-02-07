@@ -11,6 +11,20 @@
             <VerticalStackLayout x:Name="ContentArea" Padding="20" Spacing="12" />
         </ScrollView>
 
+        <!-- XP Earned Popup -->
+        <Border x:Name="XpPopup"
+                IsVisible="False"
+                Opacity="0"
+                BackgroundColor="{StaticResource XPColor}"
+                StrokeShape="RoundRectangle 20"
+                Stroke="Transparent"
+                Padding="20,12"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                ZIndex="10">
+            <Label x:Name="XpPopupLabel" Text="+25 XP" FontSize="28" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" />
+        </Border>
+
         <!-- Bottom Action Bar -->
         <Border Grid.Row="1"
                 BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"

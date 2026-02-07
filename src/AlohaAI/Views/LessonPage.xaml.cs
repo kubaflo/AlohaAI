@@ -38,5 +38,31 @@ public partial class LessonPage : ContentPage
                 }
             });
         }
+        else if (e.PropertyName == nameof(ViewModels.LessonViewModel.IsCompleted) && sender is ViewModels.LessonViewModel vm2 && vm2.IsCompleted)
+        {
+            MainThread.BeginInvokeOnMainThread(async () => await ShowXpPopupAsync(vm2.LessonXp));
+        }
+    }
+
+    private async Task ShowXpPopupAsync(int xp)
+    {
+        XpPopupLabel.Text = $"+{xp} XP";
+        XpPopup.IsVisible = true;
+        XpPopup.Opacity = 0;
+        XpPopup.Scale = 0.5;
+        XpPopup.TranslationY = 0;
+
+        await Task.WhenAll(
+            XpPopup.FadeToAsync(1, 300, Easing.CubicOut),
+            XpPopup.ScaleToAsync(1.2, 300, Easing.SpringOut));
+
+        await XpPopup.ScaleToAsync(1, 150, Easing.CubicIn);
+        await Task.Delay(800);
+
+        await Task.WhenAll(
+            XpPopup.FadeToAsync(0, 400, Easing.CubicIn),
+            XpPopup.TranslateToAsync(0, -60, 400, Easing.CubicIn));
+
+        XpPopup.IsVisible = false;
     }
 }

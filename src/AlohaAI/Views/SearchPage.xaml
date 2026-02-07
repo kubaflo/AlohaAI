@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AlohaAI.ViewModels"
+             x:Class="AlohaAI.Views.SearchPage"
+             x:DataType="vm:SearchViewModel"
+             Title="Search"
+             Shell.NavBarIsVisible="False">
+    <VerticalStackLayout Padding="20" Spacing="16">
+        <!-- Header -->
+        <Label Text="Search" FontSize="28" FontAttributes="Bold" Margin="0,20,0,0" />
+
+        <!-- Search Bar -->
+        <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                StrokeShape="RoundRectangle 12"
+                Stroke="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray700}}"
+                Padding="4,0">
+            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
+                <Label Text="🔍" FontSize="18" VerticalOptions="Center" Margin="12,0,0,0" />
+                <Entry Grid.Column="1"
+                       Placeholder="Search lessons..."
+                       Text="{Binding SearchQuery}"
+                       FontSize="16"
+                       ReturnType="Search" />
+                <Button Grid.Column="2"
+                        Text="✕"
+                        IsVisible="{Binding HasResults}"
+                        Command="{Binding ClearCommand}"
+                        BackgroundColor="Transparent"
+                        TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}"
+                        FontSize="16"
+                        Padding="8"
+                        WidthRequest="44" />
+            </Grid>
+        </Border>
+
+        <!-- Results -->
+        <CollectionView ItemsSource="{Binding Results}" SelectionMode="None" IsVisible="{Binding HasResults}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="8" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="vm:SearchResultItem">
+                    <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                            StrokeShape="RoundRectangle 12"
+                            Stroke="Transparent"
+                            Padding="16">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SearchViewModel}}, Path=SelectResultCommand}"
+                                CommandParameter="{Binding .}" />
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                            <Border BackgroundColor="{Binding PathColor}"
+                                    StrokeShape="RoundRectangle 8"
+                                    Stroke="Transparent"
+                                    WidthRequest="36" HeightRequest="36">
+                                <Label Text="📖" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                                <Label Text="{Binding LessonTitle}" FontSize="15" FontAttributes="Bold"
+                                       MaxLines="1" LineBreakMode="TailTruncation" />
+                                <Label Text="{Binding Subtitle}" FontSize="12" Opacity="0.5"
+                                       MaxLines="1" LineBreakMode="TailTruncation" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2" Text="{Binding Xp, StringFormat='+{0} XP'}"
+                                   FontSize="12" TextColor="{StaticResource XPColor}" VerticalOptions="Center" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Empty State -->
+        <VerticalStackLayout IsVisible="{Binding ShowEmpty}" Spacing="8" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,40,0,0">
+            <Label Text="🔎" FontSize="48" HorizontalOptions="Center" />
+            <Label Text="No results found" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
+            <Label Text="Try a different search term" FontSize="14" Opacity="0.5" HorizontalOptions="Center" />
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

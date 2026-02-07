@@ -5,8 +5,12 @@
              x:Class="AlohaAI.Views.PathDetailPage"
              x:DataType="vm:PathDetailViewModel"
              Title="{Binding Title}">
+    <Grid>
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
+                           HorizontalOptions="Center" VerticalOptions="Center"
+                           Color="{StaticResource Primary}" />
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="16">
+        <VerticalStackLayout x:Name="MainContent" Padding="20" Spacing="16">
 
             <!-- Path Header -->
             <VerticalStackLayout Spacing="4" Margin="0,0,0,8">
@@ -71,4 +75,5 @@
 
         </VerticalStackLayout>
     </ScrollView>
+    </Grid>
 </ContentPage>

@@ -6,8 +6,12 @@
              x:DataType="vm:PathsViewModel"
              Title="Learning Paths"
              Shell.NavBarIsVisible="False">
+    <Grid>
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
+                           HorizontalOptions="Center" VerticalOptions="Center"
+                           Color="{StaticResource Primary}" />
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="16">
+        <VerticalStackLayout x:Name="MainContent" Padding="20" Spacing="16">
             <Label Text="Learning Paths"
                    FontSize="28"
                    FontAttributes="Bold"
@@ -84,4 +88,5 @@
             </CollectionView>
         </VerticalStackLayout>
     </ScrollView>
+    </Grid>
 </ContentPage>

@@ -19,6 +19,11 @@
             ContentTemplate="{DataTemplate views:PathsPage}"
             Route="paths" />
         <ShellContent
+            Title="Search"
+            Icon="search.png"
+            ContentTemplate="{DataTemplate views:SearchPage}"
+            Route="search" />
+        <ShellContent
             Title="Profile"
             Icon="profile.png"
             ContentTemplate="{DataTemplate views:ProfilePage}"

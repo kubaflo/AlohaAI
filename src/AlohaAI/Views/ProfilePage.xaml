@@ -6,8 +6,12 @@
              x:DataType="vm:ProfileViewModel"
              Title="Profile"
              Shell.NavBarIsVisible="False">
+    <Grid>
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
+                           HorizontalOptions="Center" VerticalOptions="Center"
+                           Color="{StaticResource Primary}" />
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="20">
+        <VerticalStackLayout x:Name="MainContent" Padding="20" Spacing="20">
 
             <!-- Header -->
             <VerticalStackLayout Spacing="4" Margin="0,20,0,0" HorizontalOptions="Center">
@@ -84,4 +88,5 @@
 
         </VerticalStackLayout>
     </ScrollView>
+    </Grid>
 </ContentPage>
