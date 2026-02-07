@@ -54,9 +54,24 @@ public class LessonViewModel : BaseViewModel
         set => SetProperty(ref _lessonXp, value);
     }
 
+    private string _nextLessonTitle = string.Empty;
+    public string NextLessonTitle
+    {
+        get => _nextLessonTitle;
+        set => SetProperty(ref _nextLessonTitle, value);
+    }
+
+    private bool _hasNextLesson;
+    public bool HasNextLesson
+    {
+        get => _hasNextLesson;
+        set => SetProperty(ref _hasNextLesson, value);
+    }
+
     public ICommand LoadLessonCommand { get; }
     public ICommand MarkCompleteCommand { get; }
     public ICommand GoBackCommand { get; }
+    public ICommand NextLessonCommand { get; }
 
     public LessonViewModel(IContentService contentService, IProgressService progressService, IStreakService streakService)
     {
@@ -67,7 +82,11 @@ public class LessonViewModel : BaseViewModel
         LoadLessonCommand = new AsyncRelayCommand(LoadLessonAsync);
         MarkCompleteCommand = new AsyncRelayCommand(MarkCompleteAsync);
         GoBackCommand = new AsyncRelayCommand(async () => await Shell.Current.GoToAsync(".."));
+        NextLessonCommand = new AsyncRelayCommand(NavigateToNextLessonAsync);
     }
+
+    private string? _nextLessonId;
+    private string? _nextModuleId;
 
     private async Task LoadLessonAsync()
     {
@@ -87,6 +106,21 @@ public class LessonViewModel : BaseViewModel
             }
 
             IsCompleted = await _progressService.IsLessonCompletedAsync(PathId, ModuleId, LessonId);
+
+            // Find next lesson
+            HasNextLesson = false;
+            if (module != null)
+            {
+                var currentIndex = module.Lessons.FindIndex(l => l.Id == LessonId);
+                if (currentIndex >= 0 && currentIndex < module.Lessons.Count - 1)
+                {
+                    var next = module.Lessons[currentIndex + 1];
+                    _nextLessonId = next.Id;
+                    _nextModuleId = ModuleId;
+                    NextLessonTitle = next.Title;
+                    HasNextLesson = true;
+                }
+            }
         }
         catch (Exception ex)
         {
@@ -106,6 +140,15 @@ public class LessonViewModel : BaseViewModel
         HapticFeedback.Default.Perform(HapticFeedbackType.Click);
         // Delay to show XP popup animation before navigating back
         await Task.Delay(1800);
-        await Shell.Current.GoToAsync("..");
+        if (!HasNextLesson)
+            await Shell.Current.GoToAsync("..");
+    }
+
+    private async Task NavigateToNextLessonAsync()
+    {
+        if (_nextLessonId == null || _nextModuleId == null) return;
+        await Shell.Current.GoToAsync($"..?pathId={PathId}&moduleId={_nextModuleId}&lessonId={_nextLessonId}");
+        // Re-navigate to same route with new params
+        await Shell.Current.GoToAsync($"lesson?pathId={PathId}&moduleId={_nextModuleId}&lessonId={_nextLessonId}");
     }
 }

@@ -63,6 +63,17 @@
                     <BoxView HeightRequest="0.5" Color="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray700}}" />
                     <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
                         <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ShowOnboardingCommand}" />
+                        </Grid.GestureRecognizers>
+                        <Label Text="🌺" FontSize="18" VerticalOptions="Center" />
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                            <Label Text="Show Welcome Screen" FontSize="14" />
+                            <Label Text="View the onboarding experience again" FontSize="12" Opacity="0.5" />
+                        </VerticalStackLayout>
+                    </Grid>
+                    <BoxView HeightRequest="0.5" Color="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray700}}" />
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                        <Grid.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ResetProgressCommand}" />
                         </Grid.GestureRecognizers>
                         <Label Text="🗑️" FontSize="18" VerticalOptions="Center" />

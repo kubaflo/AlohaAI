@@ -30,31 +30,43 @@
                 BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
                 Stroke="Transparent"
                 Padding="20,12">
-            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
-                <VerticalStackLayout VerticalOptions="Center" Spacing="2">
-                    <Label Text="{Binding Title}" FontSize="14" FontAttributes="Bold" MaxLines="1" LineBreakMode="TailTruncation" />
-                    <Label Text="{Binding LessonXp, StringFormat='+{0} XP on completion'}"
-                           FontSize="12" TextColor="{StaticResource XPColor}" />
-                </VerticalStackLayout>
-                <Button Grid.Column="1"
-                        Command="{Binding MarkCompleteCommand}"
-                        IsEnabled="{Binding IsCompleted, Converter={StaticResource InvertedBoolConverter}}"
-                        BackgroundColor="{StaticResource Primary}"
-                        TextColor="White"
-                        CornerRadius="10"
-                        FontAttributes="Bold"
-                        Padding="20,0"
-                        HeightRequest="44">
-                    <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsCompleted}" Value="True">
-                            <Setter Property="Text" Value="✅ Done" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsCompleted}" Value="False">
-                            <Setter Property="Text" Value="Mark Complete" />
-                        </DataTrigger>
-                    </Button.Triggers>
-                </Button>
-            </Grid>
+            <VerticalStackLayout Spacing="8">
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                    <VerticalStackLayout VerticalOptions="Center" Spacing="2">
+                        <Label Text="{Binding Title}" FontSize="14" FontAttributes="Bold" MaxLines="1" LineBreakMode="TailTruncation" />
+                        <Label Text="{Binding LessonXp, StringFormat='+{0} XP on completion'}"
+                               FontSize="12" TextColor="{StaticResource XPColor}" />
+                    </VerticalStackLayout>
+                    <Button Grid.Column="1"
+                            Command="{Binding MarkCompleteCommand}"
+                            IsEnabled="{Binding IsCompleted, Converter={StaticResource InvertedBoolConverter}}"
+                            BackgroundColor="{StaticResource Primary}"
+                            TextColor="White"
+                            CornerRadius="10"
+                            FontAttributes="Bold"
+                            Padding="20,0"
+                            HeightRequest="44">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding IsCompleted}" Value="True">
+                                <Setter Property="Text" Value="✅ Done" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button" Binding="{Binding IsCompleted}" Value="False">
+                                <Setter Property="Text" Value="Mark Complete" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </Grid>
+
+                <!-- Next Lesson Button -->
+                <Button IsVisible="{Binding HasNextLesson}"
+                        Command="{Binding NextLessonCommand}"
+                        Text="{Binding NextLessonTitle, StringFormat='Next: {0} →'}"
+                        BackgroundColor="Transparent"
+                        TextColor="{StaticResource Primary}"
+                        FontSize="13"
+                        HeightRequest="36"
+                        Padding="0" />
+            </VerticalStackLayout>
         </Border>
     </Grid>
 </ContentPage>

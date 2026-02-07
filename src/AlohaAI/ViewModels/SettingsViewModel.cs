@@ -21,6 +21,7 @@ public class SettingsViewModel : BaseViewModel
     public ICommand GoBackCommand { get; }
     public ICommand ResetProgressCommand { get; }
     public ICommand OpenGitHubCommand { get; }
+    public ICommand ShowOnboardingCommand { get; }
 
     public SettingsViewModel(IProgressService progressService)
     {
@@ -34,6 +35,7 @@ public class SettingsViewModel : BaseViewModel
             try { await Browser.Default.OpenAsync("https://github.com/kubaflo/AlohaAI", BrowserLaunchMode.SystemPreferred); }
             catch { /* browser not available */ }
         });
+        ShowOnboardingCommand = new AsyncRelayCommand(ShowOnboardingAsync);
     }
 
     private async Task ResetProgressAsync()
@@ -49,6 +51,13 @@ public class SettingsViewModel : BaseViewModel
             await _progressService.ResetAllAsync();
             await Shell.Current.DisplayAlertAsync("Done", "All progress has been reset.", "OK");
         }
+    }
+
+    private async Task ShowOnboardingAsync()
+    {
+        await _progressService.SaveSettingAsync("onboarding_completed", "false");
+        if (Application.Current?.Windows.Count > 0)
+            Application.Current.Windows[0].Page = new Views.OnboardingPage(_progressService);
     }
 
     private void ApplyTheme()
