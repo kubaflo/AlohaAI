@@ -15,6 +15,9 @@ public class HomePathItem
     public int TotalLessons { get; set; }
     public double Progress { get; set; }
     public string ProgressText => $"{CompletedLessons}/{TotalLessons} Lessons";
+    public string LevelTag { get; set; } = "Beginner";
+    public string ContinueText { get; set; } = string.Empty;
+    public bool HasContinueText => !string.IsNullOrEmpty(ContinueText);
 }
 
 public class HomeViewModel : BaseViewModel
@@ -183,7 +186,15 @@ public class HomeViewModel : BaseViewModel
                     Color = Color.FromArgb(path.Color),
                     CompletedLessons = completedLessons,
                     TotalLessons = totalLessons,
-                    Progress = progress
+                    Progress = progress,
+                    LevelTag = path.Id switch
+                    {
+                        "agentic-ai" => "Intermediate",
+                        "ml-fundamentals" => "Beginner",
+                        "ai-in-practice" => "Intermediate",
+                        _ => "Beginner"
+                    },
+                    ContinueText = await GetContinueTextAsync(path.Id, modules)
                 });
             }
         }
@@ -195,5 +206,20 @@ public class HomeViewModel : BaseViewModel
         {
             IsBusy = false;
         }
+    }
+
+    private async Task<string> GetContinueTextAsync(string pathId, List<Models.Module> modules)
+    {
+        foreach (var module in modules)
+        {
+            foreach (var lesson in module.Lessons)
+            {
+                var lessonId = System.IO.Path.GetFileNameWithoutExtension(lesson.File);
+                var completed = await _progressService.IsLessonCompletedAsync(pathId, module.Id, lessonId);
+                if (!completed)
+                    return $"Continue \"{lesson.Title}\"";
+            }
+        }
+        return string.Empty;
     }
 }

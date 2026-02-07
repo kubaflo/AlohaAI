@@ -7,56 +7,19 @@
              x:DataType="vm:PathsViewModel"
              Title="Learning Paths"
              Shell.NavBarIsVisible="False"
-             ios:Page.SafeAreaEdges="None">
+             SafeAreaEdges="None">
     <Grid>
-        <!-- Layer 0: Sunset Gradient Background -->
-        <BoxView InputTransparent="True">
-            <BoxView.Background>
-                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                    <GradientStop Color="#080510" Offset="0.0" />
-                    <GradientStop Color="#1B0D3D" Offset="0.25" />
-                    <GradientStop Color="#3A1D7A" Offset="0.50" />
-                    <GradientStop Color="#6B3FA0" Offset="0.70" />
-                    <GradientStop Color="#B85A6A" Offset="0.85" />
-                    <GradientStop Color="#E8734F" Offset="1.0" />
-                </LinearGradientBrush>
-            </BoxView.Background>
-        </BoxView>
-
-        <!-- Layer 1: Ambient Orbs -->
-        <Border HorizontalOptions="End" VerticalOptions="Start"
-                TranslationX="60" TranslationY="100"
-                HeightRequest="300" WidthRequest="300"
-                StrokeThickness="0" Stroke="Transparent" InputTransparent="True">
-            <Border.StrokeShape><RoundRectangle CornerRadius="150" /></Border.StrokeShape>
-            <Border.Background>
-                <RadialGradientBrush Center="0.5,0.5" Radius="0.5">
-                    <GradientStop Color="#505B9FE6" Offset="0" />
-                    <GradientStop Color="#105B9FE6" Offset="0.6" />
-                    <GradientStop Color="Transparent" Offset="1" />
-                </RadialGradientBrush>
-            </Border.Background>
-        </Border>
-        <Border HorizontalOptions="Start" VerticalOptions="End"
-                TranslationX="-80" TranslationY="-100"
-                HeightRequest="250" WidthRequest="250"
-                StrokeThickness="0" Stroke="Transparent" InputTransparent="True">
-            <Border.StrokeShape><RoundRectangle CornerRadius="125" /></Border.StrokeShape>
-            <Border.Background>
-                <RadialGradientBrush Center="0.5,0.5" Radius="0.5">
-                    <GradientStop Color="#40F5A623" Offset="0" />
-                    <GradientStop Color="#10F5A623" Offset="0.6" />
-                    <GradientStop Color="Transparent" Offset="1" />
-                </RadialGradientBrush>
-            </Border.Background>
-        </Border>
+        <!-- Layer 0: Background Image -->
+        <Image Source="bg_sunset.png" Aspect="AspectFill" InputTransparent="True" />
+        <!-- Layer 1: Dark overlay for readability -->
+        <BoxView Color="#2A000000" InputTransparent="True" />
 
         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
                            HorizontalOptions="Center" VerticalOptions="Center"
                            Color="{StaticResource Primary}" ZIndex="99" />
 
     <ScrollView>
-        <VerticalStackLayout x:Name="MainContent" Padding="20,70,20,20" Spacing="16">
+        <VerticalStackLayout x:Name="MainContent" Padding="20,70,20,100" Spacing="16">
             <Label Text="Learning Paths"
                    FontSize="28"
                    FontAttributes="Bold"

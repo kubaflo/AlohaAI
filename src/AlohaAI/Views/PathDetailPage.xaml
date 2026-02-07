@@ -7,36 +7,12 @@
              x:DataType="vm:PathDetailViewModel"
              Title="{Binding Title}"
              Shell.NavBarIsVisible="False"
-             ios:Page.SafeAreaEdges="None">
+             SafeAreaEdges="None">
     <Grid>
-        <!-- Layer 0: Sunset Gradient Background -->
-        <BoxView InputTransparent="True">
-            <BoxView.Background>
-                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                    <GradientStop Color="#080510" Offset="0.0" />
-                    <GradientStop Color="#1B0D3D" Offset="0.25" />
-                    <GradientStop Color="#3A1D7A" Offset="0.50" />
-                    <GradientStop Color="#6B3FA0" Offset="0.70" />
-                    <GradientStop Color="#B85A6A" Offset="0.85" />
-                    <GradientStop Color="#E8734F" Offset="1.0" />
-                </LinearGradientBrush>
-            </BoxView.Background>
-        </BoxView>
-
-        <!-- Ambient Orb -->
-        <Border HorizontalOptions="End" VerticalOptions="Center"
-                TranslationX="100" TranslationY="50"
-                HeightRequest="300" WidthRequest="300"
-                StrokeThickness="0" Stroke="Transparent" InputTransparent="True">
-            <Border.StrokeShape><RoundRectangle CornerRadius="150" /></Border.StrokeShape>
-            <Border.Background>
-                <RadialGradientBrush Center="0.5,0.5" Radius="0.5">
-                    <GradientStop Color="#355B9FE6" Offset="0" />
-                    <GradientStop Color="#105B9FE6" Offset="0.6" />
-                    <GradientStop Color="Transparent" Offset="1" />
-                </RadialGradientBrush>
-            </Border.Background>
-        </Border>
+        <!-- Layer 0: Background Image -->
+        <Image Source="bg_sunset.png" Aspect="AspectFill" InputTransparent="True" />
+        <!-- Layer 1: Dark overlay for readability -->
+        <BoxView Color="#2A000000" InputTransparent="True" />
 
         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
                            HorizontalOptions="Center" VerticalOptions="Center"
@@ -48,9 +24,9 @@
             <Border StrokeShape="RoundRectangle 0,0,24,24" Stroke="Transparent" Padding="20,0,20,20">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="#5B9FE6" Offset="0.0" />
-                        <GradientStop Color="#7B68AE" Offset="0.45" />
-                        <GradientStop Color="#2D1B69" Offset="1.0" />
+                        <GradientStop Color="#805B9FE6" Offset="0.0" />
+                        <GradientStop Color="#807B68AE" Offset="0.45" />
+                        <GradientStop Color="#802D1B69" Offset="1.0" />
                     </LinearGradientBrush>
                 </Border.Background>
                 <VerticalStackLayout Spacing="12" Padding="0,70,0,0">
@@ -98,9 +74,7 @@
                 </VerticalStackLayout>
             </Border>
 
-            <VerticalStackLayout Padding="20,20,20,20" Spacing="16">
-
-            <!-- Modules -->
+            <VerticalStackLayout Padding="20,20,20,100" Spacing="16">
             <CollectionView ItemsSource="{Binding Modules}" SelectionMode="None">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical" ItemSpacing="16" />

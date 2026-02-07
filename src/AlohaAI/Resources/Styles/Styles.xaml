@@ -402,20 +402,20 @@
 
     <Style TargetType="Page" ApplyToDerivedTypes="True">
         <Setter Property="Padding" Value="0"/>
-        <Setter Property="BackgroundColor" Value="#080510" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
     </Style>
 
     <Style TargetType="Shell" ApplyToDerivedTypes="True">
-        <Setter Property="Shell.BackgroundColor" Value="#080510" />
+        <Setter Property="Shell.BackgroundColor" Value="Transparent" />
         <Setter Property="Shell.ForegroundColor" Value="White" />
         <Setter Property="Shell.TitleColor" Value="White" />
         <Setter Property="Shell.DisabledColor" Value="{StaticResource Gray600}" />
         <Setter Property="Shell.UnselectedColor" Value="{StaticResource Gray500}" />
         <Setter Property="Shell.NavBarHasShadow" Value="False" />
-        <Setter Property="Shell.TabBarBackgroundColor" Value="#080510" />
+        <Setter Property="Shell.TabBarBackgroundColor" Value="Transparent" />
         <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource Tertiary}" />
         <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource Tertiary}" />
-        <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource Gray500}" />
+        <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource Gray300}" />
     </Style>
 
     <Style TargetType="NavigationPage">
@@ -432,17 +432,17 @@
     </Style>
 
     <Style x:Key="GlassCard" TargetType="Border">
-        <Setter Property="BackgroundColor" Value="#45231E30" />
+        <Setter Property="BackgroundColor" Value="#96231E30" />
         <Setter Property="StrokeShape" Value="RoundRectangle 20" />
         <Setter Property="StrokeThickness" Value="1" />
         <Setter Property="Padding" Value="20" />
         <Setter Property="Stroke">
             <Setter.Value>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#50FFFFFF" Offset="0.0" />
-                    <GradientStop Color="#15FFFFFF" Offset="0.4" />
-                    <GradientStop Color="#08FFFFFF" Offset="0.7" />
-                    <GradientStop Color="#00FFFFFF" Offset="1.0" />
+                    <GradientStop Color="#65FFFFFF" Offset="0.0" />
+                    <GradientStop Color="#25FFFFFF" Offset="0.4" />
+                    <GradientStop Color="#10FFFFFF" Offset="0.7" />
+                    <GradientStop Color="#05FFFFFF" Offset="1.0" />
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>

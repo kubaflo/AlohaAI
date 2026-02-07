@@ -7,29 +7,20 @@
              x:DataType="vm:QuizViewModel"
              Title="Quiz"
              Shell.NavBarIsVisible="False"
-             ios:Page.SafeAreaEdges="None">
+             SafeAreaEdges="None">
     <Grid RowDefinitions="Auto,*">
-        <!-- Layer 0: Sunset Gradient Background -->
-        <BoxView Grid.RowSpan="2" InputTransparent="True">
-            <BoxView.Background>
-                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                    <GradientStop Color="#080510" Offset="0.0" />
-                    <GradientStop Color="#1B0D3D" Offset="0.25" />
-                    <GradientStop Color="#3A1D7A" Offset="0.50" />
-                    <GradientStop Color="#6B3FA0" Offset="0.70" />
-                    <GradientStop Color="#B85A6A" Offset="0.85" />
-                    <GradientStop Color="#E8734F" Offset="1.0" />
-                </LinearGradientBrush>
-            </BoxView.Background>
-        </BoxView>
+        <!-- Layer 0: Background Image -->
+        <Image Grid.RowSpan="2" Source="bg_sunset.png" Aspect="AspectFill" InputTransparent="True" />
+        <!-- Layer 1: Dark overlay for readability -->
+        <BoxView Grid.RowSpan="2" Color="#2A000000" InputTransparent="True" />
 
         <!-- Gradient Header -->
         <Border Grid.Row="0" StrokeThickness="0" StrokeShape="RoundRectangle 0,0,20,20">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#5B9FE6" Offset="0.0" />
-                    <GradientStop Color="#7B68AE" Offset="0.5" />
-                    <GradientStop Color="#2D1B69" Offset="1.0" />
+                    <GradientStop Color="#805B9FE6" Offset="0.0" />
+                    <GradientStop Color="#807B68AE" Offset="0.5" />
+                    <GradientStop Color="#802D1B69" Offset="1.0" />
                 </LinearGradientBrush>
             </Border.Background>
             <VerticalStackLayout Padding="20,70,20,20" Spacing="12">

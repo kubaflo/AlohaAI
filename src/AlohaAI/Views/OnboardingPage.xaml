@@ -5,7 +5,7 @@
              x:Class="AlohaAI.Views.OnboardingPage"
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="False"
-             ios:Page.SafeAreaEdges="None">
+             SafeAreaEdges="None">
     <Grid>
         <!-- Sunset Gradient Background -->
         <BoxView InputTransparent="True">

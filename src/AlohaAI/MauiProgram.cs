@@ -12,6 +12,12 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
+#if IOS
+			.ConfigureMauiHandlers(handlers =>
+			{
+				handlers.AddHandler<Shell, AlohaAI.Platforms.iOS.Handlers.TranslucentShellRenderer>();
+			})
+#endif
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

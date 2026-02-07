@@ -6,21 +6,12 @@
              x:Class="AlohaAI.Views.LessonPage"
              x:DataType="vm:LessonViewModel"
              Title="{Binding Title}"
-             ios:Page.SafeAreaEdges="None">
+             SafeAreaEdges="None">
     <Grid RowDefinitions="Auto,Auto,*,Auto">
-        <!-- Layer 0: Sunset Gradient Background spanning all rows -->
-        <BoxView Grid.RowSpan="4" InputTransparent="True">
-            <BoxView.Background>
-                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                    <GradientStop Color="#080510" Offset="0.0" />
-                    <GradientStop Color="#1B0D3D" Offset="0.25" />
-                    <GradientStop Color="#3A1D7A" Offset="0.50" />
-                    <GradientStop Color="#6B3FA0" Offset="0.70" />
-                    <GradientStop Color="#B85A6A" Offset="0.85" />
-                    <GradientStop Color="#E8734F" Offset="1.0" />
-                </LinearGradientBrush>
-            </BoxView.Background>
-        </BoxView>
+        <!-- Layer 0: Background Image spanning all rows -->
+        <Image Grid.RowSpan="4" Source="bg_sunset.png" Aspect="AspectFill" InputTransparent="True" />
+        <!-- Layer 1: Dark overlay for readability -->
+        <BoxView Grid.RowSpan="4" Color="#2A000000" InputTransparent="True" />
 
         <!-- Gradient accent top bar -->
         <Border HeightRequest="3" Stroke="Transparent">

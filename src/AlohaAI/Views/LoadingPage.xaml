@@ -4,10 +4,13 @@
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              x:Class="AlohaAI.Views.LoadingPage"
              Shell.NavBarIsVisible="False"
-             BackgroundColor="#2D1B69"
-             ios:Page.SafeAreaEdges="None">
-    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="16">
-        <Label Text="🌺" FontSize="48" HorizontalOptions="Center" />
-        <ActivityIndicator IsRunning="True" Color="White" />
-    </VerticalStackLayout>
+             SafeAreaEdges="None">
+    <Grid>
+        <Image Source="bg_sunset.png" Aspect="AspectFill" InputTransparent="True" />
+        <BoxView Color="#2A000000" InputTransparent="True" />
+        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="16">
+            <Image Source="icon_applogo.png" WidthRequest="96" HeightRequest="96" />
+            <ActivityIndicator IsRunning="True" Color="White" />
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>
