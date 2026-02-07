@@ -128,4 +128,11 @@ public class ProgressService : IProgressService
             .OrderByDescending(p => p.CompletedAt)
             .FirstOrDefaultAsync();
     }
+
+    public async Task ResetAllAsync()
+    {
+        var db = await GetDbAsync();
+        await db.DeleteAllAsync<UserProgress>();
+        await db.DeleteAllAsync<UserStreak>();
+    }
 }

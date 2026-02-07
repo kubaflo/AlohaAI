@@ -12,4 +12,5 @@ public interface IProgressService
     Task<int> GetTotalXpAsync();
     Task<double> GetPathProgressAsync(string pathId, int totalLessons);
     Task<UserProgress?> GetLastCompletedLessonAsync();
+    Task ResetAllAsync();
 }

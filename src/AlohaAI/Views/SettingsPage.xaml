@@ -44,6 +44,36 @@
                 </VerticalStackLayout>
             </Border>
 
+            <!-- Data -->
+            <Label Text="Data" FontSize="20" FontAttributes="Bold" Margin="0,16,0,0" />
+
+            <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                    StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
+                <VerticalStackLayout Spacing="12">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenGitHubCommand}" />
+                        </Grid.GestureRecognizers>
+                        <Label Text="🔗" FontSize="18" VerticalOptions="Center" />
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                            <Label Text="GitHub Repository" FontSize="14" />
+                            <Label Text="View source code &amp; contribute" FontSize="12" Opacity="0.5" />
+                        </VerticalStackLayout>
+                    </Grid>
+                    <BoxView HeightRequest="0.5" Color="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray700}}" />
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ResetProgressCommand}" />
+                        </Grid.GestureRecognizers>
+                        <Label Text="🗑️" FontSize="18" VerticalOptions="Center" />
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                            <Label Text="Reset Progress" FontSize="14" TextColor="{StaticResource ErrorColor}" />
+                            <Label Text="Clear all lesson progress and streaks" FontSize="12" Opacity="0.5" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

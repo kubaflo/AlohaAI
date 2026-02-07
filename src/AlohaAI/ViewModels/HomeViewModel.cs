@@ -51,9 +51,24 @@ public class HomeViewModel : BaseViewModel
         set => SetProperty(ref _hasContinue, value);
     }
 
+    private double _dailyProgress;
+    public double DailyProgress
+    {
+        get => _dailyProgress;
+        set => SetProperty(ref _dailyProgress, value);
+    }
+
+    private bool _dailyGoalMet;
+    public bool DailyGoalMet
+    {
+        get => _dailyGoalMet;
+        set => SetProperty(ref _dailyGoalMet, value);
+    }
+
     public ICommand LoadDataCommand { get; }
     public ICommand NavigateToPathsCommand { get; }
     public ICommand ContinueLearningCommand { get; }
+    public ICommand NavigateToPathCommand { get; }
 
     public HomeViewModel(IContentService contentService, IProgressService progressService, IStreakService streakService)
     {
@@ -64,6 +79,11 @@ public class HomeViewModel : BaseViewModel
 
         LoadDataCommand = new AsyncRelayCommand(LoadDataAsync);
         NavigateToPathsCommand = new AsyncRelayCommand(async () => await Shell.Current.GoToAsync("//paths"));
+        NavigateToPathCommand = new AsyncRelayCommand<string>(async pathId =>
+        {
+            if (!string.IsNullOrEmpty(pathId))
+                await Shell.Current.GoToAsync($"pathdetail?pathId={pathId}");
+        });
         ContinueLearningCommand = new AsyncRelayCommand(async () =>
         {
             if (!string.IsNullOrEmpty(ContinuePathId))
@@ -82,6 +102,8 @@ public class HomeViewModel : BaseViewModel
             CurrentStreak = await _streakService.GetCurrentStreakAsync();
             TotalXp = await _progressService.GetTotalXpAsync();
             TodayLessons = await _streakService.GetTodayLessonsCountAsync();
+            DailyProgress = Math.Min(1.0, TodayLessons / 3.0);
+            DailyGoalMet = TodayLessons >= 3;
 
             var lastLesson = await _progressService.GetLastCompletedLessonAsync();
             if (lastLesson != null)

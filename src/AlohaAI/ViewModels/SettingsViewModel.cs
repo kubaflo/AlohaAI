@@ -1,9 +1,12 @@
 using System.Windows.Input;
+using AlohaAI.Services;
 
 namespace AlohaAI.ViewModels;
 
 public class SettingsViewModel : BaseViewModel
 {
+    private readonly IProgressService _progressService;
+
     private bool _isDarkMode;
     public bool IsDarkMode
     {
@@ -16,12 +19,36 @@ public class SettingsViewModel : BaseViewModel
     }
 
     public ICommand GoBackCommand { get; }
+    public ICommand ResetProgressCommand { get; }
+    public ICommand OpenGitHubCommand { get; }
 
-    public SettingsViewModel()
+    public SettingsViewModel(IProgressService progressService)
     {
+        _progressService = progressService;
         Title = "Settings";
         _isDarkMode = Application.Current?.RequestedTheme == AppTheme.Dark;
         GoBackCommand = new AsyncRelayCommand(async () => await Shell.Current.GoToAsync(".."));
+        ResetProgressCommand = new AsyncRelayCommand(ResetProgressAsync);
+        OpenGitHubCommand = new AsyncRelayCommand(async () =>
+        {
+            try { await Browser.Default.OpenAsync("https://github.com/kubaflo/AlohaAI", BrowserLaunchMode.SystemPreferred); }
+            catch { /* browser not available */ }
+        });
+    }
+
+    private async Task ResetProgressAsync()
+    {
+        var confirmed = await Shell.Current.DisplayAlertAsync(
+            "Reset Progress",
+            "This will delete all your lesson progress, quiz scores, and streak data. This cannot be undone.",
+            "Reset",
+            "Cancel");
+
+        if (confirmed)
+        {
+            await _progressService.ResetAllAsync();
+            await Shell.Current.DisplayAlertAsync("Done", "All progress has been reset.", "OK");
+        }
     }
 
     private void ApplyTheme()
