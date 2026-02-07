@@ -59,7 +59,7 @@ AlohaAI is an open-source mobile learning app built with .NET MAUI that teaches 
 
 ```bash
 # Clone the repo
-git clone https://github.com/AlohaAI/AlohaAI.git
+git clone https://github.com/kubaflo/AlohaAI.git
 cd AlohaAI
 
 # Restore packages
