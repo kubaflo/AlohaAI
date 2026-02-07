@@ -88,12 +88,12 @@ public class ProfileViewModel : BaseViewModel
                 PathProgress.Add(new PathProgressItem
                 {
                     Title = path.Title,
-                    Icon = path.Id switch
+                    IconImage = path.Id switch
                     {
-                        "agentic-ai" => "🤖",
-                        "ml-fundamentals" => "🧠",
-                        "ai-in-practice" => "🚀",
-                        _ => "📘"
+                        "agentic-ai" => "icon_explore.png",
+                        "ml-fundamentals" => "icon_books.png",
+                        "ai-in-practice" => "icon_rocket.png",
+                        _ => "icon_books.png"
                     },
                     CompletedLessons = completedLessons,
                     TotalLessons = totalLessons,
@@ -118,7 +118,7 @@ public class ProfileViewModel : BaseViewModel
 public class PathProgressItem
 {
     public string Title { get; set; } = string.Empty;
-    public string Icon { get; set; } = "📘";
+    public string IconImage { get; set; } = "icon_books.png";
     public int CompletedLessons { get; set; }
     public int TotalLessons { get; set; }
     public double Progress { get; set; }

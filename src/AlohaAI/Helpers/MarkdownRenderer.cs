@@ -220,7 +220,7 @@ public static class MarkdownRenderer
             Content = new Label
             {
                 Text = code,
-                FontFamily = "OpenSansRegular",
+                FontFamily = "CascadiaMono",
                 FontSize = 13,
                 TextColor = Color.FromArgb("#E6EDF3"),
                 LineHeight = 1.5
@@ -360,6 +360,7 @@ public static class MarkdownRenderer
                     formatted.Spans.Add(new Span
                     {
                         Text = text[(i + 1)..end],
+                        FontFamily = "CascadiaMono",
                         BackgroundColor = isDark ? Color.FromArgb("#231E30") : Color.FromArgb("#E9ECEF"),
                         TextColor = isDark ? Color.FromArgb("#E6EDF3") : Color.FromArgb("#24292F"),
                         FontSize = 13

@@ -52,12 +52,12 @@ public class PathsViewModel : BaseViewModel
                     Title = path.Title,
                     Description = path.Description,
                     Color = Color.FromArgb(path.Color),
-                    IconEmoji = path.Id switch
+                    IconImage = path.Id switch
                     {
-                        "agentic-ai" => "🤖",
-                        "ml-fundamentals" => "🧠",
-                        "ai-in-practice" => "🚀",
-                        _ => "📘"
+                        "agentic-ai" => "icon_explore.png",
+                        "ml-fundamentals" => "icon_books.png",
+                        "ai-in-practice" => "icon_rocket.png",
+                        _ => "icon_books.png"
                     },
                     ModuleCount = path.ModuleCount,
                     EstimatedHours = path.EstimatedHours,
@@ -84,7 +84,7 @@ public class PathDisplayItem : BaseViewModel
     public new string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public Color Color { get; set; } = Colors.Blue;
-    public string IconEmoji { get; set; } = "🤖";
+    public string IconImage { get; set; } = "icon_books.png";
     public int ModuleCount { get; set; }
     public int EstimatedHours { get; set; }
     public double Progress { get; set; }

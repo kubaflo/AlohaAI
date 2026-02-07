@@ -9,7 +9,7 @@ public class HomePathItem
     public string Id { get; set; } = string.Empty;
     public string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
-    public string IconEmoji { get; set; } = "📘";
+    public string IconImage { get; set; } = "icon_books.png";
     public Color Color { get; set; } = Colors.Blue;
     public int CompletedLessons { get; set; }
     public int TotalLessons { get; set; }
@@ -173,12 +173,12 @@ public class HomeViewModel : BaseViewModel
                     Id = path.Id,
                     Title = path.Title,
                     Description = path.Description,
-                    IconEmoji = path.Id switch
+                    IconImage = path.Id switch
                     {
-                        "agentic-ai" => "🤖",
-                        "ml-fundamentals" => "🧠",
-                        "ai-in-practice" => "🚀",
-                        _ => "📘"
+                        "agentic-ai" => "icon_explore.png",
+                        "ml-fundamentals" => "icon_books.png",
+                        "ai-in-practice" => "icon_rocket.png",
+                        _ => "icon_books.png"
                     },
                     Color = Color.FromArgb(path.Color),
                     CompletedLessons = completedLessons,

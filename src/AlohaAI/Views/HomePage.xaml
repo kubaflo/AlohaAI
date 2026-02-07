@@ -24,10 +24,13 @@
                     </LinearGradientBrush>
                 </Border.Background>
                 <VerticalStackLayout Spacing="6" Padding="0,50,0,4">
-                    <Label Text="🌺 AlohaAI"
-                           FontSize="30"
-                           FontAttributes="Bold"
-                           TextColor="White" />
+                    <HorizontalStackLayout Spacing="10">
+                        <Image Source="icon_flowers.png" WidthRequest="32" HeightRequest="32" VerticalOptions="Center" />
+                        <Label Text="AlohaAI"
+                               FontSize="30"
+                               FontAttributes="Bold"
+                               TextColor="White" />
+                    </HorizontalStackLayout>
                     <Label Text="Aloha! Welcome back!"
                            FontSize="15"
                            TextColor="White"
@@ -36,17 +39,17 @@
                     <!-- Inline stats row -->
                     <Grid ColumnDefinitions="Auto,Auto,Auto" ColumnSpacing="20" Margin="0,14,0,0">
                         <HorizontalStackLayout Spacing="6">
-                            <Label Text="🔥" FontSize="16" VerticalOptions="Center" />
+                            <Image Source="icon_clock.png" WidthRequest="22" HeightRequest="22" VerticalOptions="Center" />
                             <Label Text="{Binding CurrentStreak}" FontSize="18" FontAttributes="Bold" TextColor="White" VerticalOptions="Center" />
                             <Label Text="streak" FontSize="12" TextColor="White" Opacity="0.7" VerticalOptions="Center" />
                         </HorizontalStackLayout>
                         <HorizontalStackLayout Grid.Column="1" Spacing="6">
-                            <Label Text="⭐" FontSize="16" VerticalOptions="Center" />
+                            <Image Source="icon_xp.png" WidthRequest="22" HeightRequest="22" VerticalOptions="Center" />
                             <Label Text="{Binding TotalXp}" FontSize="18" FontAttributes="Bold" TextColor="#FFD54F" VerticalOptions="Center" />
                             <Label Text="XP" FontSize="12" TextColor="White" Opacity="0.7" VerticalOptions="Center" />
                         </HorizontalStackLayout>
                         <HorizontalStackLayout Grid.Column="2" Spacing="6">
-                            <Label Text="📖" FontSize="16" VerticalOptions="Center" />
+                            <Image Source="icon_notebook.png" WidthRequest="22" HeightRequest="22" VerticalOptions="Center" />
                             <Label Text="{Binding TodayLessons}" FontSize="18" FontAttributes="Bold" TextColor="White" VerticalOptions="Center" />
                             <Label Text="today" FontSize="12" TextColor="White" Opacity="0.7" VerticalOptions="Center" />
                         </HorizontalStackLayout>
@@ -121,7 +124,8 @@
                                     <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
                                         <Border BackgroundColor="{Binding Color}" StrokeShape="RoundRectangle 10" Stroke="Transparent"
                                                 WidthRequest="42" HeightRequest="42">
-                                            <Label Text="{Binding IconEmoji}" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
+                                            <Image Source="{Binding IconImage}" WidthRequest="30" HeightRequest="30"
+                                                   HorizontalOptions="Center" VerticalOptions="Center" />
                                         </Border>
                                         <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
                                             <Label Text="{Binding Title}" FontSize="17" FontAttributes="Bold" TextColor="White" />
@@ -149,8 +153,9 @@
                 <!-- Daily Goal -->
                 <Border BackgroundColor="{StaticResource CardDark}"
                         StrokeShape="RoundRectangle 16" Stroke="Transparent" Padding="16">
-                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
-                        <VerticalStackLayout VerticalOptions="Center" Spacing="6">
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                        <Image Source="icon_trophy.png" WidthRequest="44" HeightRequest="44" VerticalOptions="Center" />
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="6">
                             <Label Text="Daily Goal" FontSize="16" FontAttributes="Bold" />
                             <Label FontSize="13" Opacity="0.6">
                                 <Label.Triggers>
@@ -171,7 +176,7 @@
                                         WidthRequest="{Binding DailyProgress, Converter={StaticResource ProgressToWidthConverter}, ConverterParameter=260}" />
                             </Grid>
                         </VerticalStackLayout>
-                        <Label Grid.Column="1" Text="{Binding TodayLessons, StringFormat='{0}/3'}"
+                        <Label Grid.Column="2" Text="{Binding TodayLessons, StringFormat='{0}/3'}"
                                FontSize="24" FontAttributes="Bold" VerticalOptions="Center"
                                TextColor="{StaticResource StreakColor}" />
                     </Grid>

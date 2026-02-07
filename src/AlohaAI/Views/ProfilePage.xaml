@@ -33,7 +33,8 @@
                                 StrokeThickness="2"
                                 WidthRequest="56" HeightRequest="56"
                                 BackgroundColor="#FFFFFF20">
-                            <Label Text="🌺" FontSize="26" HorizontalOptions="Center" VerticalOptions="Center" />
+                            <Image Source="icon_flowers.png" WidthRequest="40" HeightRequest="40"
+                                   HorizontalOptions="Center" VerticalOptions="Center" />
                         </Border>
                         <VerticalStackLayout VerticalOptions="Center" Spacing="2">
                             <Label Text="{Binding Level, StringFormat='Level {0}'}"
@@ -48,22 +49,34 @@
                         <VerticalStackLayout HorizontalOptions="Center" Spacing="2">
                             <Label Text="{Binding CurrentStreak}" FontSize="22" FontAttributes="Bold"
                                    TextColor="White" HorizontalOptions="Center" />
-                            <Label Text="🔥 Streak" FontSize="11" TextColor="#FFFFFFB0" HorizontalOptions="Center" />
+                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="3">
+                                <Image Source="icon_clock.png" WidthRequest="14" HeightRequest="14" VerticalOptions="Center" />
+                                <Label Text="Streak" FontSize="11" TextColor="#FFFFFFB0" />
+                            </HorizontalStackLayout>
                         </VerticalStackLayout>
                         <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="2">
                             <Label Text="{Binding BestStreak}" FontSize="22" FontAttributes="Bold"
                                    TextColor="White" HorizontalOptions="Center" />
-                            <Label Text="🏆 Best" FontSize="11" TextColor="#FFFFFFB0" HorizontalOptions="Center" />
+                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="3">
+                                <Image Source="icon_trophy.png" WidthRequest="14" HeightRequest="14" VerticalOptions="Center" />
+                                <Label Text="Best" FontSize="11" TextColor="#FFFFFFB0" />
+                            </HorizontalStackLayout>
                         </VerticalStackLayout>
                         <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="2">
                             <Label Text="{Binding LessonsCompleted}" FontSize="22" FontAttributes="Bold"
                                    TextColor="White" HorizontalOptions="Center" />
-                            <Label Text="📖 Lessons" FontSize="11" TextColor="#FFFFFFB0" HorizontalOptions="Center" />
+                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="3">
+                                <Image Source="icon_notebook.png" WidthRequest="14" HeightRequest="14" VerticalOptions="Center" />
+                                <Label Text="Lessons" FontSize="11" TextColor="#FFFFFFB0" />
+                            </HorizontalStackLayout>
                         </VerticalStackLayout>
                         <VerticalStackLayout Grid.Column="3" HorizontalOptions="Center" Spacing="2">
                             <Label Text="{Binding TotalXp}" FontSize="22" FontAttributes="Bold"
                                    TextColor="White" HorizontalOptions="Center" />
-                            <Label Text="⭐ XP" FontSize="11" TextColor="#FFFFFFB0" HorizontalOptions="Center" />
+                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="3">
+                                <Image Source="icon_xp.png" WidthRequest="14" HeightRequest="14" VerticalOptions="Center" />
+                                <Label Text="XP" FontSize="11" TextColor="#FFFFFFB0" />
+                            </HorizontalStackLayout>
                         </VerticalStackLayout>
                     </Grid>
                 </VerticalStackLayout>
@@ -84,7 +97,7 @@
                                     StrokeShape="RoundRectangle 12" Stroke="Transparent" Padding="16">
                                 <VerticalStackLayout Spacing="8">
                                     <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
-                                        <Label Text="{Binding Icon}" FontSize="20" VerticalOptions="Center" />
+                                        <Image Source="{Binding IconImage}" WidthRequest="28" HeightRequest="28" VerticalOptions="Center" />
                                         <Label Grid.Column="1" Text="{Binding Title}" FontSize="15"
                                                FontAttributes="Bold" TextColor="White" VerticalOptions="Center" />
                                         <Label Grid.Column="2" Text="{Binding ProgressText}" FontSize="13"
