@@ -32,6 +32,20 @@ public class PathDetailViewModel : BaseViewModel
         set => SetProperty(ref _pathColor, value);
     }
 
+    private double _overallProgress;
+    public double OverallProgress
+    {
+        get => _overallProgress;
+        set => SetProperty(ref _overallProgress, value);
+    }
+
+    private string _overallProgressText = "0%";
+    public string OverallProgressText
+    {
+        get => _overallProgressText;
+        set => SetProperty(ref _overallProgressText, value);
+    }
+
     public ObservableCollection<ModuleDisplayItem> Modules { get; } = [];
 
     public ICommand LoadDataCommand { get; }
@@ -102,6 +116,11 @@ public class PathDetailViewModel : BaseViewModel
                     HasQuiz = !string.IsNullOrEmpty(module.Quiz)
                 });
             }
+
+            var totalLessons = Modules.Sum(m => m.TotalCount);
+            var totalCompleted = Modules.Sum(m => m.CompletedCount);
+            OverallProgress = totalLessons > 0 ? (double)totalCompleted / totalLessons : 0;
+            OverallProgressText = $"{(int)(OverallProgress * 100)}% ({totalCompleted}/{totalLessons})";
         }
         catch (Exception ex)
         {
