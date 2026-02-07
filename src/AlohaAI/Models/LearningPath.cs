@@ -17,7 +17,7 @@ public class LearningPath
     public string Icon { get; set; } = string.Empty;
 
     [JsonPropertyName("color")]
-    public string Color { get; set; } = "#4A90D9";
+    public string Color { get; set; } = "#5B8FD4";
 
     [JsonPropertyName("moduleCount")]
     public int ModuleCount { get; set; }

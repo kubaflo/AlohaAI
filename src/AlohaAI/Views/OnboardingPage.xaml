@@ -3,8 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AlohaAI.Views.OnboardingPage"
              Shell.NavBarIsVisible="False"
-             Shell.TabBarIsVisible="False"
-             BackgroundColor="{StaticResource Primary}">
+             Shell.TabBarIsVisible="False">
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#5B9FE6" Offset="0.0" />
+            <GradientStop Color="#7B68AE" Offset="0.5" />
+            <GradientStop Color="#2D1B69" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
 
     <Grid RowDefinitions="*,Auto" Padding="32">
         <VerticalStackLayout VerticalOptions="Center" Spacing="24">
@@ -65,7 +71,7 @@
                 Text="Get Started →"
                 Clicked="OnGetStartedClicked"
                 BackgroundColor="White"
-                TextColor="{StaticResource Primary}"
+                TextColor="#5B8FD4"
                 FontSize="18"
                 FontAttributes="Bold"
                 CornerRadius="16"

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AlohaAI.Views.LoadingPage"
              Shell.NavBarIsVisible="False"
-             BackgroundColor="{StaticResource Primary}">
+             BackgroundColor="#2D1B69">
     <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="16">
         <Label Text="🌺" FontSize="48" HorizontalOptions="Center" />
         <ActivityIndicator IsRunning="True" Color="White" />

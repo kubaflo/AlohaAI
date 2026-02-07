@@ -134,6 +134,6 @@ public class SearchResultItem
     public string ModuleTitle { get; set; } = string.Empty;
     public string PathTitle { get; set; } = string.Empty;
     public int Xp { get; set; }
-    public string PathColor { get; set; } = "#4A90D9";
+    public string PathColor { get; set; } = "#5B8FD4";
     public string Subtitle => $"{PathTitle} → {ModuleTitle}";
 }

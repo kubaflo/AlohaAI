@@ -117,7 +117,7 @@
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding NavigateToPathCommand}" CommandParameter="agentic-ai" />
                         </Grid.GestureRecognizers>
-                        <Border BackgroundColor="#4A90D9" StrokeShape="RoundRectangle 8" Stroke="Transparent"
+                        <Border BackgroundColor="#5B8FD4" StrokeShape="RoundRectangle 8" Stroke="Transparent"
                                 WidthRequest="40" HeightRequest="40">
                             <Label Text="🤖" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
                         </Border>
@@ -132,7 +132,7 @@
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding NavigateToPathCommand}" CommandParameter="ml-fundamentals" />
                         </Grid.GestureRecognizers>
-                        <Border BackgroundColor="#2ECC71" StrokeShape="RoundRectangle 8" Stroke="Transparent"
+                        <Border BackgroundColor="#7B68AE" StrokeShape="RoundRectangle 8" Stroke="Transparent"
                                 WidthRequest="40" HeightRequest="40">
                             <Label Text="🧠" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
                         </Border>
@@ -147,7 +147,7 @@
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding NavigateToPathCommand}" CommandParameter="ai-in-practice" />
                         </Grid.GestureRecognizers>
-                        <Border BackgroundColor="#9B59B6" StrokeShape="RoundRectangle 8" Stroke="Transparent"
+                        <Border BackgroundColor="#E88BBF" StrokeShape="RoundRectangle 8" Stroke="Transparent"
                                 WidthRequest="40" HeightRequest="40">
                             <Label Text="🚀" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
                         </Border>

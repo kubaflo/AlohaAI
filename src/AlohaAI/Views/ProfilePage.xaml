@@ -15,11 +15,17 @@
 
             <!-- Header -->
             <VerticalStackLayout Spacing="4" Margin="0,20,0,0" HorizontalOptions="Center">
-                <Border BackgroundColor="{StaticResource Primary}"
-                        StrokeShape="RoundRectangle 30"
+                <Border StrokeShape="RoundRectangle 30"
                         Stroke="Transparent"
                         WidthRequest="60" HeightRequest="60"
                         HorizontalOptions="Center">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#5B9FE6" Offset="0.0" />
+                            <GradientStop Color="#7B68AE" Offset="0.5" />
+                            <GradientStop Color="#2D1B69" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Border.Background>
                     <Label Text="🌺" FontSize="28" HorizontalOptions="Center" VerticalOptions="Center" />
                 </Border>
                 <Label Text="{Binding Level, StringFormat='Level {0}'}"

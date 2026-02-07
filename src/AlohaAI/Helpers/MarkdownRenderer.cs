@@ -134,7 +134,7 @@ public static class MarkdownRenderer
             FontSize = 15,
             LineHeight = 1.5,
             TextColor = Application.Current?.RequestedTheme == AppTheme.Dark
-                ? Color.FromArgb("#DEE2E6") : Color.FromArgb("#343A40")
+                ? Color.FromArgb("#D6D0DC") : Color.FromArgb("#342D42")
         };
 
         label.FormattedText = ParseInlineFormatting(text);
@@ -158,7 +158,7 @@ public static class MarkdownRenderer
             FontSize = 15,
             VerticalOptions = LayoutOptions.Start,
             TextColor = Application.Current?.RequestedTheme == AppTheme.Dark
-                ? Color.FromArgb("#6BA3E0") : Color.FromArgb("#4A90D9")
+                ? Color.FromArgb("#7BA3DB") : Color.FromArgb("#5B8FD4")
         }, 0);
 
         var contentLabel = new Label
@@ -166,7 +166,7 @@ public static class MarkdownRenderer
             FontSize = 15,
             LineHeight = 1.5,
             TextColor = Application.Current?.RequestedTheme == AppTheme.Dark
-                ? Color.FromArgb("#DEE2E6") : Color.FromArgb("#343A40")
+                ? Color.FromArgb("#D6D0DC") : Color.FromArgb("#342D42")
         };
         contentLabel.FormattedText = ParseInlineFormatting(text);
         grid.Add(contentLabel, 1);
@@ -192,7 +192,7 @@ public static class MarkdownRenderer
             FontAttributes = FontAttributes.Bold,
             VerticalOptions = LayoutOptions.Start,
             TextColor = Application.Current?.RequestedTheme == AppTheme.Dark
-                ? Color.FromArgb("#6BA3E0") : Color.FromArgb("#4A90D9")
+                ? Color.FromArgb("#7BA3DB") : Color.FromArgb("#5B8FD4")
         }, 0);
 
         var contentLabel = new Label
@@ -200,7 +200,7 @@ public static class MarkdownRenderer
             FontSize = 15,
             LineHeight = 1.5,
             TextColor = Application.Current?.RequestedTheme == AppTheme.Dark
-                ? Color.FromArgb("#DEE2E6") : Color.FromArgb("#343A40")
+                ? Color.FromArgb("#D6D0DC") : Color.FromArgb("#342D42")
         };
         contentLabel.FormattedText = ParseInlineFormatting(text);
         grid.Add(contentLabel, 1);
@@ -215,7 +215,7 @@ public static class MarkdownRenderer
         {
             BackgroundColor = isDark ? Color.FromArgb("#0D1117") : Color.FromArgb("#F6F8FA"),
             StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle { CornerRadius = 8 },
-            Stroke = isDark ? Color.FromArgb("#23272B") : Color.FromArgb("#DEE2E6"),
+            Stroke = isDark ? Color.FromArgb("#231E30") : Color.FromArgb("#D6D0DC"),
             StrokeThickness = 1,
             Padding = new Thickness(16, 12),
             Content = new Label
@@ -264,7 +264,7 @@ public static class MarkdownRenderer
                     BackgroundColor = isHeader
                         ? (isDark ? Color.FromArgb("#1E2328") : Color.FromArgb("#E9ECEF"))
                         : Colors.Transparent,
-                    Stroke = isDark ? Color.FromArgb("#2D3136") : Color.FromArgb("#DEE2E6"),
+                    Stroke = isDark ? Color.FromArgb("#2D2538") : Color.FromArgb("#D6D0DC"),
                     StrokeThickness = 0.5,
                     Padding = new Thickness(10, 8),
                     Content = new Label
@@ -284,7 +284,7 @@ public static class MarkdownRenderer
         return new Border
         {
             StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle { CornerRadius = 8 },
-            Stroke = isDark ? Color.FromArgb("#2D3136") : Color.FromArgb("#DEE2E6"),
+            Stroke = isDark ? Color.FromArgb("#2D2538") : Color.FromArgb("#D6D0DC"),
             StrokeThickness = 1,
             Content = grid
         };
@@ -304,7 +304,7 @@ public static class MarkdownRenderer
 
         quoteGrid.Add(new BoxView
         {
-            Color = Color.FromArgb("#4A90D9"),
+            Color = Color.FromArgb("#5B8FD4"),
             WidthRequest = 4,
             VerticalOptions = LayoutOptions.Fill
         }, 0);
@@ -361,7 +361,7 @@ public static class MarkdownRenderer
                     formatted.Spans.Add(new Span
                     {
                         Text = text[(i + 1)..end],
-                        BackgroundColor = isDark ? Color.FromArgb("#23272B") : Color.FromArgb("#E9ECEF"),
+                        BackgroundColor = isDark ? Color.FromArgb("#231E30") : Color.FromArgb("#E9ECEF"),
                         TextColor = isDark ? Color.FromArgb("#E6EDF3") : Color.FromArgb("#24292F"),
                         FontSize = 13
                     });
