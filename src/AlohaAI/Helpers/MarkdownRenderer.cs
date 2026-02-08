@@ -6,7 +6,7 @@ namespace AlohaAI.Helpers;
 /// </summary>
 public static class MarkdownRenderer
 {
-    public static View Render(string markdown)
+    public static View Render(string markdown, bool darkMode = true)
     {
         var layout = new VerticalStackLayout { Spacing = 12 };
         if (string.IsNullOrWhiteSpace(markdown))
@@ -30,7 +30,7 @@ public static class MarkdownRenderer
                     i++;
                 }
                 i++; // skip closing ```
-                layout.Add(CreateCodeBlock(string.Join('\n', codeLines)));
+                layout.Add(CreateCodeBlock(string.Join('\n', codeLines), darkMode));
                 continue;
             }
 
@@ -46,7 +46,7 @@ public static class MarkdownRenderer
                         tableLines.Add(lines[i]);
                     i++;
                 }
-                layout.Add(CreateTable(tableLines));
+                layout.Add(CreateTable(tableLines, darkMode));
                 continue;
             }
 
@@ -60,19 +60,19 @@ public static class MarkdownRenderer
             // Headers
             if (line.StartsWith("### "))
             {
-                layout.Add(CreateHeader(line[4..], 18));
+                layout.Add(CreateHeader(line[4..], 18, darkMode));
                 i++;
                 continue;
             }
             if (line.StartsWith("## "))
             {
-                layout.Add(CreateHeader(line[3..], 22));
+                layout.Add(CreateHeader(line[3..], 22, darkMode));
                 i++;
                 continue;
             }
             if (line.StartsWith("# "))
             {
-                layout.Add(CreateHeader(line[2..], 26));
+                layout.Add(CreateHeader(line[2..], 26, darkMode));
                 i++;
                 continue;
             }
@@ -81,7 +81,7 @@ public static class MarkdownRenderer
             if (line.TrimStart().StartsWith("- ") || line.TrimStart().StartsWith("* "))
             {
                 var bulletText = line.TrimStart()[2..];
-                layout.Add(CreateBullet(bulletText));
+                layout.Add(CreateBullet(bulletText, darkMode));
                 i++;
                 continue;
             }
@@ -93,7 +93,7 @@ public static class MarkdownRenderer
             {
                 var num = trimmedForNum[..dotIdx];
                 var numText = trimmedForNum[(dotIdx + 2)..];
-                layout.Add(CreateNumberedItem(num, numText));
+                layout.Add(CreateNumberedItem(num, numText, darkMode));
                 i++;
                 continue;
             }
@@ -101,47 +101,45 @@ public static class MarkdownRenderer
             // Blockquote
             if (line.TrimStart().StartsWith("> "))
             {
-                layout.Add(CreateBlockquote(line.TrimStart()[2..]));
+                layout.Add(CreateBlockquote(line.TrimStart()[2..], darkMode));
                 i++;
                 continue;
             }
 
             // Regular paragraph
-            layout.Add(CreateParagraph(line));
+            layout.Add(CreateParagraph(line, darkMode));
             i++;
         }
 
         return layout;
     }
 
-    private static View CreateHeader(string text, int fontSize)
+    private static View CreateHeader(string text, int fontSize, bool darkMode)
     {
         return new Label
         {
             Text = text.Trim(),
             FontSize = fontSize,
             FontAttributes = FontAttributes.Bold,
-            TextColor = Application.Current?.RequestedTheme == AppTheme.Dark
-                ? Colors.White : Color.FromArgb("#1A1D21"),
+            TextColor = darkMode ? Colors.White : Color.FromArgb("#1A1D21"),
             Margin = new Thickness(0, 8, 0, 4)
         };
     }
 
-    private static View CreateParagraph(string text)
+    private static View CreateParagraph(string text, bool darkMode)
     {
         var label = new Label
         {
             FontSize = 15,
             LineHeight = 1.5,
-            TextColor = Application.Current?.RequestedTheme == AppTheme.Dark
-                ? Color.FromArgb("#D6D0DC") : Color.FromArgb("#342D42")
+            TextColor = darkMode ? Color.FromArgb("#D6D0DC") : Color.FromArgb("#342D42")
         };
 
-        label.FormattedText = ParseInlineFormatting(text);
+        label.FormattedText = ParseInlineFormatting(text, darkMode);
         return label;
     }
 
-    private static View CreateBullet(string text)
+    private static View CreateBullet(string text, bool darkMode)
     {
         var grid = new Grid
         {
@@ -157,24 +155,22 @@ public static class MarkdownRenderer
             Text = "•",
             FontSize = 15,
             VerticalOptions = LayoutOptions.Start,
-            TextColor = Application.Current?.RequestedTheme == AppTheme.Dark
-                ? Color.FromArgb("#7BA3DB") : Color.FromArgb("#5B8FD4")
+            TextColor = darkMode ? Color.FromArgb("#7BA3DB") : Color.FromArgb("#5B8FD4")
         }, 0);
 
         var contentLabel = new Label
         {
             FontSize = 15,
             LineHeight = 1.5,
-            TextColor = Application.Current?.RequestedTheme == AppTheme.Dark
-                ? Color.FromArgb("#D6D0DC") : Color.FromArgb("#342D42")
+            TextColor = darkMode ? Color.FromArgb("#D6D0DC") : Color.FromArgb("#342D42")
         };
-        contentLabel.FormattedText = ParseInlineFormatting(text);
+        contentLabel.FormattedText = ParseInlineFormatting(text, darkMode);
         grid.Add(contentLabel, 1);
 
         return grid;
     }
 
-    private static View CreateNumberedItem(string number, string text)
+    private static View CreateNumberedItem(string number, string text, bool darkMode)
     {
         var grid = new Grid
         {
@@ -191,30 +187,28 @@ public static class MarkdownRenderer
             FontSize = 15,
             FontAttributes = FontAttributes.Bold,
             VerticalOptions = LayoutOptions.Start,
-            TextColor = Application.Current?.RequestedTheme == AppTheme.Dark
-                ? Color.FromArgb("#7BA3DB") : Color.FromArgb("#5B8FD4")
+            TextColor = darkMode ? Color.FromArgb("#7BA3DB") : Color.FromArgb("#5B8FD4")
         }, 0);
 
         var contentLabel = new Label
         {
             FontSize = 15,
             LineHeight = 1.5,
-            TextColor = Application.Current?.RequestedTheme == AppTheme.Dark
-                ? Color.FromArgb("#D6D0DC") : Color.FromArgb("#342D42")
+            TextColor = darkMode ? Color.FromArgb("#D6D0DC") : Color.FromArgb("#342D42")
         };
-        contentLabel.FormattedText = ParseInlineFormatting(text);
+        contentLabel.FormattedText = ParseInlineFormatting(text, darkMode);
         grid.Add(contentLabel, 1);
 
         return grid;
     }
 
-    private static View CreateCodeBlock(string code)
+    private static View CreateCodeBlock(string code, bool darkMode)
     {
         return new Border
         {
-            BackgroundColor = Color.FromArgb("#0E0A1A"),
+            BackgroundColor = darkMode ? Color.FromArgb("#0E0A1A") : Color.FromArgb("#F0EDF5"),
             StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle { CornerRadius = 12 },
-            Stroke = Color.FromArgb("#2D2538"),
+            Stroke = darkMode ? Color.FromArgb("#2D2538") : Color.FromArgb("#D6D0DC"),
             StrokeThickness = 1,
             Padding = new Thickness(16, 12),
             Content = new Label
@@ -222,16 +216,14 @@ public static class MarkdownRenderer
                 Text = code,
                 FontFamily = "CascadiaMono",
                 FontSize = 13,
-                TextColor = Color.FromArgb("#E6EDF3"),
+                TextColor = darkMode ? Color.FromArgb("#E6EDF3") : Color.FromArgb("#24292F"),
                 LineHeight = 1.5
             }
         };
     }
 
-    private static View CreateTable(List<string> rows)
+    private static View CreateTable(List<string> rows, bool darkMode)
     {
-        var isDark = Application.Current?.RequestedTheme == AppTheme.Dark;
-
         var parsedRows = rows
             .Select(r => r.Trim().Trim('|').Split('|').Select(c => c.Trim()).ToArray())
             .Where(r => r.Length > 0 && !r.All(c => c.Replace("-", "").Replace(":", "").Trim().Length == 0))
@@ -261,9 +253,9 @@ public static class MarkdownRenderer
                 var cellBorder = new Border
                 {
                     BackgroundColor = isHeader
-                        ? (isDark ? Color.FromArgb("#1E2328") : Color.FromArgb("#E9ECEF"))
+                        ? (darkMode ? Color.FromArgb("#1E2328") : Color.FromArgb("#E9ECEF"))
                         : Colors.Transparent,
-                    Stroke = isDark ? Color.FromArgb("#2D2538") : Color.FromArgb("#D6D0DC"),
+                    Stroke = darkMode ? Color.FromArgb("#2D2538") : Color.FromArgb("#D6D0DC"),
                     StrokeThickness = 0.5,
                     Padding = new Thickness(10, 8),
                     Content = new Label
@@ -271,7 +263,7 @@ public static class MarkdownRenderer
                         Text = parsedRows[r][c],
                         FontSize = 13,
                         FontAttributes = isHeader ? FontAttributes.Bold : FontAttributes.None,
-                        TextColor = isDark ? Colors.White : Color.FromArgb("#212529")
+                        TextColor = darkMode ? Colors.White : Color.FromArgb("#212529")
                     }
                 };
                 grid.SetColumn(cellBorder, c);
@@ -283,15 +275,14 @@ public static class MarkdownRenderer
         return new Border
         {
             StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle { CornerRadius = 8 },
-            Stroke = isDark ? Color.FromArgb("#2D2538") : Color.FromArgb("#D6D0DC"),
+            Stroke = darkMode ? Color.FromArgb("#2D2538") : Color.FromArgb("#D6D0DC"),
             StrokeThickness = 1,
             Content = grid
         };
     }
 
-    private static View CreateBlockquote(string text)
+    private static View CreateBlockquote(string text, bool darkMode)
     {
-        var isDark = Application.Current?.RequestedTheme == AppTheme.Dark;
         var quoteGrid = new Grid
         {
             ColumnDefinitions =
@@ -312,13 +303,13 @@ public static class MarkdownRenderer
             Text = text,
             FontSize = 14,
             FontAttributes = FontAttributes.Italic,
-            TextColor = isDark ? Color.FromArgb("#ADB5BD") : Color.FromArgb("#6C757D"),
+            TextColor = darkMode ? Color.FromArgb("#ADB5BD") : Color.FromArgb("#6C757D"),
             Margin = new Thickness(12, 0, 0, 0)
         }, 1);
 
         return new Border
         {
-            BackgroundColor = isDark ? Color.FromArgb("#1A1D21") : Color.FromArgb("#F8F9FA"),
+            BackgroundColor = darkMode ? Color.FromArgb("#1A1D21") : Color.FromArgb("#F8F9FA"),
             StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle { CornerRadius = 4 },
             Stroke = Colors.Transparent,
             StrokeThickness = 0,
@@ -327,7 +318,7 @@ public static class MarkdownRenderer
         };
     }
 
-    private static FormattedString ParseInlineFormatting(string text)
+    private static FormattedString ParseInlineFormatting(string text, bool darkMode = true)
     {
         var formatted = new FormattedString();
         var i = 0;
@@ -356,13 +347,12 @@ public static class MarkdownRenderer
                 var end = text.IndexOf('`', i + 1);
                 if (end > 0)
                 {
-                    var isDark = Application.Current?.RequestedTheme == AppTheme.Dark;
                     formatted.Spans.Add(new Span
                     {
                         Text = text[(i + 1)..end],
                         FontFamily = "CascadiaMono",
-                        BackgroundColor = isDark ? Color.FromArgb("#231E30") : Color.FromArgb("#E9ECEF"),
-                        TextColor = isDark ? Color.FromArgb("#E6EDF3") : Color.FromArgb("#24292F"),
+                        BackgroundColor = darkMode ? Color.FromArgb("#231E30") : Color.FromArgb("#E9ECEF"),
+                        TextColor = darkMode ? Color.FromArgb("#E6EDF3") : Color.FromArgb("#24292F"),
                         FontSize = 13
                     });
                     i = end + 1;

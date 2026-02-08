@@ -22,7 +22,22 @@ public partial class LessonPage : ContentPage
                 {
                     try
                     {
-                        var rendered = MarkdownRenderer.Render(vm.MarkdownContent);
+                        // Strip first H1 if it matches the title to avoid duplication
+                        var content = vm.MarkdownContent;
+                        var lines = content.Split('\n');
+                        if (lines.Length > 0)
+                        {
+                            var firstLine = lines[0].Trim();
+                            if (firstLine.StartsWith("# "))
+                            {
+                                var h1Text = firstLine.Substring(2).Trim();
+                                if (string.Equals(h1Text, vm.Title, StringComparison.OrdinalIgnoreCase))
+                                {
+                                    content = string.Join('\n', lines.Skip(1));
+                                }
+                            }
+                        }
+                        var rendered = MarkdownRenderer.Render(content, darkMode: false);
                         ContentArea.Children.Add(rendered);
                     }
                     catch (Exception ex)
@@ -31,6 +46,7 @@ public partial class LessonPage : ContentPage
                         {
                             Text = vm.MarkdownContent,
                             FontSize = 15,
+                            TextColor = Color.FromArgb("#342D42"),
                             Padding = new Thickness(0, 8)
                         });
                         System.Diagnostics.Debug.WriteLine($"Markdown render error: {ex.Message}");
@@ -38,9 +54,40 @@ public partial class LessonPage : ContentPage
                 }
             });
         }
+        else if (e.PropertyName == nameof(ViewModels.LessonViewModel.Keywords) && sender is ViewModels.LessonViewModel vmk)
+        {
+            MainThread.BeginInvokeOnMainThread(() => PopulateKeywords(vmk.Keywords));
+        }
         else if (e.PropertyName == nameof(ViewModels.LessonViewModel.IsCompleted) && sender is ViewModels.LessonViewModel vm2 && vm2.IsCompleted)
         {
             MainThread.BeginInvokeOnMainThread(async () => await ShowXpPopupAsync(vm2.LessonXp));
+        }
+    }
+
+    private void PopulateKeywords(List<string> keywords)
+    {
+        KeywordsArea.Children.Clear();
+        var colors = new[] { "#5B8FD4", "#7B68AE", "#E88BBF", "#FFD54F", "#4CAF50" };
+        for (int i = 0; i < keywords.Count; i++)
+        {
+            var color = Color.FromArgb(colors[i % colors.Length]);
+            var chip = new Border
+            {
+                BackgroundColor = color.WithAlpha(0.15f),
+                StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle { CornerRadius = 10 },
+                Stroke = color.WithAlpha(0.3f),
+                StrokeThickness = 1,
+                Padding = new Thickness(12, 6),
+                Margin = new Thickness(0, 0, 6, 6),
+                Content = new Label
+                {
+                    Text = keywords[i],
+                    FontSize = 12,
+                    TextColor = color,
+                    FontAttributes = FontAttributes.Bold
+                }
+            };
+            KeywordsArea.Children.Add(chip);
         }
     }
 

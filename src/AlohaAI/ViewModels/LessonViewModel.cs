@@ -89,6 +89,34 @@ public class LessonViewModel : BaseViewModel
         set => SetProperty(ref _moduleTitle, value);
     }
 
+    private string _pathTitle = string.Empty;
+    public string PathTitle
+    {
+        get => _pathTitle;
+        set => SetProperty(ref _pathTitle, value);
+    }
+
+    private string _pathColor = "#5B8FD4";
+    public string PathColor
+    {
+        get => _pathColor;
+        set => SetProperty(ref _pathColor, value);
+    }
+
+    private List<string> _keywords = new();
+    public List<string> Keywords
+    {
+        get => _keywords;
+        set => SetProperty(ref _keywords, value);
+    }
+
+    private string _lessonDate = string.Empty;
+    public string LessonDate
+    {
+        get => _lessonDate;
+        set => SetProperty(ref _lessonDate, value);
+    }
+
     public ICommand LoadLessonCommand { get; }
     public ICommand MarkCompleteCommand { get; }
     public ICommand GoBackCommand { get; }
@@ -128,6 +156,14 @@ public class LessonViewModel : BaseViewModel
 
             IsCompleted = await _progressService.IsLessonCompletedAsync(PathId, ModuleId, LessonId);
 
+            // Load path info
+            var path = await _contentService.GetPathAsync(PathId);
+            if (path != null)
+            {
+                PathTitle = path.Title;
+                PathColor = path.Color;
+            }
+
             // Compute lesson position and progress
             if (module != null)
             {
@@ -141,6 +177,12 @@ public class LessonViewModel : BaseViewModel
                     LessonProgress = (double)position / total;
                 }
             }
+
+            // Extract keywords from markdown content
+            ExtractKeywords();
+
+            // Set lesson date
+            LessonDate = DateTime.Now.ToString("MMM dd, yyyy");
 
             // Find next lesson
             HasNextLesson = false;
@@ -165,6 +207,27 @@ public class LessonViewModel : BaseViewModel
         {
             IsBusy = false;
         }
+    }
+
+    private void ExtractKeywords()
+    {
+        if (string.IsNullOrEmpty(MarkdownContent))
+        {
+            Keywords = new List<string>();
+            return;
+        }
+
+        // Extract bold terms as keywords (up to 5)
+        var boldPattern = new System.Text.RegularExpressions.Regex(@"\*\*([^*]+)\*\*");
+        var matches = boldPattern.Matches(MarkdownContent);
+        var terms = matches
+            .Select(m => m.Groups[1].Value.Trim())
+            .Where(t => t.Length > 2 && t.Length < 30 && !t.Contains('\n'))
+            .Distinct()
+            .Take(5)
+            .ToList();
+
+        Keywords = terms.Count > 0 ? terms : new List<string> { Title };
     }
 
     private async Task MarkCompleteAsync()

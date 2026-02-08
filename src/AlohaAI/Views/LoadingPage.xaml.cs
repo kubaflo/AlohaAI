@@ -31,7 +31,9 @@ public partial class LoadingPage : ContentPage
             MainThread.BeginInvokeOnMainThread(() =>
             {
                 if (Application.Current?.Windows.Count > 0)
+                {
                     Application.Current.Windows[0].Page = new AppShell();
+                }
             });
         }
     }
