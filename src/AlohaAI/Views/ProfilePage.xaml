@@ -7,7 +7,7 @@
              Title="Profile"
              Shell.NavBarIsVisible="False"
              SafeAreaEdges="None">
-    <Grid>
+    <Grid SafeAreaEdges="None">
         <Image Source="bg_sunset.png" Aspect="AspectFill" InputTransparent="True" />
         <BoxView Color="#55000010" InputTransparent="True" />
 
@@ -21,20 +21,20 @@
             <Grid Padding="20,60,20,12" ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
                 <Border StrokeShape="RoundRectangle 20"
                         StrokeThickness="1" WidthRequest="40" HeightRequest="40"
-                        BackgroundColor="#20FFFFFF">
+                        BackgroundColor="#E81A1035">
                     <Border.Stroke>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                             <GradientStop Color="#40FFFFFF" Offset="0.0" />
                             <GradientStop Color="#10FFFFFF" Offset="1.0" />
                         </LinearGradientBrush>
                     </Border.Stroke>
-                    <Image Source="mascot.png" WidthRequest="32" HeightRequest="32"
+                    <Image Source="mascot.png" WidthRequest="40" HeightRequest="40"
                            HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFill" />
                 </Border>
                 <Label Grid.Column="1" Text="Profile" FontSize="24" FontAttributes="Bold"
                        TextColor="White" VerticalOptions="Center" />
                 <Border Grid.Column="2" StrokeShape="RoundRectangle 16"
-                        Stroke="Transparent" BackgroundColor="#20FFFFFF"
+                        Stroke="Transparent" BackgroundColor="#E81A1035"
                         WidthRequest="34" HeightRequest="34">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OpenSettingsCommand}" />
@@ -44,30 +44,16 @@
             </Grid>
 
             <!-- Level & Stats Card -->
-            <Border Margin="16,0,16,12" StrokeShape="RoundRectangle 20"
-                    StrokeThickness="1" Padding="20,16">
-                <Border.Stroke>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="#40FFFFFF" Offset="0.0" />
-                        <GradientStop Color="#10FFFFFF" Offset="0.5" />
-                        <GradientStop Color="#08FFFFFF" Offset="1.0" />
-                    </LinearGradientBrush>
-                </Border.Stroke>
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="#50231E30" Offset="0.0" />
-                        <GradientStop Color="#40181325" Offset="1.0" />
-                    </LinearGradientBrush>
-                </Border.Background>
+            <Border Margin="16,0,16,12" Style="{StaticResource GlassCard}" Padding="20,16">
                 <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
                     <Grid WidthRequest="64" HeightRequest="64">
                         <Border StrokeShape="RoundRectangle 32"
                                 Stroke="#FFD54F" StrokeThickness="3"
                                 BackgroundColor="#25FFD54F"
                                 WidthRequest="64" HeightRequest="64"
-                                HorizontalOptions="Center" VerticalOptions="Center" />
-                        <Label Text="{Binding Level}" FontSize="26" FontAttributes="Bold"
-                               TextColor="#FFD54F" HorizontalOptions="Center" VerticalOptions="Center" />
+                                HorizontalOptions="Center" VerticalOptions="Center">
+                            <Image Source="mascot.png" Aspect="AspectFill" />
+                        </Border>
                         <Label Text="Level" FontSize="9" TextColor="#FFFFFFA0"
                                HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,-14" />
                     </Grid>
@@ -86,45 +72,21 @@
                             <Label Text="Daily Goal" FontSize="12" TextColor="#FFFFFFA0" VerticalOptions="Center" />
                             <Label Text="{Binding DailyGoalFraction, StringFormat='{0:P0}'}" FontSize="12" TextColor="#FFD54F" VerticalOptions="Center" />
                         </HorizontalStackLayout>
-                        <HorizontalStackLayout Spacing="16">
-                            <HorizontalStackLayout Spacing="4">
-                                <Label Text="📚" FontSize="13" VerticalOptions="Center" />
-                                <Label Text="{Binding LessonsCompleted}" FontSize="14" FontAttributes="Bold" TextColor="White" VerticalOptions="Center" />
-                                <Label Text="Completed" FontSize="11" TextColor="#FFFFFFA0" VerticalOptions="Center" />
-                            </HorizontalStackLayout>
-                        </HorizontalStackLayout>
+
                     </VerticalStackLayout>
                 </Grid>
             </Border>
 
             <!-- Learning Paths Header -->
-            <Grid Padding="20,8,20,8" ColumnDefinitions="*,Auto">
-                <Label Text="Learning Paths" FontSize="18" FontAttributes="Bold" TextColor="White" VerticalOptions="Center" />
-                <HorizontalStackLayout Grid.Column="1" Spacing="4">
-                    <Label Text="{Binding LessonsCompleted}" FontSize="14" FontAttributes="Bold" TextColor="White" VerticalOptions="Center" />
-                    <Label Text="{Binding TotalLessonsAvailable, StringFormat='/{0}'}" FontSize="14" TextColor="#FFFFFF80" VerticalOptions="Center" />
-                </HorizontalStackLayout>
-            </Grid>
+            <Label Text="Learning Paths" FontSize="18" FontAttributes="Bold" TextColor="White"
+                   Padding="20,8,20,8" />
 
             <!-- Path Progress Cards using BindableLayout -->
             <VerticalStackLayout Padding="16,0,16,0" Spacing="10"
                                  BindableLayout.ItemsSource="{Binding PathProgress}">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="vm:PathProgressItem">
-                        <Border StrokeShape="RoundRectangle 16"
-                                StrokeThickness="1" Padding="14,12">
-                            <Border.Stroke>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                    <GradientStop Color="#30FFFFFF" Offset="0.0" />
-                                    <GradientStop Color="#08FFFFFF" Offset="1.0" />
-                                </LinearGradientBrush>
-                            </Border.Stroke>
-                            <Border.Background>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                    <GradientStop Color="#45201530" Offset="0.0" />
-                                    <GradientStop Color="#35181020" Offset="1.0" />
-                                </LinearGradientBrush>
-                            </Border.Background>
+                        <Border Style="{StaticResource GlassCard}" Padding="14,12">
                             <VerticalStackLayout Spacing="8">
                                 <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
                                     <Image Source="{Binding IconImage}" WidthRequest="24" HeightRequest="24" VerticalOptions="Center" />
@@ -169,22 +131,17 @@
                         BindableLayout.ItemsSource="{Binding Achievements}">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="vm:AchievementItem">
-                        <Border StrokeShape="RoundRectangle 14"
-                                StrokeThickness="1"
+                        <Border BackgroundColor="#E81A1035"
+                                StrokeShape="RoundRectangle 14"
+                                StrokeThickness="0.8"
                                 Padding="8" HeightRequest="100"
                                 WidthRequest="108" Margin="3,4">
                             <Border.Stroke>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                    <GradientStop Color="#25FFFFFF" Offset="0.0" />
+                                    <GradientStop Color="#40FFFFFF" Offset="0.0" />
                                     <GradientStop Color="#08FFFFFF" Offset="1.0" />
                                 </LinearGradientBrush>
                             </Border.Stroke>
-                            <Border.Background>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                    <GradientStop Color="#35201530" Offset="0.0" />
-                                    <GradientStop Color="#25181020" Offset="1.0" />
-                                </LinearGradientBrush>
-                            </Border.Background>
                             <VerticalStackLayout Spacing="4" VerticalOptions="Center" HorizontalOptions="Center">
                                 <Image Source="{Binding Icon}" WidthRequest="28" HeightRequest="28"
                                        Opacity="{Binding IconOpacity}" HorizontalOptions="Center" />

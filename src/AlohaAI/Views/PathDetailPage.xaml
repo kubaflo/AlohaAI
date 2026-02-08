@@ -9,7 +9,7 @@
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="False"
              SafeAreaEdges="None">
-    <Grid>
+    <Grid SafeAreaEdges="None">
         <!-- Layer 0: Background Image -->
         <Image Source="bg_sunset.png" Aspect="AspectFill" InputTransparent="True" />
         <!-- Layer 1: Dark overlay for readability -->
@@ -32,7 +32,7 @@
                 </Border.Background>
                 <VerticalStackLayout Spacing="12" Padding="0,70,0,0">
                     <!-- Back button -->
-                    <Border BackgroundColor="#33FFFFFF" StrokeShape="RoundRectangle 12" StrokeThickness="0"
+                    <Border BackgroundColor="#E81A1035" StrokeShape="RoundRectangle 12" StrokeThickness="0"
                             Padding="10,6" HorizontalOptions="Start">
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding GoBackCommand}" />

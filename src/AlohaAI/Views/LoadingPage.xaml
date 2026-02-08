@@ -5,7 +5,7 @@
              x:Class="AlohaAI.Views.LoadingPage"
              Shell.NavBarIsVisible="False"
              SafeAreaEdges="None">
-    <Grid>
+    <Grid SafeAreaEdges="None">
         <Image Source="bg_sunset.png" Aspect="AspectFill" InputTransparent="True" />
         <BoxView Color="#2A000000" InputTransparent="True" />
         <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="16">

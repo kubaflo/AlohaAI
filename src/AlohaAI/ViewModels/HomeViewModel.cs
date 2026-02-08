@@ -95,6 +95,7 @@ public class HomeViewModel : BaseViewModel
     public ICommand NavigateToPathsCommand { get; }
     public ICommand ContinueLearningCommand { get; }
     public ICommand NavigateToPathCommand { get; }
+    public ICommand NavigateToSettingsCommand { get; }
 
     public HomeViewModel(IContentService contentService, IProgressService progressService, IStreakService streakService)
     {
@@ -114,6 +115,10 @@ public class HomeViewModel : BaseViewModel
         {
             if (!string.IsNullOrEmpty(ContinuePathId))
                 await Shell.Current.GoToAsync($"pathdetail?pathId={ContinuePathId}");
+        });
+        NavigateToSettingsCommand = new AsyncRelayCommand(async () =>
+        {
+            await Shell.Current.GoToAsync("settings");
         });
     }
 

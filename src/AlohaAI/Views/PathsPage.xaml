@@ -8,7 +8,7 @@
              Title="Learning Paths"
              Shell.NavBarIsVisible="False"
              SafeAreaEdges="None">
-    <Grid>
+    <Grid SafeAreaEdges="None">
         <!-- Layer 0: Background Image -->
         <Image Source="bg_sunset.png" Aspect="AspectFill" InputTransparent="True" />
         <!-- Layer 1: Dark overlay for readability -->

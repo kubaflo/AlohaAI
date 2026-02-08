@@ -6,7 +6,7 @@
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="False"
              SafeAreaEdges="None">
-    <Grid>
+    <Grid SafeAreaEdges="None">
         <!-- Sunset Gradient Background -->
         <BoxView InputTransparent="True">
             <BoxView.Background>

@@ -7,143 +7,142 @@
              x:DataType="vm:HomeViewModel"
              Title="Home"
              Shell.NavBarIsVisible="False"
+             BackgroundColor="Transparent"
              SafeAreaEdges="None">
-    <Grid>
+    <Grid BackgroundColor="Transparent" SafeAreaEdges="None">
         <!-- Layer 0: Background Image -->
         <Image Source="bg_sunset.png" Aspect="AspectFill" InputTransparent="True" />
-        <!-- Layer 1: Subtle vignette overlay -->
-        <BoxView InputTransparent="True">
-            <BoxView.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                    <GradientStop Color="#05000000" Offset="0.0" />
-                    <GradientStop Color="#22000000" Offset="0.6" />
-                    <GradientStop Color="#2A000000" Offset="1.0" />
-                </LinearGradientBrush>
-            </BoxView.Background>
-        </BoxView>
 
         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
                            HorizontalOptions="Center" VerticalOptions="Center"
                            Color="{StaticResource Primary}" ZIndex="99" />
     <ScrollView>
-        <VerticalStackLayout x:Name="MainContent" Spacing="0">
+        <VerticalStackLayout x:Name="MainContent" Spacing="0" SafeAreaEdges="None">
 
-            <!-- Header: Logo + Settings -->
-            <Grid Padding="24,60,24,0" ColumnDefinitions="*,Auto">
-                <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
-                    <Image Source="mascot.png" WidthRequest="44" HeightRequest="44" />
-                    <Image Source="icon_logotext.png" WidthRequest="140" HeightRequest="36"
-                           Aspect="AspectFit" VerticalOptions="Center" />
-                </HorizontalStackLayout>
-                <Image Grid.Column="1" Source="icon_gem.png" WidthRequest="30" HeightRequest="30"
-                       VerticalOptions="Center" Opacity="0.85" />
+            <!-- Header: Settings gear (top right) -->
+            <Grid Padding="24,60,24,0" ColumnDefinitions="*,Auto" SafeAreaEdges="None">
+                <BoxView Color="Transparent" />
+                <Border Grid.Column="1" BackgroundColor="#D01A1035" StrokeShape="RoundRectangle 14"
+                        Stroke="Transparent" WidthRequest="40" HeightRequest="40">
+                    <Border.Shadow>
+                        <Shadow Brush="#000000" Offset="0,2" Radius="8" Opacity="0.3" />
+                    </Border.Shadow>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToSettingsCommand}" />
+                    </Border.GestureRecognizers>
+                    <Image Source="icon_settings.png" WidthRequest="22" HeightRequest="22"
+                           HorizontalOptions="Center" VerticalOptions="Center" Opacity="0.9" />
+                </Border>
             </Grid>
+
+            <!-- AlohaAI Logo -->
+            <Image Source="logo_alohaai.png" HeightRequest="40"
+                   Aspect="AspectFit" HorizontalOptions="Center"
+                   Margin="0,8,0,8" />
 
             <!-- Welcome text -->
             <Label Text="Aloha! Welcome back!"
-                   FontSize="20"
+                   FontSize="24"
                    FontFamily="OpenSansSemibold"
-                   TextColor="White"
-                   Padding="24,8,24,14" />
+                   TextColor="#DDFFFFFF"
+                   HorizontalTextAlignment="Center"
+                   Padding="24,0,24,36">
+                <Label.Shadow>
+                    <Shadow Brush="#40000000" Offset="0,1" Radius="4" Opacity="0.4" />
+                </Label.Shadow>
+            </Label>
 
-            <!-- Learning Paths as rich cards -->
-            <VerticalStackLayout Padding="16,0,16,100" Spacing="12">
-                <CollectionView ItemsSource="{Binding PathItems}" SelectionMode="None">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="vm:HomePathItem">
-                            <Border StrokeShape="RoundRectangle 18" StrokeThickness="1" Padding="16,14">
-                                <Border.BackgroundColor>
-                                    <Color>#CC1A1030</Color>
-                                </Border.BackgroundColor>
-                                <Border.Stroke>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#35FFFFFF" Offset="0.0" />
-                                        <GradientStop Color="#08FFFFFF" Offset="1.0" />
-                                    </LinearGradientBrush>
-                                </Border.Stroke>
-                                <Border.Shadow>
-                                    <Shadow Brush="#000000" Offset="0,8" Radius="24" Opacity="0.4" />
-                                </Border.Shadow>
-                                <Border.GestureRecognizers>
-                                    <TapGestureRecognizer
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=NavigateToPathCommand}"
-                                        CommandParameter="{Binding Id}" />
-                                </Border.GestureRecognizers>
-                                <VerticalStackLayout Spacing="10">
-                                    <!-- Row 1: Icon + Title + Trophy Score -->
-                                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                                        <Border BackgroundColor="{Binding Color}" StrokeShape="RoundRectangle 28"
-                                                Stroke="Transparent" WidthRequest="56" HeightRequest="56">
-                                            <Border.Shadow>
-                                                <Shadow Brush="{Binding Color}" Offset="0,3" Radius="16" Opacity="0.7" />
-                                            </Border.Shadow>
-                                            <Image Source="{Binding IconImage}" WidthRequest="32" HeightRequest="32"
-                                                   HorizontalOptions="Center" VerticalOptions="Center" />
-                                        </Border>
-                                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                            <Label Text="{Binding Title}" FontSize="17" FontAttributes="Bold"
-                                                   FontFamily="OpenSansSemibold" TextColor="White" />
-                                            <Label Text="{Binding Description}" FontSize="12"
-                                                   TextColor="#AAAAAA" MaxLines="2" LineBreakMode="TailTruncation" />
-                                            <Label Text="{Binding ProgressText}" FontSize="13"
-                                                   TextColor="#BBBBBB" />
-                                        </VerticalStackLayout>
-                                        <HorizontalStackLayout Grid.Column="2" VerticalOptions="Start" Spacing="3" Margin="0,2,0,0">
-                                            <Image Source="icon_trophy.png" WidthRequest="18" HeightRequest="18"
-                                                   VerticalOptions="Center" />
-                                            <Label Text="{Binding CompletedLessons, StringFormat='{0}/{1}'}"
-                                                   FontSize="13" FontAttributes="Bold" TextColor="#FFD54F"
-                                                   VerticalOptions="Center">
-                                                <Label.Text>
-                                                    <MultiBinding StringFormat="{}{0}/{1}">
-                                                        <Binding Path="CompletedLessons" />
-                                                        <Binding Path="TotalLessons" />
-                                                    </MultiBinding>
-                                                </Label.Text>
-                                            </Label>
-                                        </HorizontalStackLayout>
-                                    </Grid>
-
-                                    <!-- Row 2: Tags -->
-                                    <HorizontalStackLayout Spacing="6">
-                                        <Border BackgroundColor="#30FFD700" StrokeShape="RoundRectangle 10"
-                                                Stroke="Transparent" Padding="10,4">
-                                            <Label Text="Course" FontSize="10" TextColor="#FFD700"
-                                                   FontAttributes="Bold" />
-                                        </Border>
-                                        <Border BackgroundColor="#305B8FD4" StrokeShape="RoundRectangle 10"
-                                                Stroke="Transparent" Padding="10,4">
-                                            <Label Text="{Binding LevelTag}" FontSize="10" TextColor="#8BB8F4"
-                                                   FontAttributes="Bold" />
-                                        </Border>
+            <!-- Learning Paths as rich cards (BindableLayout) -->
+            <VerticalStackLayout Padding="16,0,16,100" Spacing="14"
+                                 BindableLayout.ItemsSource="{Binding PathItems}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="vm:HomePathItem">
+                        <Border StrokeShape="RoundRectangle 18" StrokeThickness="0.8" Padding="16,14">
+                            <Border.BackgroundColor>
+                                <Color>#E81A1035</Color>
+                            </Border.BackgroundColor>
+                            <Border.Stroke>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#40FFFFFF" Offset="0.0" />
+                                    <GradientStop Color="#08FFFFFF" Offset="1.0" />
+                                </LinearGradientBrush>
+                            </Border.Stroke>
+                            <Border.Shadow>
+                                <Shadow Brush="#000000" Offset="0,8" Radius="24" Opacity="0.5" />
+                            </Border.Shadow>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=NavigateToPathCommand}"
+                                    CommandParameter="{Binding Id}" />
+                            </Border.GestureRecognizers>
+                            <VerticalStackLayout Spacing="8">
+                                <!-- Row 1: Icon + Title + Trophy Score -->
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                    <Border BackgroundColor="{Binding Color}" StrokeShape="RoundRectangle 24"
+                                            Stroke="Transparent" WidthRequest="48" HeightRequest="48">
+                                        <Border.Shadow>
+                                            <Shadow Brush="{Binding Color}" Offset="0,2" Radius="14" Opacity="0.65" />
+                                        </Border.Shadow>
+                                        <Image Source="{Binding IconImage}" WidthRequest="28" HeightRequest="28"
+                                               HorizontalOptions="Center" VerticalOptions="Center" />
+                                    </Border>
+                                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="1">
+                                        <Label Text="{Binding Title}" FontSize="18" FontAttributes="Bold"
+                                               FontFamily="OpenSansSemibold" TextColor="White" />
+                                        <Label Text="{Binding ProgressText}" FontSize="13"
+                                               TextColor="#BBBBBB" />
+                                    </VerticalStackLayout>
+                                    <HorizontalStackLayout Grid.Column="2" VerticalOptions="Start" Spacing="3" Margin="0,4,0,0">
+                                        <Image Source="icon_trophy.png" WidthRequest="18" HeightRequest="18"
+                                               VerticalOptions="Center" />
+                                        <Label FontSize="14" FontAttributes="Bold" TextColor="#FFD54F"
+                                               VerticalOptions="Center">
+                                            <Label.Text>
+                                                <MultiBinding StringFormat="{}{0}/{1}">
+                                                    <Binding Path="CompletedLessons" />
+                                                    <Binding Path="TotalLessons" />
+                                                </MultiBinding>
+                                            </Label.Text>
+                                        </Label>
                                     </HorizontalStackLayout>
+                                </Grid>
 
-                                    <!-- Row 3: Multi-segment progress bar -->
-                                    <Grid HeightRequest="8">
-                                        <Border BackgroundColor="#20FFFFFF" StrokeShape="RoundRectangle 4"
-                                                Stroke="Transparent" />
-                                        <Border StrokeShape="RoundRectangle 4" Stroke="Transparent"
-                                                HorizontalOptions="Start"
-                                                BackgroundColor="{Binding Color}"
-                                                WidthRequest="{Binding Progress, Converter={StaticResource ProgressToWidthConverter}, ConverterParameter=300}">
-                                            <Border.Shadow>
-                                                <Shadow Brush="{Binding Color}" Offset="0,0" Radius="6" Opacity="0.6" />
-                                            </Border.Shadow>
-                                        </Border>
-                                    </Grid>
+                                <!-- Row 2: Tags -->
+                                <HorizontalStackLayout Spacing="6">
+                                    <Border BackgroundColor="#30FFD700" StrokeShape="RoundRectangle 10"
+                                            Stroke="Transparent" Padding="10,4">
+                                        <Label Text="Course" FontSize="10" TextColor="#FFD700"
+                                               FontAttributes="Bold" />
+                                    </Border>
+                                    <Border BackgroundColor="#305B8FD4" StrokeShape="RoundRectangle 10"
+                                            Stroke="Transparent" Padding="10,4">
+                                        <Label Text="{Binding LevelTag}" FontSize="10" TextColor="#8BB8F4"
+                                               FontAttributes="Bold" />
+                                    </Border>
+                                </HorizontalStackLayout>
 
-                                    <!-- Row 4: Continue hint -->
-                                    <Label Text="{Binding ContinueText}" FontSize="12" TextColor="#999999"
-                                           MaxLines="1" LineBreakMode="TailTruncation"
-                                           IsVisible="{Binding HasContinueText}" />
-                                </VerticalStackLayout>
-                            </Border>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                                <!-- Row 3: Progress bar -->
+                                <Grid HeightRequest="6">
+                                    <Border BackgroundColor="#18FFFFFF" StrokeShape="RoundRectangle 3"
+                                            Stroke="Transparent" />
+                                    <Border StrokeShape="RoundRectangle 3" Stroke="Transparent"
+                                            HorizontalOptions="Start"
+                                            BackgroundColor="{Binding Color}"
+                                            WidthRequest="{Binding Progress, Converter={StaticResource ProgressToWidthConverter}, ConverterParameter=300}">
+                                        <Border.Shadow>
+                                            <Shadow Brush="{Binding Color}" Offset="0,0" Radius="4" Opacity="0.5" />
+                                        </Border.Shadow>
+                                    </Border>
+                                </Grid>
+
+                                <!-- Row 4: Continue hint -->
+                                <Label Text="{Binding ContinueText}" FontSize="12" TextColor="#999999"
+                                       MaxLines="1" LineBreakMode="TailTruncation"
+                                       IsVisible="{Binding HasContinueText}" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
             </VerticalStackLayout>
 
         </VerticalStackLayout>

@@ -53,7 +53,7 @@
     <Color x:Key="CodeBlockLight">#F0EDF4</Color>
 
     <!-- Glassmorphism & Ambient -->
-    <Color x:Key="GlassSurface">#40231E30</Color> <!-- Semi-transparent dark -->
+    <Color x:Key="GlassSurface">#E81A1035</Color> <!-- Semi-transparent dark -->
     <Color x:Key="GlassBorder">#33FFFFFF</Color>   <!-- Subtle highlight -->
     <Color x:Key="AmbientBlue">#5B9FE6</Color>
     <Color x:Key="AmbientPurple">#7B68AE</Color>

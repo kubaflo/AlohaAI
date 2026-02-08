@@ -8,7 +8,7 @@
              Title="Quiz"
              Shell.NavBarIsVisible="False"
              SafeAreaEdges="None">
-    <Grid RowDefinitions="Auto,*">
+    <Grid RowDefinitions="Auto,*" SafeAreaEdges="None">
         <!-- Layer 0: Background Image -->
         <Image Grid.RowSpan="2" Source="bg_sunset.png" Aspect="AspectFill" InputTransparent="True" />
         <!-- Layer 1: Dark overlay for readability -->
@@ -26,7 +26,7 @@
             <VerticalStackLayout Padding="20,70,20,20" Spacing="12">
                 <!-- Back Button + Title Row -->
                 <Grid ColumnDefinitions="Auto,*,Auto">
-                    <Border BackgroundColor="#33FFFFFF" StrokeShape="RoundRectangle 12" StrokeThickness="0"
+                    <Border BackgroundColor="#E81A1035" StrokeShape="RoundRectangle 12" StrokeThickness="0"
                             Padding="8,6" VerticalOptions="Center">
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding GoBackCommand}" />

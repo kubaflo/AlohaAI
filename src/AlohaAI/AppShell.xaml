@@ -15,7 +15,7 @@
             ContentTemplate="{DataTemplate views:HomePage}"
             Route="home" />
         <ShellContent
-            Title="Paths"
+            Title="Learning"
             Icon="tab_paths.png"
             ContentTemplate="{DataTemplate views:PathsPage}"
             Route="paths" />

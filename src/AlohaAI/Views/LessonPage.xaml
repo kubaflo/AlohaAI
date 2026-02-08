@@ -9,7 +9,7 @@
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="False"
              SafeAreaEdges="None">
-    <Grid RowDefinitions="Auto,*,Auto">
+    <Grid RowDefinitions="Auto,*,Auto" SafeAreaEdges="None">
         <!-- Layer 0: Background Image spanning all rows -->
         <Image Grid.RowSpan="3" Source="bg_sunset.png" Aspect="AspectFill" InputTransparent="True" />
         <!-- Layer 1: Dark overlay -->
@@ -19,7 +19,7 @@
         <VerticalStackLayout Grid.Row="0" Padding="20,60,20,16" Spacing="6">
             <!-- Back button + Module title row -->
             <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
-                <Border BackgroundColor="#30FFFFFF" StrokeShape="RoundRectangle 14" Stroke="Transparent"
+                <Border BackgroundColor="#E81A1035" StrokeShape="RoundRectangle 14" Stroke="Transparent"
                         WidthRequest="36" HeightRequest="36" Padding="0"
                         HorizontalOptions="Start" VerticalOptions="Center">
                     <Border.GestureRecognizers>
