@@ -99,7 +99,7 @@
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ShowOnboardingCommand}" />
                             </Grid.GestureRecognizers>
-                            <Image Source="icon_flowers.png" WidthRequest="22" HeightRequest="22" VerticalOptions="Center" />
+                            <Image Source="icon_explore.png" WidthRequest="22" HeightRequest="22" VerticalOptions="Center" />
                             <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
                                 <Label Text="Show Welcome Screen" FontSize="15" TextColor="White" />
                                 <Label Text="View the onboarding experience again" FontSize="12" TextColor="{StaticResource Gray400}" />

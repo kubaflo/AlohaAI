@@ -7,6 +7,7 @@
              x:DataType="vm:PathDetailViewModel"
              Title="{Binding Title}"
              Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
              SafeAreaEdges="None">
     <Grid>
         <!-- Layer 0: Background Image -->
