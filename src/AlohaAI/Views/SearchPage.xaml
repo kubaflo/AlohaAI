@@ -56,40 +56,39 @@
         </Border>
 
         <!-- Filter Chips -->
-        <HorizontalStackLayout Spacing="8">
-            <Border BackgroundColor="{Binding AllFilterBackground}"
-                    StrokeShape="RoundRectangle 16" Stroke="{Binding AllFilterStroke}" StrokeThickness="1"
-                    Padding="14,8">
-                <Border.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding FilterCommand}" CommandParameter="" />
-                </Border.GestureRecognizers>
-                <Label Text="All" FontSize="13" TextColor="{Binding AllFilterText}" />
-            </Border>
-            <CollectionView ItemsSource="{Binding FilterChips}" SelectionMode="None"
-                            ItemsLayout="HorizontalList" HeightRequest="40">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="vm:FilterChipItem">
-                        <Border BackgroundColor="{Binding Background}"
-                                StrokeShape="RoundRectangle 16" Stroke="{Binding StrokeColor}" StrokeThickness="1"
-                                Padding="14,8" Margin="0,0,8,0">
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SearchViewModel}}, Path=FilterCommand}"
-                                    CommandParameter="{Binding PathId}" />
-                            </Border.GestureRecognizers>
-                            <Label Text="{Binding Title}" FontSize="13" TextColor="{Binding TextColor}" />
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </HorizontalStackLayout>
+        <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+            <HorizontalStackLayout Spacing="8">
+                <Border BackgroundColor="{Binding AllFilterBackground}"
+                        StrokeShape="RoundRectangle 16" Stroke="{Binding AllFilterStroke}" StrokeThickness="1"
+                        Padding="14,8">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding FilterCommand}" CommandParameter="" />
+                    </Border.GestureRecognizers>
+                    <Label Text="All" FontSize="13" TextColor="{Binding AllFilterText}" />
+                </Border>
+                <HorizontalStackLayout BindableLayout.ItemsSource="{Binding FilterChips}" Spacing="8">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="vm:FilterChipItem">
+                            <Border BackgroundColor="{Binding Background}"
+                                    StrokeShape="RoundRectangle 16" Stroke="{Binding StrokeColor}" StrokeThickness="1"
+                                    Padding="14,8">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SearchViewModel}}, Path=FilterCommand}"
+                                        CommandParameter="{Binding PathId}" />
+                                </Border.GestureRecognizers>
+                                <Label Text="{Binding Title}" FontSize="13" TextColor="{Binding TextColor}" />
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </HorizontalStackLayout>
+            </HorizontalStackLayout>
+        </ScrollView>
 
         <!-- Results -->
-        <CollectionView ItemsSource="{Binding Results}" SelectionMode="None" IsVisible="{Binding HasResults}">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="8" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
+        <VerticalStackLayout IsVisible="{Binding HasResults}" Spacing="8"
+                             BindableLayout.ItemsSource="{Binding Results}">
+            <BindableLayout.ItemTemplate>
                 <DataTemplate x:DataType="vm:SearchResultItem">
                     <Border Style="{StaticResource GlassCard}" Padding="16">
                         <Border.GestureRecognizers>
@@ -119,8 +118,8 @@
                         </Grid>
                     </Border>
                 </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            </BindableLayout.ItemTemplate>
+        </VerticalStackLayout>
 
         <!-- Empty State -->
         <VerticalStackLayout IsVisible="{Binding ShowEmpty}" Spacing="8" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,40,0,0">
@@ -132,11 +131,8 @@
         <!-- Browse by Topic (when no search) -->
         <VerticalStackLayout IsVisible="{Binding ShowBrowse}" Spacing="12" Margin="0,8,0,0">
             <Label Text="Browse Topics" FontSize="18" FontAttributes="Bold" TextColor="White" />
-            <CollectionView ItemsSource="{Binding BrowseItems}" SelectionMode="None">
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="8" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding BrowseItems}" Spacing="8">
+                <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="vm:BrowseTopicItem">
                         <Border Style="{StaticResource GlassCard}" Padding="16">
                             <Border.GestureRecognizers>
@@ -163,8 +159,8 @@
                             </Grid>
                         </Border>
                     </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
         </VerticalStackLayout>
     </VerticalStackLayout>
     </ScrollView>

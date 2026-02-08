@@ -74,14 +74,11 @@
                 </VerticalStackLayout>
             </Border>
 
-            <VerticalStackLayout Padding="20,20,20,100" Spacing="16">
-            <CollectionView ItemsSource="{Binding Modules}" SelectionMode="None">
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="16" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
+            <VerticalStackLayout Padding="20,20,20,100" Spacing="16"
+                                  BindableLayout.ItemsSource="{Binding Modules}">
+                <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="vm:ModuleDisplayItem">
-                        <Border Style="{StaticResource GlassCard}">
+                        <Border Style="{StaticResource GlassCard}" Margin="0,0,0,0">
                             <VerticalStackLayout Spacing="12">
                                 <!-- Module Header -->
                                 <Grid ColumnDefinitions="*,Auto">
@@ -92,8 +89,8 @@
                                 <Label Text="{Binding Description}" FontSize="12" TextColor="{StaticResource Gray400}" />
 
                                 <!-- Lessons List -->
-                                <CollectionView ItemsSource="{Binding Lessons}" SelectionMode="None">
-                                    <CollectionView.ItemTemplate>
+                                <VerticalStackLayout BindableLayout.ItemsSource="{Binding Lessons}" Spacing="0">
+                                    <BindableLayout.ItemTemplate>
                                         <DataTemplate x:DataType="vm:LessonDisplayItem">
                                             <Grid ColumnDefinitions="Auto,*,Auto" Padding="0,8" ColumnSpacing="12">
                                                 <Grid.GestureRecognizers>
@@ -117,8 +114,8 @@
                                                        FontSize="12" TextColor="{StaticResource XPColor}" VerticalOptions="Center" />
                                             </Grid>
                                         </DataTemplate>
-                                    </CollectionView.ItemTemplate>
-                                </CollectionView>
+                                    </BindableLayout.ItemTemplate>
+                                </VerticalStackLayout>
 
                                 <!-- Quiz Button -->
                                 <Button Text="Take Quiz"
@@ -137,9 +134,7 @@
                             </VerticalStackLayout>
                         </Border>
                     </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-
+                </BindableLayout.ItemTemplate>
             </VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>

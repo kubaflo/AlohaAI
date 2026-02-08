@@ -30,11 +30,8 @@
                    TextColor="{StaticResource Gray300}"
                    Margin="0,0,0,8" />
 
-            <CollectionView ItemsSource="{Binding Paths}" SelectionMode="None">
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="16" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Paths}" Spacing="16">
+                <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="vm:PathDisplayItem">
                         <Border Style="{StaticResource GlassCard}">
                             <Border.GestureRecognizers>
@@ -97,8 +94,8 @@
                             </Grid>
                         </Border>
                     </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
     </Grid>
