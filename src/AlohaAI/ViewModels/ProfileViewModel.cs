@@ -45,6 +45,41 @@ public class ProfileViewModel : BaseViewModel
         set => SetProperty(ref _level, value);
     }
 
+    private string _displayName = "AI Learner";
+    public string DisplayName
+    {
+        get => _displayName;
+        set => SetProperty(ref _displayName, value);
+    }
+
+    private ImageSource? _profileImageSource;
+    public ImageSource ProfileImageSource
+    {
+        get => _profileImageSource ?? ImageSource.FromFile("mascot.png");
+        set => SetProperty(ref _profileImageSource, value);
+    }
+
+    private bool _showProfileSetup;
+    public bool ShowProfileSetup
+    {
+        get => _showProfileSetup;
+        set => SetProperty(ref _showProfileSetup, value);
+    }
+
+    private string _editName = "";
+    public string EditName
+    {
+        get => _editName;
+        set => SetProperty(ref _editName, value);
+    }
+
+    private bool _isEditingProfile;
+    public bool IsEditingProfile
+    {
+        get => _isEditingProfile;
+        set => SetProperty(ref _isEditingProfile, value);
+    }
+
     private int _dailyGoal = 3;
     public int DailyGoal
     {
@@ -78,6 +113,10 @@ public class ProfileViewModel : BaseViewModel
 
     public ICommand LoadDataCommand { get; }
     public ICommand OpenSettingsCommand { get; }
+    public ICommand SaveProfileCommand { get; }
+    public ICommand PickPhotoCommand { get; }
+    public ICommand EditProfileCommand { get; }
+    public ICommand CancelEditCommand { get; }
 
     public ProfileViewModel(IContentService contentService, IProgressService progressService, IStreakService streakService)
     {
@@ -88,6 +127,18 @@ public class ProfileViewModel : BaseViewModel
 
         LoadDataCommand = new AsyncRelayCommand(LoadDataAsync);
         OpenSettingsCommand = new AsyncRelayCommand(async () => await Shell.Current.GoToAsync("settings"));
+        SaveProfileCommand = new AsyncRelayCommand(SaveProfileAsync);
+        PickPhotoCommand = new AsyncRelayCommand(PickPhotoAsync);
+        EditProfileCommand = new RelayCommand(() =>
+        {
+            EditName = DisplayName == "AI Learner" ? "" : DisplayName;
+            IsEditingProfile = true;
+        });
+        CancelEditCommand = new RelayCommand(() =>
+        {
+            IsEditingProfile = false;
+            ShowProfileSetup = false;
+        });
     }
 
     private async Task LoadDataAsync()
@@ -97,6 +148,22 @@ public class ProfileViewModel : BaseViewModel
 
         try
         {
+            // Load profile info
+            var savedName = await _progressService.GetSettingAsync("user_display_name");
+            if (!string.IsNullOrEmpty(savedName))
+            {
+                DisplayName = savedName;
+                ShowProfileSetup = false;
+            }
+            else
+            {
+                ShowProfileSetup = true;
+            }
+
+            var savedImage = await _progressService.GetSettingAsync("user_profile_image");
+            if (!string.IsNullOrEmpty(savedImage) && File.Exists(savedImage))
+                ProfileImageSource = ImageSource.FromFile(savedImage);
+
             TotalXp = await _progressService.GetTotalXpAsync();
             CurrentStreak = await _streakService.GetCurrentStreakAsync();
             BestStreak = await _streakService.GetBestStreakAsync();
@@ -155,7 +222,7 @@ public class ProfileViewModel : BaseViewModel
             Achievements.Clear();
             Achievements.Add(new AchievementItem
             {
-                Icon = "icon_explore.png",
+                Icon = "icon_rocket.png",
                 Title = "First Steps",
                 Description = "Complete your first lesson",
                 IsUnlocked = totalCompleted >= 1
@@ -176,21 +243,21 @@ public class ProfileViewModel : BaseViewModel
             });
             Achievements.Add(new AchievementItem
             {
-                Icon = "icon_clock.png",
+                Icon = "icon_gem.png",
                 Title = "Streak Starter",
                 Description = "Reach a 3-day streak",
                 IsUnlocked = BestStreak >= 3
             });
             Achievements.Add(new AchievementItem
             {
-                Icon = "icon_trophy.png",
+                Icon = "icon_island.png",
                 Title = "Week Warrior",
                 Description = "Reach a 7-day streak",
                 IsUnlocked = BestStreak >= 7
             });
             Achievements.Add(new AchievementItem
             {
-                Icon = "icon_rocket.png",
+                Icon = "icon_coins.png",
                 Title = "XP Hunter",
                 Description = "Earn 500 XP",
                 IsUnlocked = TotalXp >= 500
@@ -203,6 +270,42 @@ public class ProfileViewModel : BaseViewModel
         finally
         {
             IsBusy = false;
+        }
+    }
+
+    private async Task SaveProfileAsync()
+    {
+        var name = EditName?.Trim();
+        if (string.IsNullOrEmpty(name)) return;
+
+        await _progressService.SaveSettingAsync("user_display_name", name);
+        DisplayName = name;
+        ShowProfileSetup = false;
+        IsEditingProfile = false;
+    }
+
+    private async Task PickPhotoAsync()
+    {
+        try
+        {
+            var result = await MediaPicker.Default.PickPhotoAsync(new MediaPickerOptions
+            {
+                Title = "Choose Profile Photo"
+            });
+
+            if (result == null) return;
+
+            var destPath = Path.Combine(FileSystem.AppDataDirectory, "profile_photo.jpg");
+            using var sourceStream = await result.OpenReadAsync();
+            using var destStream = File.OpenWrite(destPath);
+            await sourceStream.CopyToAsync(destStream);
+
+            await _progressService.SaveSettingAsync("user_profile_image", destPath);
+            ProfileImageSource = ImageSource.FromFile(destPath);
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Error picking photo: {ex.Message}");
         }
     }
 }
@@ -229,7 +332,7 @@ public class AchievementItem
     public double IconOpacity => IsUnlocked ? 1.0 : 0.3;
     public Color TextColor => IsUnlocked ? Colors.White : Color.FromArgb("#666666");
     public Color DescColor => IsUnlocked ? Color.FromArgb("#AAAAAA") : Color.FromArgb("#444444");
-    public string StatusText => IsUnlocked ? "✓" : "🔒";
+    public string StatusText => IsUnlocked ? "✓" : "Locked";
 }
 
 public class ModuleProgressItem

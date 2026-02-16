@@ -11,7 +11,10 @@
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+            <converters:InvertedBoolConverter x:Key="InverseBoolConverter" />
             <converters:ProgressToWidthConverter x:Key="ProgressToWidthConverter" />
+            <converters:BoolToHorizontalOptionsConverter x:Key="BoolToHorizontalOptionsConverter" />
+            <converters:UserMessageColorConverter x:Key="UserMessageColorConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -10,5 +10,6 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute("lesson", typeof(Views.LessonPage));
 		Routing.RegisterRoute("quiz", typeof(Views.QuizPage));
 		Routing.RegisterRoute("settings", typeof(Views.SettingsPage));
+		Routing.RegisterRoute("chat", typeof(Views.ChatPage));
 	}
 }

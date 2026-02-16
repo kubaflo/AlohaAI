@@ -66,17 +66,17 @@ public class DefaultTabBarAppearanceTracker : IShellTabBarAppearanceTracker
     {
         var tabBar = controller.TabBar;
         var barAppearance = new UITabBarAppearance();
-        barAppearance.ConfigureWithTransparentBackground();
+        barAppearance.ConfigureWithDefaultBackground();
 
-        barAppearance.BackgroundEffect = UIBlurEffect.FromStyle(UIBlurEffectStyle.SystemChromeMaterialDark);
-        barAppearance.BackgroundColor = UIColor.FromRGBA(30, 20, 52, 200);
-        barAppearance.ShadowColor = UIColor.FromRGBA(255, 255, 255, 20);
+        barAppearance.BackgroundEffect = UIBlurEffect.FromStyle(UIBlurEffectStyle.SystemUltraThinMaterialDark);
+        barAppearance.BackgroundColor = UIColor.FromRGBA(30, 20, 52, 40);
+        barAppearance.ShadowColor = UIColor.FromRGBA(255, 255, 255, 12);
 
         tabBar.StandardAppearance = barAppearance;
         tabBar.ScrollEdgeAppearance = barAppearance;
         tabBar.Translucent = true;
         tabBar.TintColor = UIColor.FromRGB(232, 139, 191);
-        tabBar.UnselectedItemTintColor = UIColor.FromRGB(184, 176, 194);
+        tabBar.UnselectedItemTintColor = UIColor.FromRGBA(184, 176, 194, 180);
     }
 
     public void ResetAppearance(UITabBarController controller)

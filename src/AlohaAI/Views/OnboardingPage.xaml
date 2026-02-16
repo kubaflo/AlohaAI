@@ -49,7 +49,7 @@
             </Border.Background>
         </Border>
 
-    <Grid RowDefinitions="*,Auto,Auto" Padding="32,70,32,32">
+    <Grid RowDefinitions="*,Auto,Auto" Padding="32,0,32,32">
 
         <!-- Step 0: Welcome -->
         <VerticalStackLayout x:Name="Step0" VerticalOptions="Center" Spacing="24" IsVisible="True">
@@ -67,14 +67,8 @@
 
         <!-- Step 1: Learn -->
         <VerticalStackLayout x:Name="Step1" VerticalOptions="Center" Spacing="24" IsVisible="False">
-            <Border BackgroundColor="#FFFFFF20" StrokeShape="RoundRectangle 36" Stroke="#FFFFFF30"
-                    StrokeThickness="1" WidthRequest="100" HeightRequest="100" HorizontalOptions="Center">
-                <Border.Shadow>
-                    <Shadow Brush="#5B9FE6" Offset="0,8" Radius="20" Opacity="0.4" />
-                </Border.Shadow>
-                <Image Source="icon_explore.png" WidthRequest="64" HeightRequest="64"
-                       HorizontalOptions="Center" VerticalOptions="Center" />
-            </Border>
+            <Image Source="icon_explore.png" WidthRequest="120" HeightRequest="120"
+                   HorizontalOptions="Center" VerticalOptions="Center" />
             <Label Text="Learn Agentic AI" FontSize="28" FontAttributes="Bold"
                    TextColor="White" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
             <Label Text="Master cutting-edge concepts like Agents, MCP, RAG, and Semantic Kernel through bite-sized lessons"
@@ -85,14 +79,8 @@
 
         <!-- Step 2: Practice -->
         <VerticalStackLayout x:Name="Step2" VerticalOptions="Center" Spacing="24" IsVisible="False">
-            <Border BackgroundColor="#FFFFFF20" StrokeShape="RoundRectangle 36" Stroke="#FFFFFF30"
-                    StrokeThickness="1" WidthRequest="100" HeightRequest="100" HorizontalOptions="Center">
-                <Border.Shadow>
-                    <Shadow Brush="#7B68AE" Offset="0,8" Radius="20" Opacity="0.4" />
-                </Border.Shadow>
-                <Image Source="icon_notebook.png" WidthRequest="64" HeightRequest="64"
-                       HorizontalOptions="Center" VerticalOptions="Center" />
-            </Border>
+            <Image Source="icon_notebook.png" WidthRequest="120" HeightRequest="120"
+                   HorizontalOptions="Center" VerticalOptions="Center" />
             <Label Text="Test Your Knowledge" FontSize="28" FontAttributes="Bold"
                    TextColor="White" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
             <Label Text="Reinforce learning with interactive quizzes after each module — track your scores and improve over time"
@@ -103,20 +91,40 @@
 
         <!-- Step 3: Grow -->
         <VerticalStackLayout x:Name="Step3" VerticalOptions="Center" Spacing="24" IsVisible="False">
-            <Border BackgroundColor="#FFFFFF20" StrokeShape="RoundRectangle 36" Stroke="#FFFFFF30"
-                    StrokeThickness="1" WidthRequest="100" HeightRequest="100" HorizontalOptions="Center">
-                <Border.Shadow>
-                    <Shadow Brush="#F5A623" Offset="0,8" Radius="20" Opacity="0.4" />
-                </Border.Shadow>
-                <Image Source="icon_trophy.png" WidthRequest="64" HeightRequest="64"
-                       HorizontalOptions="Center" VerticalOptions="Center" />
-            </Border>
+            <Image Source="icon_trophy.png" WidthRequest="120" HeightRequest="120"
+                   HorizontalOptions="Center" VerticalOptions="Center" />
             <Label Text="Build Your Streak" FontSize="28" FontAttributes="Bold"
                    TextColor="White" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
             <Label Text="Earn XP, unlock achievements, and stay motivated with daily learning goals and streak tracking"
                    FontSize="16" TextColor="White" Opacity="0.85"
                    HorizontalOptions="Center" HorizontalTextAlignment="Center" LineHeight="1.5"
                    Margin="12,0" />
+        </VerticalStackLayout>
+
+        <!-- Step 4: Profile Setup -->
+        <VerticalStackLayout x:Name="Step4" VerticalOptions="Center" Spacing="20" IsVisible="False">
+            <Image x:Name="ProfilePreview" Source="icon_applogo.png" WidthRequest="120" HeightRequest="120"
+                   Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Border StrokeShape="RoundRectangle 14" Stroke="#30FFFFFF" StrokeThickness="1"
+                    BackgroundColor="#20FFFFFF" Padding="20,8" HorizontalOptions="Center">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnPickPhotoClicked" />
+                </Border.GestureRecognizers>
+                <Label Text="Choose Photo" FontSize="14" TextColor="White" HorizontalOptions="Center" />
+            </Border>
+            <Label Text="Personalize Your Profile" FontSize="28" FontAttributes="Bold"
+                   TextColor="White" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+            <Label Text="Add your name so we can personalize your learning experience"
+                   FontSize="16" TextColor="White" Opacity="0.85"
+                   HorizontalOptions="Center" HorizontalTextAlignment="Center" LineHeight="1.5"
+                   Margin="12,0" />
+            <Border StrokeShape="RoundRectangle 14" Stroke="#30FFFFFF" StrokeThickness="1"
+                    BackgroundColor="#15FFFFFF" Padding="4,0" Margin="20,0">
+                <Entry x:Name="NameEntry" Placeholder="Enter your name"
+                       PlaceholderColor="#FFFFFF60" TextColor="White" FontSize="18"
+                       HorizontalTextAlignment="Center" ReturnType="Done"
+                       BackgroundColor="Transparent" />
+            </Border>
         </VerticalStackLayout>
 
         <!-- Page Indicators -->
@@ -128,6 +136,8 @@
             <Border x:Name="Dot2" BackgroundColor="#FFFFFF40" StrokeShape="RoundRectangle 4" Stroke="Transparent"
                     WidthRequest="8" HeightRequest="8" />
             <Border x:Name="Dot3" BackgroundColor="#FFFFFF40" StrokeShape="RoundRectangle 4" Stroke="Transparent"
+                    WidthRequest="8" HeightRequest="8" />
+            <Border x:Name="Dot4" BackgroundColor="#FFFFFF40" StrokeShape="RoundRectangle 4" Stroke="Transparent"
                     WidthRequest="8" HeightRequest="8" />
         </HorizontalStackLayout>
 

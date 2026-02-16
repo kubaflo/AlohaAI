@@ -279,10 +279,10 @@ public class QuizOptionItem : BaseViewModel
 
     public Color BackgroundColor => State switch
     {
-        OptionState.Correct => Color.FromArgb("#1A66BB6A"),
-        OptionState.Incorrect => Color.FromArgb("#1AEF5350"),
-        OptionState.Dimmed => Colors.Transparent,
-        _ => Color.FromArgb("#231E30")
+        OptionState.Correct => Color.FromArgb("#CC1B3D2A"),
+        OptionState.Incorrect => Color.FromArgb("#CC3D1B1B"),
+        OptionState.Dimmed => Color.FromArgb("#AA1A1530"),
+        _ => Color.FromArgb("#DD1A1530")
     };
 
     public Color IndicatorColor => State switch

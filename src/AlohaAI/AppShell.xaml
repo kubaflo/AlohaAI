@@ -20,8 +20,8 @@
             ContentTemplate="{DataTemplate views:PathsPage}"
             Route="paths" />
         <ShellContent
-            Title="Search"
-            Icon="tab_search.png"
+            Title="Explore"
+            Icon="icon_explore.png"
             ContentTemplate="{DataTemplate views:SearchPage}"
             Route="search" />
         <ShellContent

@@ -19,10 +19,20 @@ public partial class PathDetailPage : ContentPage
             vm.LoadDataCommand.Execute(null);
         _firstAppear = false;
 
-        MainContent.Opacity = 0;
-        MainContent.TranslationY = 30;
-        await Task.WhenAll(
-            MainContent.FadeToAsync(1, 400, Easing.CubicOut),
-            MainContent.TranslateToAsync(0, 0, 400, Easing.CubicOut));
+        try
+        {
+            if (MainContent != null)
+            {
+                MainContent.Opacity = 0;
+                MainContent.TranslationY = 30;
+                await Task.WhenAll(
+                    MainContent.FadeToAsync(1, 400, Easing.CubicOut),
+                    MainContent.TranslateToAsync(0, 0, 400, Easing.CubicOut));
+            }
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"PathDetail animation error: {ex.Message}");
+        }
     }
 }

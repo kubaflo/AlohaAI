@@ -8,12 +8,13 @@
              Title="{Binding Title}"
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="False"
+             BackgroundColor="Transparent"
              SafeAreaEdges="None">
-    <Grid SafeAreaEdges="None">
+    <Grid BackgroundColor="Transparent" SafeAreaEdges="None">
         <!-- Layer 0: Background Image -->
         <Image Source="bg_sunset.png" Aspect="AspectFill" InputTransparent="True" />
-        <!-- Layer 1: Dark overlay for readability -->
-        <BoxView Color="#2A000000" InputTransparent="True" />
+        <!-- Layer 1: Dark overlay matching other pages -->
+        <BoxView Color="#75000000" InputTransparent="True" />
 
         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
                            HorizontalOptions="Center" VerticalOptions="Center"
@@ -21,99 +22,144 @@
     <ScrollView>
         <VerticalStackLayout x:Name="MainContent" Spacing="0">
 
-            <!-- Gradient Header -->
-            <Border StrokeShape="RoundRectangle 0,0,24,24" Stroke="Transparent" Padding="20,0,20,20">
-                <Border.Background>
+            <!-- Back button -->
+            <Border BackgroundColor="#C81A1035" StrokeShape="RoundRectangle 12" StrokeThickness="0.8"
+                    Padding="10,6" HorizontalOptions="Start" Margin="20,0,0,16">
+                <Border.Stroke>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="#805B9FE6" Offset="0.0" />
-                        <GradientStop Color="#807B68AE" Offset="0.45" />
-                        <GradientStop Color="#802D1B69" Offset="1.0" />
+                        <GradientStop Color="#30FFFFFF" Offset="0.0" />
+                        <GradientStop Color="#08FFFFFF" Offset="1.0" />
                     </LinearGradientBrush>
-                </Border.Background>
-                <VerticalStackLayout Spacing="12" Padding="0,70,0,0">
-                    <!-- Back button -->
-                    <Border BackgroundColor="#E81A1035" StrokeShape="RoundRectangle 12" StrokeThickness="0"
-                            Padding="10,6" HorizontalOptions="Start">
-                        <Border.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding GoBackCommand}" />
-                        </Border.GestureRecognizers>
-                        <HorizontalStackLayout Spacing="6">
-                            <Label Text="←" FontSize="18" TextColor="White" VerticalOptions="Center" />
-                            <Label Text="Back" FontSize="14" TextColor="White" VerticalOptions="Center" />
-                        </HorizontalStackLayout>
-                    </Border>
+                </Border.Stroke>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                </Border.GestureRecognizers>
+                <HorizontalStackLayout Spacing="6">
+                    <Label Text="←" FontSize="17" TextColor="White" VerticalOptions="Center" />
+                    <Label Text="Back" FontSize="15" TextColor="White" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+            </Border>
 
+            <!-- Header Card -->
+            <Border Margin="16,0,16,20" StrokeShape="RoundRectangle 18" StrokeThickness="0.8" Padding="16,16">
+                <Border.BackgroundColor>
+                    <Color>#C81A1035</Color>
+                </Border.BackgroundColor>
+                <Border.Stroke>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#40FFFFFF" Offset="0.0" />
+                        <GradientStop Color="#08FFFFFF" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Stroke>
+                <Border.Shadow>
+                    <Shadow Brush="#000000" Offset="0,8" Radius="24" Opacity="0.5" />
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="14">
                     <!-- Path icon + title -->
                     <HorizontalStackLayout Spacing="14">
-                        <Border BackgroundColor="#FFFFFF20" StrokeShape="RoundRectangle 14" Stroke="Transparent"
-                                WidthRequest="52" HeightRequest="52">
-                            <Image Source="{Binding PathIcon}" WidthRequest="36" HeightRequest="36"
-                                   HorizontalOptions="Center" VerticalOptions="Center" />
-                        </Border>
-                        <VerticalStackLayout VerticalOptions="Center" Spacing="2">
-                            <Label Text="{Binding Title}" FontSize="24" FontAttributes="Bold" TextColor="White" />
-                            <Label Text="{Binding PathDescription}" FontSize="13" TextColor="White" Opacity="0.75"
+                        <Image Source="{Binding PathIcon}" WidthRequest="52" HeightRequest="52"
+                               HorizontalOptions="Center" VerticalOptions="Center" />
+                        <VerticalStackLayout VerticalOptions="Center" Spacing="3">
+                            <Label Text="{Binding Title}" FontSize="22" FontAttributes="Bold" TextColor="White">
+                                <Label.Shadow>
+                                    <Shadow Brush="#40000000" Offset="0,1" Radius="2" Opacity="0.3" />
+                                </Label.Shadow>
+                            </Label>
+                            <Label Text="{Binding PathDescription}" FontSize="13" TextColor="#BBBBBB"
                                    MaxLines="2" LineBreakMode="TailTruncation" />
                         </VerticalStackLayout>
                     </HorizontalStackLayout>
 
-                    <!-- Progress bar in header -->
-                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12" Margin="0,4,0,0">
+                    <!-- Progress bar -->
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
                         <Grid HeightRequest="6">
-                            <Border BackgroundColor="#FFFFFF30" StrokeShape="RoundRectangle 3" Stroke="Transparent" />
-                            <Border BackgroundColor="White" StrokeShape="RoundRectangle 3" Stroke="Transparent"
+                            <Border BackgroundColor="#18FFFFFF" StrokeShape="RoundRectangle 3" Stroke="Transparent" />
+                            <Border BackgroundColor="{Binding PathColor}" StrokeShape="RoundRectangle 3" Stroke="Transparent"
                                     HorizontalOptions="Start"
-                                    WidthRequest="{Binding OverallProgress, Converter={StaticResource ProgressToWidthConverter}, ConverterParameter=280}">
+                                    WidthRequest="{Binding OverallProgress, Converter={StaticResource ProgressToWidthConverter}, ConverterParameter=240}">
                                 <Border.Shadow>
-                                    <Shadow Brush="White" Offset="0,0" Radius="6" Opacity="0.5" />
+                                    <Shadow Brush="{Binding PathColor}" Offset="0,0" Radius="4" Opacity="0.5" />
                                 </Border.Shadow>
                             </Border>
                         </Grid>
                         <Label Grid.Column="1" Text="{Binding OverallProgressText}"
-                               FontSize="13" TextColor="White" Opacity="0.9" VerticalOptions="Center" />
+                               FontSize="13" TextColor="#BBBBBB" VerticalOptions="Center" />
                     </Grid>
                 </VerticalStackLayout>
             </Border>
 
-            <VerticalStackLayout Padding="20,20,20,100" Spacing="16"
+            <!-- Section header -->
+            <Label Text="Modules" FontSize="20" FontAttributes="Bold"
+                   TextColor="White" Padding="20,0,20,8">
+                <Label.Shadow>
+                    <Shadow Brush="#40000000" Offset="0,1" Radius="2" Opacity="0.3" />
+                </Label.Shadow>
+            </Label>
+
+            <!-- Modules list -->
+            <VerticalStackLayout Padding="16,0,16,100" Spacing="14"
                                   BindableLayout.ItemsSource="{Binding Modules}">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="vm:ModuleDisplayItem">
-                        <Border Style="{StaticResource GlassCard}" Margin="0,0,0,0">
-                            <VerticalStackLayout Spacing="12">
+                        <Border StrokeShape="RoundRectangle 18" StrokeThickness="0.8" Padding="16,14">
+                            <Border.BackgroundColor>
+                                <Color>#E81A1035</Color>
+                            </Border.BackgroundColor>
+                            <Border.Stroke>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#40FFFFFF" Offset="0.0" />
+                                    <GradientStop Color="#08FFFFFF" Offset="1.0" />
+                                </LinearGradientBrush>
+                            </Border.Stroke>
+                            <Border.Shadow>
+                                <Shadow Brush="#000000" Offset="0,8" Radius="24" Opacity="0.5" />
+                            </Border.Shadow>
+                            <VerticalStackLayout Spacing="10">
                                 <!-- Module Header -->
                                 <Grid ColumnDefinitions="*,Auto">
-                                    <Label Text="{Binding Title}" FontSize="18" FontAttributes="Bold" TextColor="White" />
-                                    <Label Grid.Column="1" Text="{Binding ProgressText}"
-                                           FontSize="14" TextColor="{StaticResource Gray300}" VerticalOptions="Center" />
+                                    <Label Text="{Binding Title}" FontSize="17" FontAttributes="Bold" TextColor="White" />
+                                    <Border Grid.Column="1" BackgroundColor="#30FFD700" StrokeShape="RoundRectangle 10"
+                                            Stroke="Transparent" Padding="10,4" VerticalOptions="Center">
+                                        <Label Text="{Binding ProgressText}" FontSize="11"
+                                               TextColor="#FFD700" FontAttributes="Bold" />
+                                    </Border>
                                 </Grid>
-                                <Label Text="{Binding Description}" FontSize="12" TextColor="{StaticResource Gray400}" />
+                                <Label Text="{Binding Description}" FontSize="13" TextColor="#BBBBBB"
+                                       MaxLines="3" LineBreakMode="TailTruncation" />
+
+                                <!-- Separator -->
+                                <BoxView HeightRequest="0.5" Color="#20FFFFFF" Margin="0,2" />
 
                                 <!-- Lessons List -->
                                 <VerticalStackLayout BindableLayout.ItemsSource="{Binding Lessons}" Spacing="0">
                                     <BindableLayout.ItemTemplate>
                                         <DataTemplate x:DataType="vm:LessonDisplayItem">
-                                            <Grid ColumnDefinitions="Auto,*,Auto" Padding="0,8" ColumnSpacing="12">
-                                                <Grid.GestureRecognizers>
+                                            <Border BackgroundColor="Transparent" StrokeThickness="0" Padding="0,9">
+                                                <Border.GestureRecognizers>
                                                     <TapGestureRecognizer
                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PathDetailViewModel}}, Path=SelectLessonCommand}"
                                                         CommandParameter="{Binding .}" />
-                                                </Grid.GestureRecognizers>
-                                                <Border WidthRequest="24" HeightRequest="24"
-                                                        StrokeShape="RoundRectangle 12"
-                                                        StrokeThickness="2"
-                                                        Stroke="{Binding StatusColor}"
-                                                        BackgroundColor="{Binding StatusBackground}"
-                                                        VerticalOptions="Center">
-                                                    <Label Text="✓" FontSize="12" TextColor="White"
-                                                           IsVisible="{Binding IsCompleted}"
-                                                           HorizontalOptions="Center" VerticalOptions="Center" />
-                                                </Border>
-                                                <Label Grid.Column="1" Text="{Binding Title}" FontSize="15"
-                                                       TextColor="{Binding TitleColor}" VerticalOptions="Center" />
-                                                <Label Grid.Column="2" Text="{Binding Xp, StringFormat='+{0} XP'}"
-                                                       FontSize="12" TextColor="{StaticResource XPColor}" VerticalOptions="Center" />
-                                            </Grid>
+                                                </Border.GestureRecognizers>
+                                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
+                                                    <Border WidthRequest="20" HeightRequest="20"
+                                                            StrokeShape="RoundRectangle 10"
+                                                            StrokeThickness="1.5"
+                                                            Stroke="{Binding StatusColor}"
+                                                            BackgroundColor="{Binding StatusBackground}"
+                                                            VerticalOptions="Center">
+                                                        <Label Text="✓" FontSize="10" TextColor="White"
+                                                               IsVisible="{Binding IsCompleted}"
+                                                               HorizontalOptions="Center" VerticalOptions="Center" />
+                                                    </Border>
+                                                    <Label Grid.Column="1" Text="{Binding Title}" FontSize="15"
+                                                           TextColor="{Binding TitleColor}" VerticalOptions="Center" />
+                                                    <Border Grid.Column="2" BackgroundColor="#305B8FD4" StrokeShape="RoundRectangle 8"
+                                                            Stroke="Transparent" Padding="8,3" VerticalOptions="Center">
+                                                        <Label Text="{Binding Xp, StringFormat='+{0} XP'}"
+                                                               FontSize="11" TextColor="{StaticResource XPColor}" FontAttributes="Bold" />
+                                                    </Border>
+                                                </Grid>
+                                            </Border>
                                         </DataTemplate>
                                     </BindableLayout.ItemTemplate>
                                 </VerticalStackLayout>
@@ -126,8 +172,10 @@
                                         BackgroundColor="{StaticResource Secondary}"
                                         TextColor="White"
                                         CornerRadius="14"
+                                        FontSize="15"
                                         FontAttributes="Bold"
-                                        HeightRequest="44">
+                                        HeightRequest="44"
+                                        Margin="0,4,0,0">
                                     <Button.Shadow>
                                         <Shadow Brush="{StaticResource Secondary}" Offset="0,4" Radius="12" Opacity="0.4" />
                                     </Button.Shadow>

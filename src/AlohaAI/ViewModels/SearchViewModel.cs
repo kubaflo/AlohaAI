@@ -121,13 +121,10 @@ public class SearchViewModel : BaseViewModel
         {
             ActiveFilter = pathId ?? string.Empty;
         });
-        BrowseTopicCommand = new RelayCommand<string>(pathId =>
+        BrowseTopicCommand = new AsyncRelayCommand<string>(async pathId =>
         {
             if (!string.IsNullOrEmpty(pathId))
-            {
-                ActiveFilter = pathId;
-                SearchQuery = " ";
-            }
+                await Shell.Current.GoToAsync($"pathdetail?pathId={pathId}");
         });
         LoadBrowseCommand = new AsyncRelayCommand(LoadBrowseAsync);
         LoadBrowseCommand.Execute(null);

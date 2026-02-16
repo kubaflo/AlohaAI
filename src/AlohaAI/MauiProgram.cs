@@ -39,6 +39,7 @@ public static class MauiProgram
 		builder.Services.AddTransient<QuizViewModel>();
 		builder.Services.AddTransient<SettingsViewModel>();
 		builder.Services.AddTransient<SearchViewModel>();
+		builder.Services.AddTransient<ChatViewModel>();
 
 		// Views
 		builder.Services.AddTransient<HomePage>();
@@ -49,6 +50,7 @@ public static class MauiProgram
 		builder.Services.AddTransient<QuizPage>();
 		builder.Services.AddTransient<SettingsPage>();
 		builder.Services.AddTransient<SearchPage>();
+		builder.Services.AddTransient<ChatPage>();
 
 #if DEBUG
 		builder.Logging.AddDebug();

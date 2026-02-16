@@ -8,13 +8,14 @@ public partial class OnboardingPage : ContentPage
     private int _currentStep;
     private readonly VerticalStackLayout[] _steps;
     private readonly Border[] _dots;
+    private string? _pickedPhotoPath;
 
     public OnboardingPage(IProgressService progressService)
     {
         InitializeComponent();
         _progressService = progressService;
-        _steps = [Step0, Step1, Step2, Step3];
-        _dots = [Dot0, Dot1, Dot2, Dot3];
+        _steps = [Step0, Step1, Step2, Step3, Step4];
+        _dots = [Dot0, Dot1, Dot2, Dot3, Dot4];
     }
 
     protected override async void OnAppearing()
@@ -22,6 +23,30 @@ public partial class OnboardingPage : ContentPage
         base.OnAppearing();
         Opacity = 0;
         await this.FadeToAsync(1, 500, Easing.CubicOut);
+    }
+
+    private async void OnPickPhotoClicked(object? sender, EventArgs e)
+    {
+        try
+        {
+            var result = await MediaPicker.Default.PickPhotoAsync(new MediaPickerOptions
+            {
+                Title = "Choose Profile Photo"
+            });
+            if (result == null) return;
+
+            var destPath = Path.Combine(FileSystem.AppDataDirectory, "profile_photo.jpg");
+            using var sourceStream = await result.OpenReadAsync();
+            using var destStream = File.OpenWrite(destPath);
+            await sourceStream.CopyToAsync(destStream);
+
+            _pickedPhotoPath = destPath;
+            ProfilePreview.Source = ImageSource.FromFile(destPath);
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Error picking photo: {ex.Message}");
+        }
     }
 
     private async void OnNextClicked(object? sender, EventArgs e)
@@ -55,9 +80,18 @@ public partial class OnboardingPage : ContentPage
             // Update button on last step
             if (_currentStep == _steps.Length - 1)
                 NextButton.Text = "Get Started →";
+            else if (_currentStep == _steps.Length - 2)
+                NextButton.Text = "Set Up Profile →";
         }
         else
         {
+            // Save profile data before finishing
+            var name = NameEntry?.Text?.Trim();
+            if (!string.IsNullOrEmpty(name))
+                await _progressService.SaveSettingAsync("user_display_name", name);
+            if (!string.IsNullOrEmpty(_pickedPhotoPath))
+                await _progressService.SaveSettingAsync("user_profile_image", _pickedPhotoPath);
+
             await _progressService.SaveSettingAsync("onboarding_completed", "true");
             if (Application.Current?.Windows.Count > 0)
                 Application.Current.Windows[0].Page = new AppShell();

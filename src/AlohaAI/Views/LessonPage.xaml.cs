@@ -37,7 +37,7 @@ public partial class LessonPage : ContentPage
                                 }
                             }
                         }
-                        var rendered = MarkdownRenderer.Render(content, darkMode: false);
+                        var rendered = MarkdownRenderer.Render(content, darkMode: true);
                         ContentArea.Children.Add(rendered);
                     }
                     catch (Exception ex)

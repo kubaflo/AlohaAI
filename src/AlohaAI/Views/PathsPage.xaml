@@ -19,12 +19,12 @@
                            Color="{StaticResource Primary}" ZIndex="99" />
 
     <ScrollView>
-        <VerticalStackLayout x:Name="MainContent" Padding="20,70,20,100" Spacing="16">
+        <VerticalStackLayout x:Name="MainContent" Padding="20,0,20,100" Spacing="16">
             <Label Text="Learning Paths"
                    FontSize="28"
                    FontAttributes="Bold"
                    TextColor="White"
-                   Margin="0,50,0,4" />
+                   Margin="0,0,0,4" />
             <Label Text="Choose a path to start learning"
                    FontSize="14"
                    TextColor="{StaticResource Gray300}"
@@ -42,16 +42,8 @@
                             <Grid RowDefinitions="Auto,Auto,Auto" RowSpacing="12">
                                 <!-- Title Row -->
                                 <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                                    <Border BackgroundColor="{Binding Color}"
-                                            StrokeShape="RoundRectangle 12"
-                                            Stroke="Transparent"
-                                            WidthRequest="48" HeightRequest="48">
-                                        <Border.Shadow>
-                                            <Shadow Brush="{Binding Color}" Offset="0,4" Radius="12" Opacity="0.5" />
-                                        </Border.Shadow>
-                                        <Image Source="{Binding IconImage}" WidthRequest="32" HeightRequest="32"
+                                    <Image Source="{Binding IconImage}" WidthRequest="52" HeightRequest="52"
                                                HorizontalOptions="Center" VerticalOptions="Center" />
-                                    </Border>
                                     <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
                                         <Label Text="{Binding Title}" FontSize="18" FontAttributes="Bold" TextColor="White" />
                                         <Label Text="{Binding Description}" FontSize="12" TextColor="{StaticResource Gray300}"

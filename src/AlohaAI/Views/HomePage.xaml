@@ -20,7 +20,7 @@
         <VerticalStackLayout x:Name="MainContent" Spacing="0" SafeAreaEdges="None">
 
             <!-- Header: Settings gear (top right) -->
-            <Grid Padding="24,60,24,0" ColumnDefinitions="*,Auto" SafeAreaEdges="None">
+            <Grid Padding="24,0,24,0" ColumnDefinitions="*,Auto" SafeAreaEdges="None">
                 <BoxView Color="Transparent" />
                 <Border Grid.Column="1" BackgroundColor="#D01A1035" StrokeShape="RoundRectangle 14"
                         Stroke="Transparent" WidthRequest="40" HeightRequest="40">
@@ -78,14 +78,8 @@
                             <VerticalStackLayout Spacing="8">
                                 <!-- Row 1: Icon + Title + Trophy Score -->
                                 <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                                    <Border BackgroundColor="{Binding Color}" StrokeShape="RoundRectangle 24"
-                                            Stroke="Transparent" WidthRequest="48" HeightRequest="48">
-                                        <Border.Shadow>
-                                            <Shadow Brush="{Binding Color}" Offset="0,2" Radius="14" Opacity="0.65" />
-                                        </Border.Shadow>
-                                        <Image Source="{Binding IconImage}" WidthRequest="28" HeightRequest="28"
+                                    <Image Source="{Binding IconImage}" WidthRequest="52" HeightRequest="52"
                                                HorizontalOptions="Center" VerticalOptions="Center" />
-                                    </Border>
                                     <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="1">
                                         <Label Text="{Binding Title}" FontSize="18" FontAttributes="Bold"
                                                FontFamily="OpenSansSemibold" TextColor="White" />

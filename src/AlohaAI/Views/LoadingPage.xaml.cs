@@ -20,20 +20,26 @@ public partial class LoadingPage : ContentPage
         {
             await Task.Delay(500); // Brief splash display
             await _progressService.InitializeAsync();
-            await _progressService.SaveSettingAsync("onboarding_completed", "true");
-        }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine($"Loading error: {ex.Message}");
-        }
-        finally
-        {
+            var onboardingDone = await _progressService.GetSettingAsync("onboarding_completed");
+
             MainThread.BeginInvokeOnMainThread(() =>
             {
                 if (Application.Current?.Windows.Count > 0)
                 {
-                    Application.Current.Windows[0].Page = new AppShell();
+                    if (onboardingDone == "true")
+                        Application.Current.Windows[0].Page = new AppShell();
+                    else
+                        Application.Current.Windows[0].Page = new OnboardingPage(_progressService);
                 }
+            });
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Loading error: {ex.Message}");
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                if (Application.Current?.Windows.Count > 0)
+                    Application.Current.Windows[0].Page = new AppShell();
             });
         }
     }

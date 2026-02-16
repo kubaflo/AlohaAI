@@ -12,34 +12,34 @@
         <!-- Layer 0: Background Image -->
         <Image Source="bg_sunset.png" Aspect="AspectFill" InputTransparent="True" />
         <!-- Layer 1: Dark overlay for readability -->
-        <BoxView Color="#2A000000" InputTransparent="True" />
+        <BoxView Color="#75000000" InputTransparent="True" />
 
     <ScrollView>
-    <VerticalStackLayout Padding="20,70,20,100" Spacing="16">
+    <VerticalStackLayout Padding="20,0,20,100" Spacing="16">
         <!-- Header -->
-        <Label Text="Search" FontSize="28" FontAttributes="Bold" TextColor="White" Margin="0,50,0,0" />
+        <Label Text="Explore" FontSize="28" FontAttributes="Bold" TextColor="White" Margin="0,0,0,0" />
 
         <!-- Search Bar -->
         <Border StrokeShape="RoundRectangle 16" Padding="4,0">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#30FFFFFF" Offset="0.0" />
-                    <GradientStop Color="#10FFFFFF" Offset="1.0" />
+                    <GradientStop Color="#60FFFFFF" Offset="0.0" />
+                    <GradientStop Color="#35FFFFFF" Offset="1.0" />
                 </LinearGradientBrush>
             </Border.Background>
             <Border.Stroke>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#40FFFFFF" Offset="0.0" />
-                    <GradientStop Color="#10FFFFFF" Offset="1.0" />
+                    <GradientStop Color="#70FFFFFF" Offset="0.0" />
+                    <GradientStop Color="#30FFFFFF" Offset="1.0" />
                 </LinearGradientBrush>
             </Border.Stroke>
             <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
                 <Image Source="icon_explore.png" WidthRequest="20" HeightRequest="20"
                        VerticalOptions="Center" Margin="12,0,0,0" />
                 <Entry Grid.Column="1"
-                       Placeholder="Search lessons..."
+                       Placeholder="Search topics, lessons..."
                        Text="{Binding SearchQuery}"
-                       FontSize="16"
+                       FontSize="17"
                        PlaceholderColor="{StaticResource Gray400}"
                        TextColor="White"
                        ReturnType="Search" />
@@ -49,7 +49,7 @@
                         Command="{Binding ClearCommand}"
                         BackgroundColor="Transparent"
                         TextColor="{StaticResource Gray400}"
-                        FontSize="16"
+                        FontSize="17"
                         Padding="8"
                         WidthRequest="44" />
             </Grid>
@@ -110,11 +110,11 @@
                             <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
                                 <Label Text="{Binding LessonTitle}" FontSize="15" FontAttributes="Bold"
                                        TextColor="White" MaxLines="1" LineBreakMode="TailTruncation" />
-                                <Label Text="{Binding Subtitle}" FontSize="12" TextColor="{StaticResource Gray400}"
+                                <Label Text="{Binding Subtitle}" FontSize="13" TextColor="{StaticResource Gray400}"
                                        MaxLines="1" LineBreakMode="TailTruncation" />
                             </VerticalStackLayout>
                             <Label Grid.Column="2" Text="{Binding Xp, StringFormat='+{0} XP'}"
-                                   FontSize="12" TextColor="{StaticResource XPColor}" VerticalOptions="Center" />
+                                   FontSize="13" TextColor="{StaticResource XPColor}" VerticalOptions="Center" />
                         </Grid>
                     </Border>
                 </DataTemplate>
@@ -124,13 +124,13 @@
         <!-- Empty State -->
         <VerticalStackLayout IsVisible="{Binding ShowEmpty}" Spacing="8" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,40,0,0">
             <Image Source="icon_explore.png" WidthRequest="48" HeightRequest="48" HorizontalOptions="Center" Opacity="0.5" />
-            <Label Text="No results found" FontSize="18" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" />
-            <Label Text="Try a different search term" FontSize="14" TextColor="{StaticResource Gray400}" HorizontalOptions="Center" />
+            <Label Text="No results found" FontSize="17" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" />
+            <Label Text="Try a different search term" FontSize="15" TextColor="{StaticResource Gray400}" HorizontalOptions="Center" />
         </VerticalStackLayout>
 
         <!-- Browse by Topic (when no search) -->
         <VerticalStackLayout IsVisible="{Binding ShowBrowse}" Spacing="12" Margin="0,8,0,0">
-            <Label Text="Browse Topics" FontSize="18" FontAttributes="Bold" TextColor="White" />
+            <Label Text="Browse Topics" FontSize="20" FontAttributes="Bold" TextColor="White" />
             <VerticalStackLayout BindableLayout.ItemsSource="{Binding BrowseItems}" Spacing="8">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="vm:BrowseTopicItem">
@@ -141,21 +141,14 @@
                                     CommandParameter="{Binding PathId}" />
                             </Border.GestureRecognizers>
                             <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                                <Border BackgroundColor="{Binding Color}"
-                                        StrokeShape="RoundRectangle 10" Stroke="Transparent"
-                                        WidthRequest="40" HeightRequest="40">
-                                    <Border.Shadow>
-                                        <Shadow Brush="{Binding Color}" Offset="0,4" Radius="10" Opacity="0.4" />
-                                    </Border.Shadow>
-                                    <Image Source="{Binding Icon}" WidthRequest="28" HeightRequest="28"
-                                           HorizontalOptions="Center" VerticalOptions="Center" />
-                                </Border>
+                                <Image Source="{Binding Icon}" WidthRequest="44" HeightRequest="44"
+                                       HorizontalOptions="Center" VerticalOptions="Center" />
                                 <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
                                     <Label Text="{Binding Title}" FontSize="15" FontAttributes="Bold" TextColor="White" />
-                                    <Label Text="{Binding LessonCount, StringFormat='{0} lessons'}" FontSize="12"
+                                    <Label Text="{Binding LessonCount, StringFormat='{0} lessons'}" FontSize="13"
                                            TextColor="{StaticResource Gray300}" />
                                 </VerticalStackLayout>
-                                <Label Grid.Column="2" Text="→" FontSize="16" TextColor="{StaticResource Gray400}" VerticalOptions="Center" />
+                                <Label Grid.Column="2" Text="→" FontSize="17" TextColor="{StaticResource Gray400}" VerticalOptions="Center" />
                             </Grid>
                         </Border>
                     </DataTemplate>

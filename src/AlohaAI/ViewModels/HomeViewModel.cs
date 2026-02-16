@@ -91,6 +91,13 @@ public class HomeViewModel : BaseViewModel
         set => SetProperty(ref _dailyGoalMet, value);
     }
 
+    private string _welcomeText = "Aloha! Welcome back!";
+    public string WelcomeText
+    {
+        get => _welcomeText;
+        set => SetProperty(ref _welcomeText, value);
+    }
+
     public ICommand LoadDataCommand { get; }
     public ICommand NavigateToPathsCommand { get; }
     public ICommand ContinueLearningCommand { get; }
@@ -130,6 +137,13 @@ public class HomeViewModel : BaseViewModel
         try
         {
             await _progressService.InitializeAsync();
+
+            // Personalize greeting
+            var savedName = await _progressService.GetSettingAsync("user_display_name");
+            WelcomeText = string.IsNullOrEmpty(savedName)
+                ? "Aloha! Welcome back!"
+                : $"Aloha, {savedName}!";
+
             CurrentStreak = await _streakService.GetCurrentStreakAsync();
             TotalXp = await _progressService.GetTotalXpAsync();
             TodayLessons = await _streakService.GetTodayLessonsCountAsync();

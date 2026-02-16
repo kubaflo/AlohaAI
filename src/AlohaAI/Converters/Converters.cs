@@ -23,3 +23,29 @@ public class ProgressToWidthConverter : IValueConverter
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         => throw new NotImplementedException();
 }
+
+public class BoolToHorizontalOptionsConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        if (value is bool isUser)
+            return isUser ? LayoutOptions.End : LayoutOptions.Start;
+        return LayoutOptions.Start;
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+        => throw new NotImplementedException();
+}
+
+public class UserMessageColorConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        if (value is bool isUser)
+            return isUser ? Color.FromArgb("#5B8FD4") : Color.FromArgb("#E81A1035");
+        return Color.FromArgb("#E81A1035");
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+        => throw new NotImplementedException();
+}
