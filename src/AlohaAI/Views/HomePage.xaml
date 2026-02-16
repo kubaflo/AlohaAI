@@ -53,6 +53,62 @@
                 </Label.Shadow>
             </Label>
 
+            <!-- Quick Stats — compact inline bar -->
+            <Border Margin="16,0,16,16" StrokeShape="RoundRectangle 14"
+                    BackgroundColor="#CC151025" Stroke="Transparent" Padding="14,12">
+                <Grid ColumnDefinitions="*,Auto,*,Auto,*">
+                    <HorizontalStackLayout Spacing="6" HorizontalOptions="Center">
+                        <Label Text="{Binding CurrentStreak}" FontSize="20" FontAttributes="Bold" TextColor="White" VerticalOptions="Center" />
+                        <Label Text="streak" FontSize="11" TextColor="#B8A0E0" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                    <BoxView Grid.Column="1" WidthRequest="1" BackgroundColor="#40FFFFFF" VerticalOptions="Fill" />
+                    <HorizontalStackLayout Grid.Column="2" Spacing="6" HorizontalOptions="Center">
+                        <Label Text="{Binding TotalXp}" FontSize="20" FontAttributes="Bold" TextColor="White" VerticalOptions="Center" />
+                        <Label Text="xp" FontSize="11" TextColor="#7EB4F0" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                    <BoxView Grid.Column="3" WidthRequest="1" BackgroundColor="#40FFFFFF" VerticalOptions="Fill" />
+                    <HorizontalStackLayout Grid.Column="4" Spacing="6" HorizontalOptions="Center">
+                        <Label Text="{Binding TodayLessons}" FontSize="20" FontAttributes="Bold" TextColor="White" VerticalOptions="Center" />
+                        <Label Text="today" FontSize="11" TextColor="#6DD4A0" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </Grid>
+            </Border>
+
+            <!-- AI Word of the Day — compact inline definition style -->
+            <Border Margin="16,0,16,20" StrokeShape="RoundRectangle 16" Stroke="Transparent" Padding="0">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.6">
+                        <GradientStop Color="#2D1B4E" Offset="0.0" />
+                        <GradientStop Color="#1E1238" Offset="0.6" />
+                        <GradientStop Color="#140E28" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid ColumnDefinitions="4,*">
+                    <!-- Purple accent stripe -->
+                    <BoxView BackgroundColor="#A855F7" VerticalOptions="Fill"
+                             InputTransparent="True">
+                        <BoxView.Shadow>
+                            <Shadow Brush="#A855F7" Offset="3,0" Radius="10" Opacity="0.4" />
+                        </BoxView.Shadow>
+                    </BoxView>
+                    <VerticalStackLayout Grid.Column="1" Spacing="4" Padding="14,12,14,12">
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                            <Label Text="{Binding WordOfDay}" FontSize="18" FontAttributes="Bold"
+                                   TextColor="#D8B4FE" VerticalOptions="Center" />
+                            <Label Grid.Column="1" Text="Word of the Day" FontSize="10"
+                                   TextColor="#7C3AED" FontAttributes="Bold" VerticalOptions="Center"
+                                   HorizontalOptions="End" />
+                        </Grid>
+                        <Label Text="{Binding WordDefinition}" FontSize="12.5" TextColor="#C0B0D8"
+                               LineBreakMode="WordWrap" LineHeight="1.25" />
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+            <!-- Learning Paths Section Header -->
+            <Label Text="Learning Paths" FontSize="18" FontAttributes="Bold"
+                   TextColor="#AAAAAA" Padding="20,0,20,8" />
+
             <!-- Learning Paths as rich cards (BindableLayout) -->
             <VerticalStackLayout Padding="16,0,16,100" Spacing="14"
                                  BindableLayout.ItemsSource="{Binding PathItems}">

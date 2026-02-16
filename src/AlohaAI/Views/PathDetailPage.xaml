@@ -2,180 +2,132 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:AlohaAI.ViewModels"
-             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              x:Class="AlohaAI.Views.PathDetailPage"
              x:DataType="vm:PathDetailViewModel"
              Title="{Binding Title}"
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="False"
-             BackgroundColor="Transparent"
+             BackgroundColor="#120C24"
              SafeAreaEdges="None">
-    <Grid BackgroundColor="Transparent" SafeAreaEdges="None">
-        <Image Source="bg_sunset.png" Aspect="AspectFill" InputTransparent="True" />
-        <BoxView Color="#90000000" InputTransparent="True" />
+    <Grid Margin="0,-60,0,0" SafeAreaEdges="None">
+        <!-- Purple background -->
+        <BoxView InputTransparent="True">
+            <BoxView.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#1E1035" Offset="0.0" />
+                    <GradientStop Color="#120C24" Offset="1.0" />
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+
+        <!-- Header image only at top, fading out -->
+        <Grid HeightRequest="260" VerticalOptions="Start" InputTransparent="True">
+            <Image Source="{Binding HeaderImage}" Aspect="AspectFill" />
+            <BoxView>
+                <BoxView.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#00000000" Offset="0.0" />
+                        <GradientStop Color="#901E1035" Offset="0.5" />
+                        <GradientStop Color="#FF120C24" Offset="1.0" />
+                    </LinearGradientBrush>
+                </BoxView.Background>
+            </BoxView>
+        </Grid>
 
         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
                            HorizontalOptions="Center" VerticalOptions="Center"
                            Color="{StaticResource Primary}" ZIndex="99" />
-    <ScrollView>
-        <VerticalStackLayout x:Name="MainContent" Spacing="0">
 
-            <!-- Hero Header with image -->
-            <Grid HeightRequest="280" Margin="0,-60,0,0">
-                <Image Source="{Binding HeaderImage}" Aspect="AspectFill"
-                       HorizontalOptions="Fill" VerticalOptions="Fill" />
-                <!-- Gradient overlay bottom fade -->
-                <BoxView InputTransparent="True">
-                    <BoxView.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                            <GradientStop Color="#00000000" Offset="0.0" />
-                            <GradientStop Color="#CC000000" Offset="0.7" />
-                            <GradientStop Color="#FF000000" Offset="1.0" />
-                        </LinearGradientBrush>
-                    </BoxView.Background>
-                </BoxView>
+        <ScrollView>
+            <VerticalStackLayout x:Name="MainContent" Spacing="0" Padding="0,0,0,0">
 
-                <!-- Back button overlaid -->
-                <Border BackgroundColor="#80000000" StrokeShape="RoundRectangle 12"
-                        Stroke="Transparent" Padding="10,6"
-                        HorizontalOptions="Start" VerticalOptions="Start" Margin="16,66,0,0">
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding GoBackCommand}" />
-                    </Border.GestureRecognizers>
-                    <HorizontalStackLayout Spacing="6">
-                        <Label Text="←" FontSize="17" TextColor="White" VerticalOptions="Center" />
-                        <Label Text="Back" FontSize="15" TextColor="White" VerticalOptions="Center" />
-                    </HorizontalStackLayout>
-                </Border>
-
-                <!-- Title overlay at bottom -->
-                <VerticalStackLayout VerticalOptions="End" Padding="20,0,20,16" Spacing="6">
-                    <HorizontalStackLayout Spacing="12">
-                        <Image Source="{Binding PathIcon}" WidthRequest="42" HeightRequest="42"
-                               VerticalOptions="Center" />
-                        <Label Text="{Binding Title}" FontSize="26" FontAttributes="Bold" TextColor="White"
-                               VerticalOptions="Center">
-                            <Label.Shadow>
-                                <Shadow Brush="#80000000" Offset="0,2" Radius="6" Opacity="0.8" />
-                            </Label.Shadow>
-                        </Label>
-                    </HorizontalStackLayout>
-                    <Label Text="{Binding PathDescription}" FontSize="13" TextColor="#CCFFFFFF"
+                <!-- Title section -->
+                <VerticalStackLayout Padding="20,120,20,0" Spacing="6">
+                    <Label Text="{Binding Title}" FontSize="28" FontAttributes="Bold" TextColor="White" />
+                    <Label Text="{Binding PathDescription}" FontSize="15" TextColor="#AABBCC"
                            MaxLines="2" LineBreakMode="TailTruncation" />
                 </VerticalStackLayout>
-            </Grid>
 
-            <!-- Progress section -->
-            <Grid Padding="20,16,20,6" ColumnDefinitions="*,Auto" ColumnSpacing="12">
-                <Grid HeightRequest="5" VerticalOptions="Center">
-                    <Border BackgroundColor="#18FFFFFF" StrokeShape="RoundRectangle 2.5" Stroke="Transparent" />
-                    <Border BackgroundColor="{Binding PathColor}" StrokeShape="RoundRectangle 2.5" Stroke="Transparent"
-                            HorizontalOptions="Start"
-                            WidthRequest="{Binding OverallProgress, Converter={StaticResource ProgressToWidthConverter}, ConverterParameter=280}">
-                        <Border.Shadow>
-                            <Shadow Brush="{Binding PathColor}" Offset="0,0" Radius="4" Opacity="0.6" />
-                        </Border.Shadow>
-                    </Border>
-                </Grid>
-                <Label Grid.Column="1" Text="{Binding OverallProgressText}"
-                       FontSize="13" FontAttributes="Bold" TextColor="#AAAAAA" VerticalOptions="Center" />
-            </Grid>
+                <!-- Progress -->
+                <Label Text="{Binding OverallProgressText}" FontSize="13" TextColor="#8899AA"
+                       Padding="20,20,20,8" HorizontalTextAlignment="End" />
 
-            <!-- Modules list -->
-            <VerticalStackLayout Padding="12,8,12,100" Spacing="16"
-                                  BindableLayout.ItemsSource="{Binding Modules}">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate x:DataType="vm:ModuleDisplayItem">
-                        <Border StrokeShape="RoundRectangle 16" StrokeThickness="0.6" Padding="0">
-                            <Border.BackgroundColor>
-                                <Color>#CC151025</Color>
-                            </Border.BackgroundColor>
-                            <Border.Stroke>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                    <GradientStop Color="#35FFFFFF" Offset="0.0" />
-                                    <GradientStop Color="#10FFFFFF" Offset="0.5" />
-                                    <GradientStop Color="#05FFFFFF" Offset="1.0" />
-                                </LinearGradientBrush>
-                            </Border.Stroke>
-                            <Border.Shadow>
-                                <Shadow Brush="#000000" Offset="0,4" Radius="16" Opacity="0.5" />
-                            </Border.Shadow>
-                            <VerticalStackLayout Spacing="0">
-                                <!-- Module Header -->
-                                <Grid Padding="14,12" ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
-                                    <Border WidthRequest="32" HeightRequest="32"
-                                            StrokeShape="RoundRectangle 8"
-                                            BackgroundColor="#305B8FD4" Stroke="Transparent"
-                                            VerticalOptions="Center">
-                                        <Label Text="{Binding ModuleNumber}" FontSize="15" FontAttributes="Bold"
-                                               TextColor="#7EB4F0" HorizontalOptions="Center" VerticalOptions="Center" />
-                                    </Border>
-                                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                        <Label Text="{Binding Title}" FontSize="16" FontAttributes="Bold" TextColor="White" />
-                                        <Label Text="{Binding Description}" FontSize="12" TextColor="#999999"
-                                               MaxLines="1" LineBreakMode="TailTruncation" />
+                <!-- Modules list -->
+                <VerticalStackLayout Padding="12,0,12,20" Spacing="16"
+                                      BindableLayout.ItemsSource="{Binding Modules}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="vm:ModuleDisplayItem">
+                            <Border StrokeShape="RoundRectangle 16" StrokeThickness="0.5" Padding="0"
+                                    BackgroundColor="#D0181530">
+                                <Border.Stroke>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="#30FFFFFF" Offset="0.0" />
+                                        <GradientStop Color="#08FFFFFF" Offset="1.0" />
+                                    </LinearGradientBrush>
+                                </Border.Stroke>
+                                <VerticalStackLayout Spacing="0">
+                                    <!-- Module Header -->
+                                    <Grid Padding="16,14" ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                        <Border WidthRequest="34" HeightRequest="34"
+                                                StrokeShape="RoundRectangle 17"
+                                                BackgroundColor="#305B8FD4" Stroke="Transparent"
+                                                VerticalOptions="Center">
+                                            <Label Text="{Binding ModuleNumber}" FontSize="15" FontAttributes="Bold"
+                                                   TextColor="#7EB4F0" HorizontalOptions="Center" VerticalOptions="Center" />
+                                        </Border>
+                                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="3">
+                                            <Label Text="{Binding Title}" FontSize="16" FontAttributes="Bold" TextColor="White" />
+                                            <Label Text="{Binding Description}" FontSize="13" TextColor="#778899"
+                                                   MaxLines="1" LineBreakMode="TailTruncation" />
+                                        </VerticalStackLayout>
+                                        <Label Grid.Column="2" Text="{Binding ProgressText}" FontSize="13"
+                                               FontAttributes="Bold" TextColor="#7EB4F0" VerticalOptions="Center" />
+                                    </Grid>
+
+                                    <!-- Separator -->
+                                    <BoxView HeightRequest="0.5" Color="#18FFFFFF" />
+
+                                    <!-- Lessons -->
+                                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Lessons}" Spacing="0"
+                                                         Padding="16,4,16,4">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate x:DataType="vm:LessonDisplayItem">
+                                                <Border BackgroundColor="Transparent" StrokeThickness="0" Padding="0,10">
+                                                    <Border.GestureRecognizers>
+                                                        <TapGestureRecognizer
+                                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PathDetailViewModel}}, Path=SelectLessonCommand}"
+                                                            CommandParameter="{Binding .}" />
+                                                    </Border.GestureRecognizers>
+                                                    <Grid ColumnDefinitions="*,Auto">
+                                                        <Label Text="{Binding Title}" FontSize="15"
+                                                               TextColor="{Binding TitleColor}" VerticalOptions="Center" />
+                                                        <Label Grid.Column="1" Text="{Binding Xp, StringFormat='+{0} XP'}"
+                                                               FontSize="13" TextColor="#7EB4F0"
+                                                               VerticalOptions="Center" />
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
                                     </VerticalStackLayout>
-                                    <Label Grid.Column="2" Text="{Binding ProgressText}" FontSize="12"
-                                           FontAttributes="Bold" TextColor="#7EB4F0" VerticalOptions="Center" />
-                                </Grid>
 
-                                <!-- Thin separator -->
-                                <BoxView HeightRequest="0.5" Color="#15FFFFFF" />
-
-                                <!-- Lessons List -->
-                                <VerticalStackLayout BindableLayout.ItemsSource="{Binding Lessons}" Spacing="0"
-                                                     Padding="14,6,14,4">
-                                    <BindableLayout.ItemTemplate>
-                                        <DataTemplate x:DataType="vm:LessonDisplayItem">
-                                            <Border BackgroundColor="Transparent" StrokeThickness="0" Padding="0,8">
-                                                <Border.GestureRecognizers>
-                                                    <TapGestureRecognizer
-                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PathDetailViewModel}}, Path=SelectLessonCommand}"
-                                                        CommandParameter="{Binding .}" />
-                                                </Border.GestureRecognizers>
-                                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
-                                                    <Border WidthRequest="22" HeightRequest="22"
-                                                            StrokeShape="RoundRectangle 11"
-                                                            StrokeThickness="1.5"
-                                                            Stroke="{Binding StatusColor}"
-                                                            BackgroundColor="{Binding StatusBackground}"
-                                                            VerticalOptions="Center">
-                                                        <Label Text="✓" FontSize="11" TextColor="White"
-                                                               IsVisible="{Binding IsCompleted}"
-                                                               HorizontalOptions="Center" VerticalOptions="Center" />
-                                                    </Border>
-                                                    <Label Grid.Column="1" Text="{Binding Title}" FontSize="14"
-                                                           TextColor="{Binding TitleColor}" VerticalOptions="Center" />
-                                                    <Label Grid.Column="2" Text="{Binding Xp, StringFormat='+{0} XP'}"
-                                                           FontSize="11" TextColor="#7EB4F0" FontAttributes="Bold"
-                                                           VerticalOptions="Center" Opacity="0.8" />
-                                                </Grid>
-                                            </Border>
-                                        </DataTemplate>
-                                    </BindableLayout.ItemTemplate>
+                                    <!-- Quiz Button -->
+                                    <Border IsVisible="{Binding HasQuiz}" BackgroundColor="{StaticResource Secondary}"
+                                            StrokeShape="RoundRectangle 12" Stroke="Transparent"
+                                            Padding="0,12" Margin="16,4,16,14" HeightRequest="44">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PathDetailViewModel}}, Path=StartQuizCommand}"
+                                                CommandParameter="{Binding Id}" />
+                                        </Border.GestureRecognizers>
+                                        <Label Text="Take Quiz" FontSize="16" FontAttributes="Bold"
+                                               TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" />
+                                    </Border>
                                 </VerticalStackLayout>
-
-                                <!-- Quiz Button -->
-                                <Border IsVisible="{Binding HasQuiz}" BackgroundColor="{StaticResource Secondary}"
-                                        StrokeShape="RoundRectangle 12" Stroke="Transparent"
-                                        Padding="0,11" Margin="14,4,14,12" HeightRequest="42">
-                                    <Border.Shadow>
-                                        <Shadow Brush="{StaticResource Secondary}" Offset="0,3" Radius="10" Opacity="0.4" />
-                                    </Border.Shadow>
-                                    <Border.GestureRecognizers>
-                                        <TapGestureRecognizer
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PathDetailViewModel}}, Path=StartQuizCommand}"
-                                            CommandParameter="{Binding Id}" />
-                                    </Border.GestureRecognizers>
-                                    <Label Text="Take Quiz" FontSize="15" FontAttributes="Bold"
-                                           TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" />
-                                </Border>
-                            </VerticalStackLayout>
-                        </Border>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
             </VerticalStackLayout>
-        </VerticalStackLayout>
-    </ScrollView>
+        </ScrollView>
     </Grid>
 </ContentPage>
