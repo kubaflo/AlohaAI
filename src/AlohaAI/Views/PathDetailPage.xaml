@@ -41,8 +41,21 @@
         <ScrollView>
             <VerticalStackLayout x:Name="MainContent" Spacing="0" Padding="0,0,0,0">
 
+                <!-- Back button -->
+                <Border BackgroundColor="#80000000" StrokeShape="RoundRectangle 12"
+                        Stroke="Transparent" Padding="10,6"
+                        HorizontalOptions="Start" VerticalOptions="Start" Margin="16,70,0,0">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                    </Border.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="6">
+                        <Label Text="←" FontSize="17" TextColor="White" VerticalOptions="Center" />
+                        <Label Text="Back" FontSize="15" TextColor="White" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </Border>
+
                 <!-- Title section -->
-                <VerticalStackLayout Padding="20,120,20,0" Spacing="6">
+                <VerticalStackLayout Padding="20,10,20,0" Spacing="6">
                     <Label Text="{Binding Title}" FontSize="28" FontAttributes="Bold" TextColor="White" />
                     <Label Text="{Binding PathDescription}" FontSize="15" TextColor="#AABBCC"
                            MaxLines="2" LineBreakMode="TailTruncation" />
@@ -58,7 +71,7 @@
                     <BindableLayout.ItemTemplate>
                         <DataTemplate x:DataType="vm:ModuleDisplayItem">
                             <Border StrokeShape="RoundRectangle 16" StrokeThickness="0.5" Padding="0"
-                                    BackgroundColor="#D0181530">
+                                    BackgroundColor="#D0241840">
                                 <Border.Stroke>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                                         <GradientStop Color="#30FFFFFF" Offset="0.0" />

@@ -21,7 +21,30 @@ public class QuizViewModel : BaseViewModel
     public string PathId
     {
         get => _pathId;
-        set => SetProperty(ref _pathId, value);
+        set { SetProperty(ref _pathId, value); UpdateHeaderImage(); }
+    }
+
+    private string _headerImage = "header_agentic_ai.jpg";
+    public string HeaderImage
+    {
+        get => _headerImage;
+        set => SetProperty(ref _headerImage, value);
+    }
+
+    private void UpdateHeaderImage()
+    {
+        HeaderImage = PathId switch
+        {
+            "agentic-ai" => "header_agentic_ai.jpg",
+            "ml-fundamentals" => "header_ml_fundamentals.jpg",
+            "ai-in-practice" => "header_ai_in_practice.jpg",
+            "prompt-engineering" => "header_prompt_engineering.jpg",
+            "vision-multimodal" => "header_vision_multimodal.jpg",
+            "generative-ai" => "header_generative_ai.jpg",
+            "ai-safety" => "header_ai_safety.jpg",
+            "mlops-engineering" => "header_mlops_engineering.jpg",
+            _ => "header_agentic_ai.jpg"
+        };
     }
 
     private string _moduleId = string.Empty;
