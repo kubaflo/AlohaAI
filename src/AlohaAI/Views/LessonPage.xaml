@@ -8,11 +8,32 @@
              Title="{Binding Title}"
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="False"
+             BackgroundColor="#120C24"
              SafeAreaEdges="None">
-    <Grid SafeAreaEdges="None">
-        <!-- Background -->
-        <Image Source="bg_sunset.png" Aspect="AspectFill" InputTransparent="True" />
-        <BoxView Color="#90000000" InputTransparent="True" />
+    <Grid Margin="0,-60,0,-40" SafeAreaEdges="None">
+        <!-- Purple gradient background -->
+        <BoxView InputTransparent="True">
+            <BoxView.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#1E1035" Offset="0.0" />
+                    <GradientStop Color="#120C24" Offset="1.0" />
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+
+        <!-- Header image fading out -->
+        <Grid HeightRequest="260" VerticalOptions="Start" InputTransparent="True">
+            <Image Source="{Binding HeaderImage}" Aspect="AspectFill" />
+            <BoxView>
+                <BoxView.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#00000000" Offset="0.0" />
+                        <GradientStop Color="#901E1035" Offset="0.5" />
+                        <GradientStop Color="#FF120C24" Offset="1.0" />
+                    </LinearGradientBrush>
+                </BoxView.Background>
+            </BoxView>
+        </Grid>
 
         <!-- XP Earned Popup (above everything) -->
         <Border x:Name="XpPopup"
@@ -36,7 +57,7 @@
             <VerticalStackLayout Spacing="0">
 
                 <!-- Header -->
-                <VerticalStackLayout Padding="20,0,20,16" Spacing="6">
+                <VerticalStackLayout Padding="20,70,20,16" Spacing="6">
                     <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
                         <Border BackgroundColor="#C81A1035" StrokeShape="RoundRectangle 14" Padding="0"
                                 WidthRequest="36" HeightRequest="36"
@@ -79,58 +100,6 @@
                         </Border.Shadow>
                     </Border>
                 </Grid>
-
-                <!-- Lesson Title Card -->
-                <Border Margin="16,0,16,16" StrokeShape="RoundRectangle 18" StrokeThickness="0.8" Padding="0">
-                    <Border.BackgroundColor>
-                        <Color>#C81A1035</Color>
-                    </Border.BackgroundColor>
-                    <Border.Stroke>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="#30FFFFFF" Offset="0.0" />
-                            <GradientStop Color="#08FFFFFF" Offset="1.0" />
-                        </LinearGradientBrush>
-                    </Border.Stroke>
-                    <Border.Shadow>
-                        <Shadow Brush="#000000" Offset="0,8" Radius="24" Opacity="0.4" />
-                    </Border.Shadow>
-                    <VerticalStackLayout Spacing="0">
-                        <!-- Hero area with mascot -->
-                        <Grid HeightRequest="180">
-                            <Border StrokeShape="RoundRectangle 20,20,0,0" Stroke="Transparent"
-                                    BackgroundColor="#1A1530" />
-                            <Image Source="{Binding HeaderImage}" Aspect="AspectFill"
-                                   HorizontalOptions="Fill" VerticalOptions="Fill"
-                                   Opacity="0.9">
-                                <Image.Clip>
-                                    <RoundRectangleGeometry CornerRadius="20,20,0,0" Rect="0,0,500,180" />
-                                </Image.Clip>
-                            </Image>
-                            <BoxView Color="#40000000" InputTransparent="True" />
-                        </Grid>
-
-                        <!-- Title + Date + XP badge -->
-                        <Grid Padding="18,14,18,6" ColumnDefinitions="*,Auto">
-                            <Label Text="{Binding Title}" FontSize="20" FontAttributes="Bold"
-                                   TextColor="White" MaxLines="2" LineBreakMode="WordWrap" />
-                            <Label Grid.Column="1" Text="{Binding LessonDate}" FontSize="11"
-                                   TextColor="#AAAAAA" VerticalOptions="Start" Margin="8,3,0,0" />
-                        </Grid>
-
-                        <!-- XP + Keywords row -->
-                        <FlexLayout Wrap="Wrap" Padding="18,4,18,16"
-                                    JustifyContent="Start" AlignItems="Center" Direction="Row">
-                            <Border BackgroundColor="#305B8FD4" StrokeShape="RoundRectangle 10"
-                                    Stroke="Transparent" Padding="10,4" Margin="0,0,6,6">
-                                <HorizontalStackLayout Spacing="4">
-                                    <Image Source="icon_xp.png" WidthRequest="14" HeightRequest="14" VerticalOptions="Center" />
-                                    <Label Text="{Binding LessonXp, StringFormat='{0} XP'}" FontSize="11"
-                                           TextColor="#7EB4F0" FontAttributes="Bold" />
-                                </HorizontalStackLayout>
-                            </Border>
-                        </FlexLayout>
-                    </VerticalStackLayout>
-                </Border>
 
                 <!-- Content Section -->
                 <Label Text="Content" FontSize="17" FontAttributes="Bold"
@@ -183,11 +152,6 @@
                         <VerticalStackLayout VerticalOptions="Center" Spacing="4">
                             <Label Text="{Binding Title}" FontSize="15" FontAttributes="Bold" TextColor="White"
                                    MaxLines="1" LineBreakMode="TailTruncation" />
-                            <HorizontalStackLayout Spacing="4">
-                                <Image Source="icon_xp.png" WidthRequest="14" HeightRequest="14" VerticalOptions="Center" />
-                                <Label Text="{Binding LessonXp, StringFormat='+{0} XP on completion'}"
-                                       FontSize="13" TextColor="{StaticResource XPColor}" />
-                            </HorizontalStackLayout>
                             <Label IsVisible="{Binding HasNextLesson}"
                                    Text="{Binding NextLessonTitle, StringFormat='Next: {0} →'}"
                                    TextColor="{StaticResource Primary}"
@@ -222,8 +186,8 @@
                     </Grid>
                 </Border>
 
-                <!-- Bottom spacer for safe area -->
-                <BoxView HeightRequest="40" Color="Transparent" />
+                <!-- Bottom spacer -->
+                <BoxView HeightRequest="60" Color="Transparent" />
 
             </VerticalStackLayout>
         </ScrollView>
