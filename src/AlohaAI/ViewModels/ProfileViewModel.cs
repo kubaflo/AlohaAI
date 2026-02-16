@@ -55,9 +55,11 @@ public class ProfileViewModel : BaseViewModel
     private ImageSource? _profileImageSource;
     public ImageSource ProfileImageSource
     {
-        get => _profileImageSource ?? ImageSource.FromFile("mascot.png");
-        set => SetProperty(ref _profileImageSource, value);
+        get => _profileImageSource ?? ImageSource.FromFile("icon_island.png");
+        set { SetProperty(ref _profileImageSource, value); OnPropertyChanged(nameof(HasProfileImage)); }
     }
+
+    public bool HasProfileImage => _profileImageSource != null;
 
     private bool _showProfileSetup;
     public bool ShowProfileSetup
@@ -189,6 +191,11 @@ public class ProfileViewModel : BaseViewModel
                         "agentic-ai" => "icon_explore.png",
                         "ml-fundamentals" => "icon_books.png",
                         "ai-in-practice" => "icon_rocket.png",
+                        "prompt-engineering" => "icon_gem.png",
+                        "vision-multimodal" => "icon_island.png",
+                        "generative-ai" => "icon_flowers.png",
+                        "ai-safety" => "icon_trophy.png",
+                        "mlops-engineering" => "icon_notebook.png",
                         _ => "icon_books.png"
                     },
                     CompletedLessons = completedLessons,

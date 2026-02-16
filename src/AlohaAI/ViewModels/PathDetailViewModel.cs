@@ -39,6 +39,13 @@ public class PathDetailViewModel : BaseViewModel
         set => SetProperty(ref _pathIcon, value);
     }
 
+    private string _headerImage = "header_agentic_ai.jpg";
+    public string HeaderImage
+    {
+        get => _headerImage;
+        set => SetProperty(ref _headerImage, value);
+    }
+
     private double _overallProgress;
     public double OverallProgress
     {
@@ -97,15 +104,34 @@ public class PathDetailViewModel : BaseViewModel
                     "agentic-ai" => "icon_explore.png",
                     "ml-fundamentals" => "icon_books.png",
                     "ai-in-practice" => "icon_rocket.png",
+                    "prompt-engineering" => "icon_gem.png",
+                    "vision-multimodal" => "icon_island.png",
+                    "generative-ai" => "icon_flowers.png",
+                    "ai-safety" => "icon_trophy.png",
+                    "mlops-engineering" => "icon_notebook.png",
                     _ => "icon_explore.png"
+                };
+                HeaderImage = path.Id switch
+                {
+                    "agentic-ai" => "header_agentic_ai.jpg",
+                    "ml-fundamentals" => "header_ml_fundamentals.jpg",
+                    "ai-in-practice" => "header_ai_in_practice.jpg",
+                    "prompt-engineering" => "header_prompt_engineering.jpg",
+                    "vision-multimodal" => "header_vision_multimodal.jpg",
+                    "generative-ai" => "header_generative_ai.jpg",
+                    "ai-safety" => "header_ai_safety.jpg",
+                    "mlops-engineering" => "header_mlops_engineering.jpg",
+                    _ => "header_agentic_ai.jpg"
                 };
             }
 
             var modules = await _contentService.GetModulesAsync(PathId);
             Modules.Clear();
+            int moduleNum = 0;
 
             foreach (var module in modules)
             {
+                moduleNum++;
                 var lessons = new ObservableCollection<LessonDisplayItem>();
                 foreach (var lesson in module.Lessons)
                 {
@@ -126,6 +152,7 @@ public class PathDetailViewModel : BaseViewModel
                     Id = module.Id,
                     Title = module.Title,
                     Description = module.Description,
+                    ModuleNumber = moduleNum,
                     Lessons = lessons,
                     CompletedCount = completedCount,
                     TotalCount = lessons.Count,
@@ -154,12 +181,15 @@ public class ModuleDisplayItem
     public string Id { get; set; } = string.Empty;
     public string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
+    public int ModuleNumber { get; set; }
     public ObservableCollection<LessonDisplayItem> Lessons { get; set; } = [];
     public int CompletedCount { get; set; }
     public int TotalCount { get; set; }
     public bool HasQuiz { get; set; }
     public string ProgressText => $"{CompletedCount}/{TotalCount}";
     public bool AllLessonsComplete => CompletedCount == TotalCount && TotalCount > 0;
+    public string ModuleLabel => $"Module {ModuleNumber}";
+    public double Progress => TotalCount > 0 ? (double)CompletedCount / TotalCount : 0;
 }
 
 public class LessonDisplayItem

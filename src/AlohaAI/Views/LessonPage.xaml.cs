@@ -67,7 +67,7 @@ public partial class LessonPage : ContentPage
     private void PopulateKeywords(List<string> keywords)
     {
         KeywordsArea.Children.Clear();
-        var colors = new[] { "#5B8FD4", "#7B68AE", "#E88BBF", "#FFD54F", "#4CAF50" };
+        var colors = new[] { "#5B8FD4", "#7B68AE", "#E88BBF", "#7EB4F0", "#4CAF50" };
         for (int i = 0; i < keywords.Count; i++)
         {
             var color = Color.FromArgb(colors[i % colors.Length]);

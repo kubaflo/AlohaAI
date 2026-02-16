@@ -9,7 +9,7 @@
              SafeAreaEdges="None">
     <Grid SafeAreaEdges="None">
         <Image Source="bg_sunset.png" Aspect="AspectFill" InputTransparent="True" />
-        <BoxView Color="#75000000" InputTransparent="True" />
+        <BoxView Color="#90000000" InputTransparent="True" />
 
         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
                            HorizontalOptions="Center" VerticalOptions="Center"
@@ -18,22 +18,10 @@
         <VerticalStackLayout x:Name="MainContent" Spacing="0">
 
             <!-- Top bar -->
-            <Grid Padding="20,20,20,12" ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-                <Border StrokeShape="RoundRectangle 20"
-                        StrokeThickness="1" WidthRequest="40" HeightRequest="40"
-                        BackgroundColor="#E81A1035">
-                    <Border.Stroke>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="#40FFFFFF" Offset="0.0" />
-                            <GradientStop Color="#10FFFFFF" Offset="1.0" />
-                        </LinearGradientBrush>
-                    </Border.Stroke>
-                    <Image Source="mascot.png" WidthRequest="40" HeightRequest="40"
-                           HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFill" />
-                </Border>
-                <Label Grid.Column="1" Text="Profile" FontSize="22" FontAttributes="Bold"
+            <Grid Padding="20,20,20,12" ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                <Label Text="Profile" FontSize="22" FontAttributes="Bold"
                        TextColor="White" VerticalOptions="Center" />
-                <Border Grid.Column="2" StrokeShape="RoundRectangle 16"
+                <Border Grid.Column="1" StrokeShape="RoundRectangle 16"
                         Stroke="Transparent" BackgroundColor="#E81A1035"
                         WidthRequest="34" HeightRequest="34">
                     <Border.GestureRecognizers>
@@ -50,14 +38,20 @@
                     <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
                         <Grid WidthRequest="68" HeightRequest="68">
                             <Border StrokeShape="RoundRectangle 34"
-                                    Stroke="#FFD54F" StrokeThickness="3"
-                                    BackgroundColor="#25FFD54F"
+                                    Stroke="#7EB4F0" StrokeThickness="2.5"
+                                    BackgroundColor="#20FFFFFF"
                                     WidthRequest="68" HeightRequest="68"
                                     HorizontalOptions="Center" VerticalOptions="Center">
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding PickPhotoCommand}" />
                                 </Border.GestureRecognizers>
-                                <Image Source="{Binding ProfileImageSource}" Aspect="AspectFill" />
+                                <Grid>
+                                    <Image Source="{Binding ProfileImageSource}" Aspect="AspectFill"
+                                           IsVisible="{Binding HasProfileImage}" />
+                                    <Label Text="+" FontSize="32" TextColor="#7EB4F0"
+                                           HorizontalOptions="Center" VerticalOptions="Center"
+                                           IsVisible="{Binding HasProfileImage, Converter={StaticResource InvertedBoolConverter}}" />
+                                </Grid>
                             </Border>
                             <!-- Level badge overlay -->
                             <Border StrokeShape="RoundRectangle 10"
@@ -83,7 +77,7 @@
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Spacing="4">
                                 <Image Source="icon_levelbar.png" WidthRequest="14" HeightRequest="14" VerticalOptions="Center" />
-                                <Label Text="{Binding Level, StringFormat='Level {0}'}" FontSize="13" TextColor="#FFD54F" VerticalOptions="Center" />
+                                <Label Text="{Binding Level, StringFormat='Level {0}'}" FontSize="13" TextColor="#7EB4F0" VerticalOptions="Center" />
                             </HorizontalStackLayout>
                         </VerticalStackLayout>
                     </Grid>
@@ -94,9 +88,9 @@
                             <VerticalStackLayout HorizontalOptions="Center" Spacing="2">
                                 <HorizontalStackLayout HorizontalOptions="Center" Spacing="3">
                                     <Image Source="icon_xp.png" WidthRequest="16" HeightRequest="16" VerticalOptions="Center" />
-                                    <Label Text="{Binding TotalXp}" FontSize="20" FontAttributes="Bold" TextColor="#FFD54F" VerticalOptions="Center" />
+                                    <Label Text="{Binding TotalXp}" FontSize="20" FontAttributes="Bold" TextColor="#7EB4F0" VerticalOptions="Center" />
                                 </HorizontalStackLayout>
-                                <Label Text="Total XP" FontSize="11" TextColor="#FFFFFFA0" HorizontalOptions="Center" />
+                                <Label Text="Total XP" FontSize="11" TextColor="#AAAAAA" HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Border>
                         <Border Grid.Column="1" StrokeShape="RoundRectangle 12" Stroke="Transparent"
@@ -106,7 +100,7 @@
                                     <Image Source="icon_xp.png" WidthRequest="15" HeightRequest="15" VerticalOptions="Center" />
                                     <Label Text="{Binding CurrentStreak}" FontSize="20" FontAttributes="Bold" TextColor="White" VerticalOptions="Center" />
                                 </HorizontalStackLayout>
-                                <Label Text="Day Streak" FontSize="11" TextColor="#FFFFFFA0" HorizontalOptions="Center" />
+                                <Label Text="Day Streak" FontSize="11" TextColor="#AAAAAA" HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Border>
                         <Border Grid.Column="2" StrokeShape="RoundRectangle 12" Stroke="Transparent"
@@ -116,7 +110,7 @@
                                     <Image Source="icon_trophy.png" WidthRequest="16" HeightRequest="16" VerticalOptions="Center" />
                                     <Label Text="{Binding LessonsCompleted}" FontSize="20" FontAttributes="Bold" TextColor="White" VerticalOptions="Center" />
                                 </HorizontalStackLayout>
-                                <Label Text="Lessons" FontSize="11" TextColor="#FFFFFFA0" HorizontalOptions="Center" />
+                                <Label Text="Lessons" FontSize="11" TextColor="#AAAAAA" HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Border>
                     </Grid>
@@ -125,15 +119,15 @@
                         <Grid ColumnDefinitions="*,Auto">
                             <Label Text="Daily Goal" FontSize="13" TextColor="#FFFFFFB0" VerticalOptions="Center" />
                             <Label Grid.Column="1" Text="{Binding DailyGoalFraction, StringFormat='{0:P0}'}" FontSize="13"
-                                   FontAttributes="Bold" TextColor="#FFD54F" VerticalOptions="Center" />
+                                   FontAttributes="Bold" TextColor="#7EB4F0" VerticalOptions="Center" />
                         </Grid>
                         <Grid HeightRequest="6">
                             <Border BackgroundColor="#15FFFFFF" StrokeShape="RoundRectangle 3" Stroke="Transparent" />
-                            <Border BackgroundColor="#FFD54F" StrokeShape="RoundRectangle 3" Stroke="Transparent"
+                            <Border BackgroundColor="#7EB4F0" StrokeShape="RoundRectangle 3" Stroke="Transparent"
                                     HorizontalOptions="Start"
                                     WidthRequest="{Binding DailyGoalFraction, Converter={StaticResource ProgressToWidthConverter}, ConverterParameter=280}">
                                 <Border.Shadow>
-                                    <Shadow Brush="#FFD54F" Offset="0,0" Radius="4" Opacity="0.5" />
+                                    <Shadow Brush="#7EB4F0" Offset="0,0" Radius="4" Opacity="0.5" />
                                 </Border.Shadow>
                             </Border>
                         </Grid>
@@ -173,9 +167,9 @@
                                     <BindableLayout.ItemTemplate>
                                         <DataTemplate x:DataType="vm:ModuleProgressItem">
                                             <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8" Padding="2,1">
-                                                <Label Text="{Binding Title}" FontSize="13" TextColor="#FFFFFFA0"
+                                                <Label Text="{Binding Title}" FontSize="13" TextColor="#CCCCCC"
                                                        MaxLines="1" LineBreakMode="TailTruncation" VerticalOptions="Center" />
-                                                <Label Grid.Column="1" Text="{Binding ProgressText}" FontSize="11" TextColor="#FFFFFF70" VerticalOptions="Center" />
+                                                <Label Grid.Column="1" Text="{Binding ProgressText}" FontSize="11" TextColor="#999999" VerticalOptions="Center" />
                                             </Grid>
                                         </DataTemplate>
                                     </BindableLayout.ItemTemplate>
@@ -245,7 +239,7 @@
                 </LinearGradientBrush>
             </Border.Stroke>
             <VerticalStackLayout Spacing="16">
-                <Image Source="mascot.png" WidthRequest="72" HeightRequest="72" HorizontalOptions="Center" />
+                <Image Source="icon_island.png" WidthRequest="72" HeightRequest="72" HorizontalOptions="Center" />
                 <Label Text="Set Up Your Profile" FontSize="24" FontAttributes="Bold"
                        TextColor="White" HorizontalOptions="Center" />
                 <Label Text="Add your name and photo to personalize your learning experience"

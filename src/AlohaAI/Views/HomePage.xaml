@@ -12,6 +12,7 @@
     <Grid BackgroundColor="Transparent" SafeAreaEdges="None">
         <!-- Layer 0: Background Image -->
         <Image Source="bg_sunset.png" Aspect="AspectFill" InputTransparent="True" />
+        <BoxView Color="#90000000" InputTransparent="True" />
 
         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
                            HorizontalOptions="Center" VerticalOptions="Center"
@@ -57,18 +58,19 @@
                                  BindableLayout.ItemsSource="{Binding PathItems}">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="vm:HomePathItem">
-                        <Border StrokeShape="RoundRectangle 18" StrokeThickness="0.8" Padding="16,14">
+                        <Border StrokeShape="RoundRectangle 20" StrokeThickness="1" Padding="16,14">
                             <Border.BackgroundColor>
-                                <Color>#E81A1035</Color>
+                                <Color>#CC151025</Color>
                             </Border.BackgroundColor>
                             <Border.Stroke>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                    <GradientStop Color="#40FFFFFF" Offset="0.0" />
+                                    <GradientStop Color="#50FFFFFF" Offset="0.0" />
+                                    <GradientStop Color="#15FFFFFF" Offset="0.4" />
                                     <GradientStop Color="#08FFFFFF" Offset="1.0" />
                                 </LinearGradientBrush>
                             </Border.Stroke>
                             <Border.Shadow>
-                                <Shadow Brush="#000000" Offset="0,8" Radius="24" Opacity="0.5" />
+                                <Shadow Brush="#000000" Offset="0,6" Radius="20" Opacity="0.6" />
                             </Border.Shadow>
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer
@@ -89,7 +91,7 @@
                                     <HorizontalStackLayout Grid.Column="2" VerticalOptions="Start" Spacing="3" Margin="0,4,0,0">
                                         <Image Source="icon_trophy.png" WidthRequest="18" HeightRequest="18"
                                                VerticalOptions="Center" />
-                                        <Label FontSize="14" FontAttributes="Bold" TextColor="#FFD54F"
+                                        <Label FontSize="14" FontAttributes="Bold" TextColor="#7EB4F0"
                                                VerticalOptions="Center">
                                             <Label.Text>
                                                 <MultiBinding StringFormat="{}{0}/{1}">
@@ -103,9 +105,9 @@
 
                                 <!-- Row 2: Tags -->
                                 <HorizontalStackLayout Spacing="6">
-                                    <Border BackgroundColor="#30FFD700" StrokeShape="RoundRectangle 10"
+                                    <Border BackgroundColor="#305B8FD4" StrokeShape="RoundRectangle 10"
                                             Stroke="Transparent" Padding="10,4">
-                                        <Label Text="Course" FontSize="10" TextColor="#FFD700"
+                                        <Label Text="Course" FontSize="10" TextColor="#5B8FD4"
                                                FontAttributes="Bold" />
                                     </Border>
                                     <Border BackgroundColor="#305B8FD4" StrokeShape="RoundRectangle 10"

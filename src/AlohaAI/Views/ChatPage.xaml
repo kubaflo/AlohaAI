@@ -12,7 +12,7 @@
         <!-- Layer 0: Background Image -->
         <Image Source="bg_sunset.png" Aspect="AspectFill" InputTransparent="True" />
         <!-- Layer 1: Dark overlay for readability -->
-        <BoxView Color="#75000000" InputTransparent="True" />
+        <BoxView Color="#90000000" InputTransparent="True" />
         
         <!-- Layer 2: Main Content -->
         <Grid RowDefinitions="Auto,*,Auto" Padding="0" SafeAreaEdges="None">

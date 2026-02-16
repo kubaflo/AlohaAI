@@ -8,6 +8,7 @@ public class SearchViewModel : BaseViewModel
 {
     private readonly IContentService _contentService;
     private CancellationTokenSource? _debounceToken;
+    private List<BrowseTopicItem> _allBrowseItems = [];
 
     private string _searchQuery = string.Empty;
     public string SearchQuery
@@ -62,6 +63,7 @@ public class SearchViewModel : BaseViewModel
         {
             SetProperty(ref _activeFilter, value);
             UpdateFilterChipStyles();
+            FilterBrowseItems();
             DebouncedSearch();
         }
     }
@@ -136,7 +138,7 @@ public class SearchViewModel : BaseViewModel
         {
             var paths = await _contentService.GetPathsAsync();
             FilterChips.Clear();
-            BrowseItems.Clear();
+            _allBrowseItems.Clear();
 
             foreach (var path in paths)
             {
@@ -150,7 +152,7 @@ public class SearchViewModel : BaseViewModel
 
                 var modules = await _contentService.GetModulesAsync(path.Id);
                 var lessonCount = modules.Sum(m => m.Lessons.Count);
-                BrowseItems.Add(new BrowseTopicItem
+                _allBrowseItems.Add(new BrowseTopicItem
                 {
                     PathId = path.Id,
                     Title = path.Title,
@@ -161,15 +163,31 @@ public class SearchViewModel : BaseViewModel
                         "agentic-ai" => "icon_explore.png",
                         "ml-fundamentals" => "icon_books.png",
                         "ai-in-practice" => "icon_rocket.png",
+                        "prompt-engineering" => "icon_gem.png",
+                        "vision-multimodal" => "icon_island.png",
+                        "generative-ai" => "icon_flowers.png",
+                        "ai-safety" => "icon_trophy.png",
+                        "mlops-engineering" => "icon_notebook.png",
                         _ => "icon_explore.png"
                     }
                 });
             }
+            FilterBrowseItems();
         }
         catch (Exception ex)
         {
             System.Diagnostics.Debug.WriteLine($"Browse load error: {ex.Message}");
         }
+    }
+
+    private void FilterBrowseItems()
+    {
+        BrowseItems.Clear();
+        var filtered = string.IsNullOrEmpty(ActiveFilter)
+            ? _allBrowseItems
+            : _allBrowseItems.Where(b => b.PathId == ActiveFilter).ToList();
+        foreach (var item in filtered)
+            BrowseItems.Add(item);
     }
 
     private void UpdateFilterChipStyles()

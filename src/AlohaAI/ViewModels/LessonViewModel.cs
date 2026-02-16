@@ -54,6 +54,13 @@ public class LessonViewModel : BaseViewModel
         set => SetProperty(ref _lessonXp, value);
     }
 
+    private string _headerImage = "header_agentic_ai.jpg";
+    public string HeaderImage
+    {
+        get => _headerImage;
+        set => SetProperty(ref _headerImage, value);
+    }
+
     private string _nextLessonTitle = string.Empty;
     public string NextLessonTitle
     {
@@ -162,6 +169,18 @@ public class LessonViewModel : BaseViewModel
             {
                 PathTitle = path.Title;
                 PathColor = path.Color;
+                HeaderImage = PathId switch
+                {
+                    "agentic-ai" => "header_agentic_ai.jpg",
+                    "ml-fundamentals" => "header_ml_fundamentals.jpg",
+                    "ai-in-practice" => "header_ai_in_practice.jpg",
+                    "prompt-engineering" => "header_prompt_engineering.jpg",
+                    "vision-multimodal" => "header_vision_multimodal.jpg",
+                    "generative-ai" => "header_generative_ai.jpg",
+                    "ai-safety" => "header_ai_safety.jpg",
+                    "mlops-engineering" => "header_mlops_engineering.jpg",
+                    _ => "header_agentic_ai.jpg"
+                };
             }
 
             // Compute lesson position and progress

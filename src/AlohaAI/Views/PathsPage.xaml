@@ -12,7 +12,7 @@
         <!-- Layer 0: Background Image -->
         <Image Source="bg_sunset.png" Aspect="AspectFill" InputTransparent="True" />
         <!-- Layer 1: Dark overlay for readability -->
-        <BoxView Color="#2A000000" InputTransparent="True" />
+        <BoxView Color="#75000000" InputTransparent="True" />
 
         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
                            HorizontalOptions="Center" VerticalOptions="Center"

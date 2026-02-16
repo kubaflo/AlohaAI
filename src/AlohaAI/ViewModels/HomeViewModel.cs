@@ -200,6 +200,11 @@ public class HomeViewModel : BaseViewModel
                         "agentic-ai" => "icon_explore.png",
                         "ml-fundamentals" => "icon_books.png",
                         "ai-in-practice" => "icon_rocket.png",
+                        "prompt-engineering" => "icon_gem.png",
+                        "vision-multimodal" => "icon_island.png",
+                        "generative-ai" => "icon_flowers.png",
+                        "ai-safety" => "icon_trophy.png",
+                        "mlops-engineering" => "icon_notebook.png",
                         _ => "icon_books.png"
                     },
                     Color = Color.FromArgb(path.Color),
@@ -211,6 +216,11 @@ public class HomeViewModel : BaseViewModel
                         "agentic-ai" => "Intermediate",
                         "ml-fundamentals" => "Beginner",
                         "ai-in-practice" => "Intermediate",
+                        "prompt-engineering" => "Intermediate",
+                        "vision-multimodal" => "Advanced",
+                        "generative-ai" => "Intermediate",
+                        "ai-safety" => "Beginner",
+                        "mlops-engineering" => "Advanced",
                         _ => "Beginner"
                     },
                     ContinueText = await GetContinueTextAsync(path.Id, modules)

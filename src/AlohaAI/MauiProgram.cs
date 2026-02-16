@@ -16,6 +16,10 @@ public static class MauiProgram
 			.ConfigureMauiHandlers(handlers =>
 			{
 				handlers.AddHandler<Shell, AlohaAI.Platforms.iOS.Handlers.TranslucentShellRenderer>();
+				Microsoft.Maui.Handlers.ScrollViewHandler.Mapper.AppendToMapping("NoBounce", (handler, view) =>
+				{
+					handler.PlatformView.Bounces = false;
+				});
 			})
 #endif
 			.ConfigureFonts(fonts =>

@@ -7,7 +7,7 @@
              SafeAreaEdges="None">
     <Grid SafeAreaEdges="None">
         <Image Source="bg_sunset.png" Aspect="AspectFill" InputTransparent="True" />
-        <BoxView Color="#2A000000" InputTransparent="True" />
+        <BoxView Color="#75000000" InputTransparent="True" />
         <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="16">
             <Image Source="icon_applogo.png" WidthRequest="96" HeightRequest="96" />
             <ActivityIndicator IsRunning="True" Color="White" />

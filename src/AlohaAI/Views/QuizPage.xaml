@@ -12,7 +12,7 @@
         <!-- Layer 0: Background Image -->
         <Image Grid.RowSpan="2" Source="bg_sunset.png" Aspect="AspectFill" InputTransparent="True" />
         <!-- Layer 1: Dark overlay for readability -->
-        <BoxView Grid.RowSpan="2" Color="#75000000" InputTransparent="True" />
+        <BoxView Grid.RowSpan="2" Color="#90000000" InputTransparent="True" />
 
         <!-- Header -->
         <VerticalStackLayout Grid.Row="0" Padding="20,0,20,20" Spacing="12">
@@ -33,11 +33,11 @@
                 <!-- Progress Bar -->
                 <Grid HeightRequest="5">
                     <Border BackgroundColor="#FFFFFF30" StrokeShape="RoundRectangle 2.5" Stroke="Transparent" />
-                    <Border BackgroundColor="#FFD54F" StrokeShape="RoundRectangle 2.5" Stroke="Transparent"
+                    <Border BackgroundColor="#7EB4F0" StrokeShape="RoundRectangle 2.5" Stroke="Transparent"
                             HorizontalOptions="Start"
                             WidthRequest="{Binding ProgressValue, Converter={StaticResource ProgressToWidthConverter}, ConverterParameter=340}">
                         <Border.Shadow>
-                            <Shadow Brush="#FFD54F" Offset="0,0" Radius="6" Opacity="0.6" />
+                            <Shadow Brush="#7EB4F0" Offset="0,0" Radius="6" Opacity="0.6" />
                         </Border.Shadow>
                     </Border>
                 </Grid>

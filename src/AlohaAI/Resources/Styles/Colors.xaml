@@ -24,7 +24,7 @@
 
     <!-- Streak / Gamification -->
     <Color x:Key="StreakColor">#F5A623</Color>
-    <Color x:Key="XPColor">#FFD54F</Color>
+    <Color x:Key="XPColor">#7EB4F0</Color>
     <Color x:Key="SuccessColor">#66BB6A</Color>
     <Color x:Key="ErrorColor">#EF5350</Color>
 
