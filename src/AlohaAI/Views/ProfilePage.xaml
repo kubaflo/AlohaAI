@@ -6,16 +6,35 @@
              x:DataType="vm:ProfileViewModel"
              Title="Profile"
              Shell.NavBarIsVisible="False"
-             SafeAreaEdges="None">
-    <Grid SafeAreaEdges="None">
-        <Image Source="bg_sunset.png" Aspect="AspectFill" InputTransparent="True" />
-        <BoxView Color="#90000000" InputTransparent="True" />
+             SafeAreaEdges="None"
+             BackgroundColor="#120C24">
+    <Grid Margin="0,-60,0,0" SafeAreaEdges="None">
+        <BoxView InputTransparent="True">
+            <BoxView.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#1E1035" Offset="0.0" />
+                    <GradientStop Color="#120C24" Offset="1.0" />
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+        <Grid HeightRequest="380" VerticalOptions="Start" InputTransparent="True">
+            <Image Source="bg_sunset.png" Aspect="AspectFill" />
+            <BoxView>
+                <BoxView.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#00000000" Offset="0.0" />
+                        <GradientStop Color="#901E1035" Offset="0.5" />
+                        <GradientStop Color="#FF120C24" Offset="1.0" />
+                    </LinearGradientBrush>
+                </BoxView.Background>
+            </BoxView>
+        </Grid>
 
         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
                            HorizontalOptions="Center" VerticalOptions="Center"
                            Color="{StaticResource Primary}" ZIndex="99" />
     <ScrollView>
-        <VerticalStackLayout x:Name="MainContent" Spacing="0">
+        <VerticalStackLayout x:Name="MainContent" Spacing="0" Padding="0,70,0,0">
 
             <!-- Top bar -->
             <Grid Padding="20,20,20,12" ColumnDefinitions="*,Auto" ColumnSpacing="12">
