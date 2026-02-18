@@ -4,6 +4,7 @@
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              x:Class="AlohaAI.Views.OnboardingPage"
              Shell.NavBarIsVisible="False"
+             Shell.NavBarVisibilityAnimationEnabled="False"
              Shell.TabBarIsVisible="False"
              SafeAreaEdges="None">
     <Grid SafeAreaEdges="None">
@@ -53,13 +54,7 @@
 
         <!-- Step 0: Welcome -->
         <VerticalStackLayout x:Name="Step0" VerticalOptions="Center" Spacing="24" IsVisible="True">
-            <Image Source="icon_applogo.png" WidthRequest="140" HeightRequest="140" HorizontalOptions="Center">
-                <Image.Shadow>
-                    <Shadow Brush="#7B68AE" Offset="0,8" Radius="24" Opacity="0.5" />
-                </Image.Shadow>
-            </Image>
-            <Label Text="AlohaAI" FontSize="38" FontAttributes="Bold"
-                   TextColor="White" HorizontalOptions="Center" />
+            <Image Source="logo_alohaai.png" HeightRequest="50" Aspect="AspectFit" HorizontalOptions="Center" />
             <Label Text="Your pocket guide to the world of AI"
                    FontSize="17" TextColor="White" Opacity="0.9"
                    HorizontalOptions="Center" HorizontalTextAlignment="Center" LineHeight="1.4" />
@@ -67,7 +62,7 @@
 
         <!-- Step 1: Learn -->
         <VerticalStackLayout x:Name="Step1" VerticalOptions="Center" Spacing="24" IsVisible="False">
-            <Image Source="icon_explore.png" WidthRequest="120" HeightRequest="120"
+            <Image Source="icon_explore.png" WidthRequest="180" HeightRequest="180"
                    HorizontalOptions="Center" VerticalOptions="Center" />
             <Label Text="Learn Agentic AI" FontSize="28" FontAttributes="Bold"
                    TextColor="White" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
@@ -79,7 +74,7 @@
 
         <!-- Step 2: Practice -->
         <VerticalStackLayout x:Name="Step2" VerticalOptions="Center" Spacing="24" IsVisible="False">
-            <Image Source="icon_notebook.png" WidthRequest="120" HeightRequest="120"
+            <Image Source="icon_notebook.png" WidthRequest="180" HeightRequest="180"
                    HorizontalOptions="Center" VerticalOptions="Center" />
             <Label Text="Test Your Knowledge" FontSize="28" FontAttributes="Bold"
                    TextColor="White" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
@@ -91,7 +86,7 @@
 
         <!-- Step 3: Grow -->
         <VerticalStackLayout x:Name="Step3" VerticalOptions="Center" Spacing="24" IsVisible="False">
-            <Image Source="icon_trophy.png" WidthRequest="120" HeightRequest="120"
+            <Image Source="icon_trophy.png" WidthRequest="180" HeightRequest="180"
                    HorizontalOptions="Center" VerticalOptions="Center" />
             <Label Text="Build Your Streak" FontSize="28" FontAttributes="Bold"
                    TextColor="White" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
@@ -103,15 +98,6 @@
 
         <!-- Step 4: Profile Setup -->
         <VerticalStackLayout x:Name="Step4" VerticalOptions="Center" Spacing="20" IsVisible="False">
-            <Image x:Name="ProfilePreview" Source="icon_applogo.png" WidthRequest="120" HeightRequest="120"
-                   Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Border StrokeShape="RoundRectangle 14" Stroke="#30FFFFFF" StrokeThickness="1"
-                    BackgroundColor="#20FFFFFF" Padding="20,8" HorizontalOptions="Center">
-                <Border.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnPickPhotoClicked" />
-                </Border.GestureRecognizers>
-                <Label Text="Choose Photo" FontSize="14" TextColor="White" HorizontalOptions="Center" />
-            </Border>
             <Label Text="Personalize Your Profile" FontSize="28" FontAttributes="Bold"
                    TextColor="White" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
             <Label Text="Add your name so we can personalize your learning experience"
@@ -121,7 +107,7 @@
             <Border StrokeShape="RoundRectangle 14" Stroke="#30FFFFFF" StrokeThickness="1"
                     BackgroundColor="#15FFFFFF" Padding="4,0" Margin="20,0">
                 <Entry x:Name="NameEntry" Placeholder="Enter your name"
-                       PlaceholderColor="#FFFFFF60" TextColor="White" FontSize="18"
+                       PlaceholderColor="#AAAAAA" TextColor="White" FontSize="18"
                        HorizontalTextAlignment="Center" ReturnType="Done"
                        BackgroundColor="Transparent" />
             </Border>

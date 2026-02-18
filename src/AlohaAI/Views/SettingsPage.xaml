@@ -7,6 +7,7 @@
              x:DataType="vm:SettingsViewModel"
              Title="Settings"
              Shell.NavBarIsVisible="False"
+             Shell.NavBarVisibilityAnimationEnabled="False"
              SafeAreaEdges="None"
              BackgroundColor="#120C24">
     <Grid Margin="0,-60,0,0" SafeAreaEdges="None">
@@ -31,18 +32,21 @@
             </BoxView>
         </Grid>
 
-    <ScrollView>
+    <ScrollView VerticalScrollBarVisibility="Never">
         <VerticalStackLayout Spacing="0">
 
             <!-- Header -->
-            <VerticalStackLayout Padding="20,0,20,20">
+            <VerticalStackLayout Padding="20,70,20,20">
                     <Grid ColumnDefinitions="Auto,*,Auto">
-                        <Border BackgroundColor="#E81A1035" StrokeShape="RoundRectangle 12" StrokeThickness="0"
-                                Padding="8,6" VerticalOptions="Center">
+                        <Border BackgroundColor="#80000000" StrokeShape="RoundRectangle 12" Stroke="Transparent"
+                                WidthRequest="36" HeightRequest="36" VerticalOptions="Center">
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding GoBackCommand}" />
                             </Border.GestureRecognizers>
-                            <Label Text="←" FontSize="17" TextColor="White" />
+                            <Path Data="M14,5 L6,12 L14,19" Stroke="White" StrokeThickness="2"
+                                  StrokeLineCap="Round" StrokeLineJoin="Round"
+                                  Aspect="Uniform" HeightRequest="14" WidthRequest="14"
+                                  HorizontalOptions="Center" VerticalOptions="Center" />
                         </Border>
                         <Label Grid.Column="1" Text="Settings" FontSize="22" FontAttributes="Bold"
                                TextColor="White" HorizontalOptions="Center" VerticalOptions="Center">

@@ -1,4 +1,5 @@
 using AlohaAI.Services;
+using AlohaAI.ViewModels;
 
 namespace AlohaAI.Views;
 
@@ -18,9 +19,16 @@ public partial class LoadingPage : ContentPage
 
         try
         {
-            await Task.Delay(500); // Brief splash display
             await _progressService.InitializeAsync();
             var onboardingDone = await _progressService.GetSettingAsync("onboarding_completed");
+
+            if (onboardingDone == "true")
+            {
+                // Pre-load home data before navigating
+                var homeVm = IPlatformApplication.Current!.Services.GetRequiredService<HomeViewModel>();
+                homeVm.LoadDataCommand.Execute(null);
+                await Task.Delay(1500);
+            }
 
             MainThread.BeginInvokeOnMainThread(() =>
             {

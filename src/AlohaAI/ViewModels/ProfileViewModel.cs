@@ -339,7 +339,7 @@ public class AchievementItem
     public double IconOpacity => IsUnlocked ? 1.0 : 0.3;
     public Color TextColor => IsUnlocked ? Colors.White : Color.FromArgb("#666666");
     public Color DescColor => IsUnlocked ? Color.FromArgb("#AAAAAA") : Color.FromArgb("#444444");
-    public string StatusText => IsUnlocked ? "✓" : "Locked";
+    public string StatusText => IsUnlocked ? "Unlocked" : "Locked";
 }
 
 public class ModuleProgressItem

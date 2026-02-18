@@ -6,6 +6,7 @@
              x:DataType="vm:QuizViewModel"
              Title="Quiz"
              Shell.NavBarIsVisible="False"
+             Shell.NavBarVisibilityAnimationEnabled="False"
              Shell.TabBarIsVisible="False"
              BackgroundColor="#120C24"
              SafeAreaEdges="None">
@@ -37,11 +38,14 @@
         <VerticalStackLayout Padding="20,70,20,0" Spacing="12" VerticalOptions="Start" ZIndex="10">
             <Grid ColumnDefinitions="Auto,*,Auto">
                 <Border BackgroundColor="#80000000" StrokeShape="RoundRectangle 12" Stroke="Transparent"
-                        Padding="8,6" VerticalOptions="Center">
+                        WidthRequest="36" HeightRequest="36" VerticalOptions="Center">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding GoBackCommand}" />
                     </Border.GestureRecognizers>
-                    <Label Text="←" FontSize="18" TextColor="White" />
+                    <Path Data="M14,5 L6,12 L14,19" Stroke="White" StrokeThickness="2"
+                          StrokeLineCap="Round" StrokeLineJoin="Round"
+                          Aspect="Uniform" HeightRequest="14" WidthRequest="14"
+                          HorizontalOptions="Center" VerticalOptions="Center" />
                 </Border>
                 <Label Grid.Column="1" Text="{Binding QuizTitle}" FontSize="17" FontAttributes="Bold"
                        TextColor="White" VerticalOptions="Center" HorizontalOptions="Center" />
@@ -61,7 +65,7 @@
         </VerticalStackLayout>
 
         <!-- Question View -->
-        <ScrollView IsVisible="{Binding ShowQuestion}" Margin="0,160,0,0">
+        <ScrollView IsVisible="{Binding ShowQuestion}" Margin="0,160,0,0" VerticalScrollBarVisibility="Never">
             <VerticalStackLayout Spacing="16" Padding="20,16,20,40">
                 <Label Text="{Binding QuestionText}" FontSize="22" FontAttributes="Bold"
                        TextColor="White" LineHeight="1.3" />

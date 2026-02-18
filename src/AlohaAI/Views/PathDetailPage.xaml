@@ -6,10 +6,11 @@
              x:DataType="vm:PathDetailViewModel"
              Title="{Binding Title}"
              Shell.NavBarIsVisible="False"
+             Shell.NavBarVisibilityAnimationEnabled="False"
              Shell.TabBarIsVisible="False"
              BackgroundColor="#120C24"
              SafeAreaEdges="None">
-    <Grid Margin="0,-60,0,0" SafeAreaEdges="None">
+    <Grid Margin="0,-60,0,-40" SafeAreaEdges="None">
         <!-- Purple background -->
         <BoxView InputTransparent="True">
             <BoxView.Background>
@@ -20,7 +21,7 @@
             </BoxView.Background>
         </BoxView>
 
-        <!-- Header image only at top, fading out -->
+        <!-- Header image fading out -->
         <Grid HeightRequest="260" VerticalOptions="Start" InputTransparent="True">
             <Image Source="{Binding HeaderImage}" Aspect="AspectFill" />
             <BoxView>
@@ -34,24 +35,20 @@
             </BoxView>
         </Grid>
 
-        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
-                           HorizontalOptions="Center" VerticalOptions="Center"
-                           Color="{StaticResource Primary}" ZIndex="99" />
-
-        <ScrollView>
+        <ScrollView VerticalScrollBarVisibility="Never">
             <VerticalStackLayout x:Name="MainContent" Spacing="0" Padding="0,0,0,0">
 
                 <!-- Back button -->
                 <Border BackgroundColor="#80000000" StrokeShape="RoundRectangle 12"
-                        Stroke="Transparent" Padding="10,6"
+                        Stroke="Transparent" WidthRequest="36" HeightRequest="36"
                         HorizontalOptions="Start" VerticalOptions="Start" Margin="16,70,0,0">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding GoBackCommand}" />
                     </Border.GestureRecognizers>
-                    <HorizontalStackLayout Spacing="6">
-                        <Label Text="←" FontSize="17" TextColor="White" VerticalOptions="Center" />
-                        <Label Text="Back" FontSize="15" TextColor="White" VerticalOptions="Center" />
-                    </HorizontalStackLayout>
+                    <Path Data="M14,5 L6,12 L14,19" Stroke="White" StrokeThickness="2"
+                          StrokeLineCap="Round" StrokeLineJoin="Round"
+                          Aspect="Uniform" HeightRequest="14" WidthRequest="14"
+                          HorizontalOptions="Center" VerticalOptions="Center" />
                 </Border>
 
                 <!-- Title section -->
@@ -71,7 +68,7 @@
                     <BindableLayout.ItemTemplate>
                         <DataTemplate x:DataType="vm:ModuleDisplayItem">
                             <Border StrokeShape="RoundRectangle 16" StrokeThickness="0.5" Padding="0"
-                                    BackgroundColor="#D0241840">
+                                    BackgroundColor="#241840">
                                 <Border.Stroke>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                                         <GradientStop Color="#30FFFFFF" Offset="0.0" />

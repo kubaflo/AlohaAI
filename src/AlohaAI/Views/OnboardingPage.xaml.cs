@@ -41,7 +41,6 @@ public partial class OnboardingPage : ContentPage
             await sourceStream.CopyToAsync(destStream);
 
             _pickedPhotoPath = destPath;
-            ProfilePreview.Source = ImageSource.FromFile(destPath);
         }
         catch (Exception ex)
         {

@@ -139,6 +139,9 @@ public class HomeViewModel : BaseViewModel
         _streakService = streakService;
         Title = "Home";
 
+        // Pre-compute daily content synchronously (deterministic, no I/O)
+        LoadDailyContent();
+
         LoadDataCommand = new AsyncRelayCommand(LoadDataAsync);
         NavigateToPathsCommand = new AsyncRelayCommand(async () => await Shell.Current.GoToAsync("//paths"));
         NavigateToPathCommand = new AsyncRelayCommand<string>(async pathId =>
@@ -254,8 +257,19 @@ public class HomeViewModel : BaseViewModel
                     ContinueText = await GetContinueTextAsync(path.Id, modules)
                 });
             }
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Error loading home data: {ex.Message}");
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
 
-            // Daily tip & word of the day (rotate by day of year)
+        private void LoadDailyContent()
+        {
             var dayIndex = DateTime.Now.DayOfYear;
             var tips = new (string Category, string Tip)[]
             {
@@ -294,15 +308,6 @@ public class HomeViewModel : BaseViewModel
             WordOfDay = word.Word;
             WordDefinition = word.Definition;
         }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine($"Error loading home data: {ex.Message}");
-        }
-        finally
-        {
-            IsBusy = false;
-        }
-    }
 
     private async Task<string> GetContinueTextAsync(string pathId, List<Models.Module> modules)
     {

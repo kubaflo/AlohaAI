@@ -406,7 +406,7 @@
     </Style>
 
     <Style TargetType="Shell" ApplyToDerivedTypes="True">
-        <Setter Property="Shell.BackgroundColor" Value="Transparent" />
+        <Setter Property="Shell.BackgroundColor" Value="#120C24" />
         <Setter Property="Shell.ForegroundColor" Value="White" />
         <Setter Property="Shell.TitleColor" Value="White" />
         <Setter Property="Shell.DisabledColor" Value="{StaticResource Gray600}" />
@@ -432,7 +432,7 @@
     </Style>
 
     <Style x:Key="GlassCard" TargetType="Border">
-        <Setter Property="BackgroundColor" Value="#CC151025" />
+        <Setter Property="BackgroundColor" Value="#151025" />
         <Setter Property="StrokeShape" Value="RoundRectangle 20" />
         <Setter Property="StrokeThickness" Value="1" />
         <Setter Property="Padding" Value="20" />

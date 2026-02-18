@@ -4,8 +4,8 @@
              xmlns:vm="clr-namespace:AlohaAI.ViewModels"
              x:Class="AlohaAI.Views.ProfilePage"
              x:DataType="vm:ProfileViewModel"
-             Title="Profile"
              Shell.NavBarIsVisible="False"
+             Shell.NavBarVisibilityAnimationEnabled="False"
              SafeAreaEdges="None"
              BackgroundColor="#120C24">
     <Grid Margin="0,-60,0,0" SafeAreaEdges="None">
@@ -30,10 +30,7 @@
             </BoxView>
         </Grid>
 
-        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
-                           HorizontalOptions="Center" VerticalOptions="Center"
-                           Color="{StaticResource Primary}" ZIndex="99" />
-    <ScrollView>
+    <ScrollView VerticalScrollBarVisibility="Never">
         <VerticalStackLayout x:Name="MainContent" Spacing="0" Padding="0,70,0,0">
 
             <!-- Top bar -->
@@ -41,7 +38,7 @@
                 <Label Text="Profile" FontSize="22" FontAttributes="Bold"
                        TextColor="White" VerticalOptions="Center" />
                 <Border Grid.Column="1" StrokeShape="RoundRectangle 16"
-                        Stroke="Transparent" BackgroundColor="#E81A1035"
+                        Stroke="Transparent" BackgroundColor="#1A1035"
                         WidthRequest="34" HeightRequest="34">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OpenSettingsCommand}" />
@@ -95,7 +92,6 @@
                                 </Border>
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Spacing="4">
-                                <Image Source="icon_levelbar.png" WidthRequest="14" HeightRequest="14" VerticalOptions="Center" />
                                 <Label Text="{Binding Level, StringFormat='Level {0}'}" FontSize="13" TextColor="#7EB4F0" VerticalOptions="Center" />
                             </HorizontalStackLayout>
                         </VerticalStackLayout>
@@ -103,40 +99,52 @@
                     <!-- Stats row -->
                     <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8">
                         <Border StrokeShape="RoundRectangle 12" Stroke="Transparent"
-                                BackgroundColor="#15FFFFFF" Padding="8,10">
-                            <VerticalStackLayout HorizontalOptions="Center" Spacing="2">
-                                <HorizontalStackLayout HorizontalOptions="Center" Spacing="3">
-                                    <Image Source="icon_xp.png" WidthRequest="16" HeightRequest="16" VerticalOptions="Center" />
-                                    <Label Text="{Binding TotalXp}" FontSize="20" FontAttributes="Bold" TextColor="#7EB4F0" VerticalOptions="Center" />
-                                </HorizontalStackLayout>
-                                <Label Text="Total XP" FontSize="11" TextColor="#AAAAAA" HorizontalOptions="Center" />
-                            </VerticalStackLayout>
+                                BackgroundColor="#1A1035" Padding="0">
+                            <Grid RowDefinitions="4,*">
+                                <BoxView Color="#B8A0E0" HeightRequest="4">
+                                    <BoxView.Clip>
+                                        <RoundRectangleGeometry CornerRadius="12,12,0,0" Rect="0,0,200,4" />
+                                    </BoxView.Clip>
+                                </BoxView>
+                                <VerticalStackLayout Grid.Row="1" HorizontalOptions="Center" Spacing="2" Padding="8,8,8,10">
+                                    <Label Text="{Binding TotalXp}" FontSize="20" FontAttributes="Bold" TextColor="#7EB4F0" HorizontalOptions="Center" />
+                                    <Label Text="Total XP" FontSize="11" FontAttributes="Bold" TextColor="#AAAAAA" HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Grid>
                         </Border>
                         <Border Grid.Column="1" StrokeShape="RoundRectangle 12" Stroke="Transparent"
-                                BackgroundColor="#15FFFFFF" Padding="8,10">
-                            <VerticalStackLayout HorizontalOptions="Center" Spacing="2">
-                                <HorizontalStackLayout HorizontalOptions="Center" Spacing="3">
-                                    <Image Source="icon_xp.png" WidthRequest="15" HeightRequest="15" VerticalOptions="Center" />
-                                    <Label Text="{Binding CurrentStreak}" FontSize="20" FontAttributes="Bold" TextColor="White" VerticalOptions="Center" />
-                                </HorizontalStackLayout>
-                                <Label Text="Day Streak" FontSize="11" TextColor="#AAAAAA" HorizontalOptions="Center" />
-                            </VerticalStackLayout>
+                                BackgroundColor="#1A1035" Padding="0">
+                            <Grid RowDefinitions="4,*">
+                                <BoxView Color="#E8A04E" HeightRequest="4">
+                                    <BoxView.Clip>
+                                        <RoundRectangleGeometry CornerRadius="12,12,0,0" Rect="0,0,200,4" />
+                                    </BoxView.Clip>
+                                </BoxView>
+                                <VerticalStackLayout Grid.Row="1" HorizontalOptions="Center" Spacing="2" Padding="8,8,8,10">
+                                    <Label Text="{Binding CurrentStreak}" FontSize="20" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" />
+                                    <Label Text="Day Streak" FontSize="11" FontAttributes="Bold" TextColor="#AAAAAA" HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Grid>
                         </Border>
                         <Border Grid.Column="2" StrokeShape="RoundRectangle 12" Stroke="Transparent"
-                                BackgroundColor="#15FFFFFF" Padding="8,10">
-                            <VerticalStackLayout HorizontalOptions="Center" Spacing="2">
-                                <HorizontalStackLayout HorizontalOptions="Center" Spacing="3">
-                                    <Image Source="icon_trophy.png" WidthRequest="16" HeightRequest="16" VerticalOptions="Center" />
-                                    <Label Text="{Binding LessonsCompleted}" FontSize="20" FontAttributes="Bold" TextColor="White" VerticalOptions="Center" />
-                                </HorizontalStackLayout>
-                                <Label Text="Lessons" FontSize="11" TextColor="#AAAAAA" HorizontalOptions="Center" />
-                            </VerticalStackLayout>
+                                BackgroundColor="#1A1035" Padding="0">
+                            <Grid RowDefinitions="4,*">
+                                <BoxView Color="#6DD4A0" HeightRequest="4">
+                                    <BoxView.Clip>
+                                        <RoundRectangleGeometry CornerRadius="12,12,0,0" Rect="0,0,200,4" />
+                                    </BoxView.Clip>
+                                </BoxView>
+                                <VerticalStackLayout Grid.Row="1" HorizontalOptions="Center" Spacing="2" Padding="8,8,8,10">
+                                    <Label Text="{Binding LessonsCompleted}" FontSize="20" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" />
+                                    <Label Text="Lessons" FontSize="11" FontAttributes="Bold" TextColor="#AAAAAA" HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Grid>
                         </Border>
                     </Grid>
                     <!-- Daily Goal Progress -->
                     <VerticalStackLayout Spacing="6">
                         <Grid ColumnDefinitions="*,Auto">
-                            <Label Text="Daily Goal" FontSize="13" TextColor="#FFFFFFB0" VerticalOptions="Center" />
+                            <Label Text="Daily Goal" FontSize="13" TextColor="#AAAAAA" VerticalOptions="Center" />
                             <Label Grid.Column="1" Text="{Binding DailyGoalFraction, StringFormat='{0:P0}'}" FontSize="13"
                                    FontAttributes="Bold" TextColor="#7EB4F0" VerticalOptions="Center" />
                         </Grid>
@@ -163,8 +171,14 @@
                                  BindableLayout.ItemsSource="{Binding PathProgress}">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="vm:PathProgressItem">
-                        <Border Style="{StaticResource GlassCard}" Padding="14,12">
-                            <VerticalStackLayout Spacing="8">
+                        <Border Style="{StaticResource GlassCard}" Padding="0">
+                            <Grid ColumnDefinitions="4,*">
+                                <BoxView Color="{Binding BarColor}" WidthRequest="4" VerticalOptions="Fill">
+                                    <BoxView.Clip>
+                                        <RoundRectangleGeometry CornerRadius="2" Rect="0,0,4,200" />
+                                    </BoxView.Clip>
+                                </BoxView>
+                                <VerticalStackLayout Grid.Column="1" Spacing="8" Padding="14,12">
                                 <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
                                     <Image Source="{Binding IconImage}" WidthRequest="24" HeightRequest="24" VerticalOptions="Center" />
                                     <Label Grid.Column="1" Text="{Binding Title}" FontSize="17"
@@ -194,6 +208,7 @@
                                     </BindableLayout.ItemTemplate>
                                 </VerticalStackLayout>
                             </VerticalStackLayout>
+                            </Grid>
                         </Border>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
@@ -201,34 +216,38 @@
 
             <!-- Achievements Section -->
             <Label Text="Achievements" FontSize="20" FontAttributes="Bold" TextColor="White"
-                   HorizontalTextAlignment="Center" HorizontalOptions="Fill"
-                   Margin="20,16,20,8" />
+                   Padding="20,16,20,8" />
 
-            <!-- Achievements Grid using FlexLayout + BindableLayout -->
-            <FlexLayout Wrap="Wrap" JustifyContent="Center" Margin="16,0,16,0"
+            <!-- Achievements Grid -->
+            <FlexLayout Wrap="Wrap" JustifyContent="SpaceEvenly" Margin="12,0,12,0"
                         BindableLayout.ItemsSource="{Binding Achievements}">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="vm:AchievementItem">
-                        <Border BackgroundColor="#E81A1035"
-                                StrokeShape="RoundRectangle 14"
-                                StrokeThickness="0.8"
-                                Padding="8" HeightRequest="100"
-                                WidthRequest="108" Margin="3,4">
+                        <Border BackgroundColor="#151025" StrokeShape="RoundRectangle 16"
+                                StrokeThickness="0.8" Padding="0"
+                                WidthRequest="115" HeightRequest="130" Margin="4,5">
                             <Border.Stroke>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                    <GradientStop Color="#40FFFFFF" Offset="0.0" />
+                                    <GradientStop Color="#30FFFFFF" Offset="0.0" />
                                     <GradientStop Color="#08FFFFFF" Offset="1.0" />
                                 </LinearGradientBrush>
                             </Border.Stroke>
-                            <VerticalStackLayout Spacing="4" VerticalOptions="Center" HorizontalOptions="Center">
-                                <Image Source="{Binding Icon}" WidthRequest="28" HeightRequest="28"
-                                       Opacity="{Binding IconOpacity}" HorizontalOptions="Center" />
-                                <Label Text="{Binding Title}" FontSize="11" FontAttributes="Bold"
-                                       TextColor="{Binding TextColor}" HorizontalOptions="Center"
-                                       HorizontalTextAlignment="Center" MaxLines="2" LineBreakMode="WordWrap" />
-                                <Label Text="{Binding StatusText}" FontSize="11"
-                                       TextColor="{Binding DescColor}" HorizontalOptions="Center" />
-                            </VerticalStackLayout>
+                            <Grid RowDefinitions="4,*">
+                                <BoxView Color="{Binding TextColor}" HeightRequest="4">
+                                    <BoxView.Clip>
+                                        <RoundRectangleGeometry CornerRadius="16,16,0,0" Rect="0,0,200,4" />
+                                    </BoxView.Clip>
+                                </BoxView>
+                                <VerticalStackLayout Grid.Row="1" Spacing="6" VerticalOptions="Center" HorizontalOptions="Center" Padding="8,8">
+                                    <Image Source="{Binding Icon}" WidthRequest="40" HeightRequest="40"
+                                           Opacity="{Binding IconOpacity}" HorizontalOptions="Center" />
+                                    <Label Text="{Binding Title}" FontSize="12" FontAttributes="Bold"
+                                           TextColor="{Binding TextColor}" HorizontalOptions="Center"
+                                           HorizontalTextAlignment="Center" MaxLines="2" LineBreakMode="WordWrap" />
+                                    <Label Text="{Binding StatusText}" FontSize="10"
+                                           TextColor="{Binding DescColor}" HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Grid>
                         </Border>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
@@ -236,8 +255,8 @@
 
             <!-- About -->
             <VerticalStackLayout Spacing="4" HorizontalOptions="Center" Margin="0,20,0,110">
-                <Label Text="AlohaAI v1.0.0" FontSize="11" TextColor="#FFFFFF50" HorizontalOptions="Center" />
-                <Label Text="Open source • MIT License" FontSize="11" TextColor="#FFFFFF50" HorizontalOptions="Center" />
+                <Label Text="AlohaAI v1.0.0" FontSize="11" TextColor="#AAAAAA" HorizontalOptions="Center" />
+                <Label Text="Open source • MIT License" FontSize="11" TextColor="#AAAAAA" HorizontalOptions="Center" />
             </VerticalStackLayout>
 
         </VerticalStackLayout>
@@ -258,16 +277,15 @@
                 </LinearGradientBrush>
             </Border.Stroke>
             <VerticalStackLayout Spacing="16">
-                <Image Source="icon_island.png" WidthRequest="72" HeightRequest="72" HorizontalOptions="Center" />
                 <Label Text="Set Up Your Profile" FontSize="24" FontAttributes="Bold"
                        TextColor="White" HorizontalOptions="Center" />
                 <Label Text="Add your name and photo to personalize your learning experience"
-                       FontSize="14" TextColor="#FFFFFFC0" HorizontalTextAlignment="Center"
+                       FontSize="14" TextColor="#AAAAAA" HorizontalTextAlignment="Center"
                        HorizontalOptions="Center" />
                 <Border StrokeShape="RoundRectangle 12" Stroke="#30FFFFFF" StrokeThickness="1"
                         BackgroundColor="#20FFFFFF" Padding="4,0" HeightRequest="48">
                     <Entry x:Name="SetupNameEntry" Placeholder="Enter your name"
-                           PlaceholderColor="#FFFFFF60" TextColor="White" FontSize="16"
+                           PlaceholderColor="#AAAAAA" TextColor="White" FontSize="16"
                            Text="{Binding EditName}" ReturnType="Done"
                            BackgroundColor="Transparent" />
                 </Border>
@@ -281,7 +299,7 @@
                             Command="{Binding SaveProfileCommand}" />
                 </Grid>
                 <Button Text="Skip for now" BackgroundColor="Transparent"
-                        TextColor="#FFFFFF80" FontSize="13" HeightRequest="36"
+                        TextColor="#AAAAAA" FontSize="13" HeightRequest="36"
                         Command="{Binding CancelEditCommand}" />
             </VerticalStackLayout>
         </Border>
@@ -306,7 +324,7 @@
                 <Border StrokeShape="RoundRectangle 12" Stroke="#30FFFFFF" StrokeThickness="1"
                         BackgroundColor="#15FFFFFF" Padding="4,0">
                     <Entry x:Name="EditNameEntry" Placeholder="Enter your name"
-                           PlaceholderColor="#FFFFFF60" TextColor="White" FontSize="16"
+                           PlaceholderColor="#AAAAAA" TextColor="White" FontSize="16"
                            Text="{Binding EditName}" ReturnType="Done"
                            BackgroundColor="Transparent" />
                 </Border>

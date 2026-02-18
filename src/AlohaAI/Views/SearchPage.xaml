@@ -5,8 +5,8 @@
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              x:Class="AlohaAI.Views.SearchPage"
              x:DataType="vm:SearchViewModel"
-             Title="Search"
              Shell.NavBarIsVisible="False"
+             Shell.NavBarVisibilityAnimationEnabled="False"
              SafeAreaEdges="None"
              BackgroundColor="#120C24">
     <Grid Margin="0,-60,0,0" SafeAreaEdges="None">
@@ -31,7 +31,7 @@
             </BoxView>
         </Grid>
 
-    <ScrollView>
+    <ScrollView VerticalScrollBarVisibility="Never">
     <VerticalStackLayout Padding="20,70,20,100" Spacing="16">
         <!-- Header -->
         <Label Text="Explore" FontSize="28" FontAttributes="Bold" TextColor="White" Margin="0,0,0,0" />

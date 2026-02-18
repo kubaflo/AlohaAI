@@ -5,8 +5,8 @@
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              x:Class="AlohaAI.Views.HomePage"
              x:DataType="vm:HomeViewModel"
-             Title="Home"
              Shell.NavBarIsVisible="False"
+             Shell.NavBarVisibilityAnimationEnabled="False"
              BackgroundColor="#120C24"
              SafeAreaEdges="None">
     <Grid Margin="0,-60,0,0" BackgroundColor="Transparent" SafeAreaEdges="None">
@@ -31,15 +31,12 @@
             </BoxView>
         </Grid>
 
-        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
-                           HorizontalOptions="Center" VerticalOptions="Center"
-                           Color="{StaticResource Primary}" ZIndex="99" />
-    <ScrollView>
+    <ScrollView VerticalScrollBarVisibility="Never">
         <VerticalStackLayout x:Name="MainContent" Spacing="0" Padding="0,70,0,0" SafeAreaEdges="None">
 
             <!-- Header: Settings gear (top right) -->
             <Grid Padding="24,0,24,0" ColumnDefinitions="*,Auto" SafeAreaEdges="None">
-                <BoxView Color="Transparent" />
+                <ContentView />
                 <Border Grid.Column="1" BackgroundColor="#D01A1035" StrokeShape="RoundRectangle 14"
                         Stroke="Transparent" WidthRequest="40" HeightRequest="40">
                     <Border.Shadow>
@@ -70,26 +67,57 @@
                 </Label.Shadow>
             </Label>
 
-            <!-- Quick Stats — compact inline bar -->
-            <Border Margin="16,0,16,16" StrokeShape="RoundRectangle 14"
-                    BackgroundColor="#CC151025" Stroke="Transparent" Padding="14,12">
-                <Grid ColumnDefinitions="*,Auto,*,Auto,*">
-                    <HorizontalStackLayout Spacing="6" HorizontalOptions="Center">
-                        <Label Text="{Binding CurrentStreak}" FontSize="20" FontAttributes="Bold" TextColor="White" VerticalOptions="Center" />
-                        <Label Text="streak" FontSize="11" TextColor="#B8A0E0" VerticalOptions="Center" />
-                    </HorizontalStackLayout>
-                    <BoxView Grid.Column="1" WidthRequest="1" BackgroundColor="#40FFFFFF" VerticalOptions="Fill" />
-                    <HorizontalStackLayout Grid.Column="2" Spacing="6" HorizontalOptions="Center">
-                        <Label Text="{Binding TotalXp}" FontSize="20" FontAttributes="Bold" TextColor="White" VerticalOptions="Center" />
-                        <Label Text="xp" FontSize="11" TextColor="#7EB4F0" VerticalOptions="Center" />
-                    </HorizontalStackLayout>
-                    <BoxView Grid.Column="3" WidthRequest="1" BackgroundColor="#40FFFFFF" VerticalOptions="Fill" />
-                    <HorizontalStackLayout Grid.Column="4" Spacing="6" HorizontalOptions="Center">
-                        <Label Text="{Binding TodayLessons}" FontSize="20" FontAttributes="Bold" TextColor="White" VerticalOptions="Center" />
-                        <Label Text="today" FontSize="11" TextColor="#6DD4A0" VerticalOptions="Center" />
-                    </HorizontalStackLayout>
-                </Grid>
-            </Border>
+            <!-- Quick Stats -->
+            <Grid Margin="16,0,16,16" ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                <Border StrokeShape="RoundRectangle 16" BackgroundColor="#181530" Stroke="Transparent" Padding="0">
+                    <Border.Shadow>
+                        <Shadow Brush="#000000" Offset="0,4" Radius="12" Opacity="0.3" />
+                    </Border.Shadow>
+                    <Grid RowDefinitions="4,*">
+                        <BoxView Color="#B8A0E0" HeightRequest="4" VerticalOptions="Start">
+                            <BoxView.Clip>
+                                <RoundRectangleGeometry CornerRadius="16,16,0,0" Rect="0,0,200,4" />
+                            </BoxView.Clip>
+                        </BoxView>
+                        <VerticalStackLayout Grid.Row="1" Spacing="2" HorizontalOptions="Center" Padding="0,12,0,14">
+                            <Label Text="{Binding CurrentStreak}" FontSize="28" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" />
+                            <Label Text="Day Streak" FontSize="11" FontAttributes="Bold" TextColor="#B8A0E0" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+                <Border Grid.Column="1" StrokeShape="RoundRectangle 16" BackgroundColor="#181530" Stroke="Transparent" Padding="0">
+                    <Border.Shadow>
+                        <Shadow Brush="#000000" Offset="0,4" Radius="12" Opacity="0.3" />
+                    </Border.Shadow>
+                    <Grid RowDefinitions="4,*">
+                        <BoxView Color="#7EB4F0" HeightRequest="4" VerticalOptions="Start">
+                            <BoxView.Clip>
+                                <RoundRectangleGeometry CornerRadius="16,16,0,0" Rect="0,0,200,4" />
+                            </BoxView.Clip>
+                        </BoxView>
+                        <VerticalStackLayout Grid.Row="1" Spacing="2" HorizontalOptions="Center" Padding="0,12,0,14">
+                            <Label Text="{Binding TotalXp}" FontSize="28" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" />
+                            <Label Text="Total XP" FontSize="11" FontAttributes="Bold" TextColor="#7EB4F0" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+                <Border Grid.Column="2" StrokeShape="RoundRectangle 16" BackgroundColor="#181530" Stroke="Transparent" Padding="0">
+                    <Border.Shadow>
+                        <Shadow Brush="#000000" Offset="0,4" Radius="12" Opacity="0.3" />
+                    </Border.Shadow>
+                    <Grid RowDefinitions="4,*">
+                        <BoxView Color="#6DD4A0" HeightRequest="4" VerticalOptions="Start">
+                            <BoxView.Clip>
+                                <RoundRectangleGeometry CornerRadius="16,16,0,0" Rect="0,0,200,4" />
+                            </BoxView.Clip>
+                        </BoxView>
+                        <VerticalStackLayout Grid.Row="1" Spacing="2" HorizontalOptions="Center" Padding="0,12,0,14">
+                            <Label Text="{Binding TodayLessons}" FontSize="28" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" />
+                            <Label Text="Today" FontSize="11" FontAttributes="Bold" TextColor="#6DD4A0" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+            </Grid>
 
             <!-- AI Word of the Day — compact inline definition style -->
             <Border Margin="16,0,16,20" StrokeShape="RoundRectangle 16" Stroke="Transparent" Padding="0">
@@ -133,7 +161,7 @@
                     <DataTemplate x:DataType="vm:HomePathItem">
                         <Border StrokeShape="RoundRectangle 22" StrokeThickness="1" Padding="0">
                             <Border.BackgroundColor>
-                                <Color>#CC151025</Color>
+                                <Color>#151025</Color>
                             </Border.BackgroundColor>
                             <Border.Stroke>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -154,7 +182,7 @@
                                 <!-- Large semi-transparent icon as background -->
                                 <Image Source="{Binding IconImage}" WidthRequest="100" HeightRequest="100"
                                        HorizontalOptions="End" VerticalOptions="Start"
-                                       Opacity="0.35" Margin="0,8,8,0" InputTransparent="True" />
+                                       Opacity="0.5" Margin="0,8,8,0" InputTransparent="True" />
 
                                 <!-- Left accent bar -->
                                 <BoxView WidthRequest="3" BackgroundColor="{Binding Color}"

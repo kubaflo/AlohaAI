@@ -6,6 +6,7 @@
              x:DataType="vm:ChatViewModel"
              Title="Chat"
              Shell.NavBarIsVisible="False"
+             Shell.NavBarVisibilityAnimationEnabled="False"
              BackgroundColor="#120C24"
              SafeAreaEdges="None">
     <Grid Margin="0,-60,0,0" SafeAreaEdges="None">
@@ -106,7 +107,7 @@
                 </VerticalStackLayout>
                 
                 <!-- Messages List (when there are messages) -->
-                <ScrollView IsVisible="{Binding HasMessages}" Padding="16,0">
+                <ScrollView IsVisible="{Binding HasMessages}" Padding="16,0" VerticalScrollBarVisibility="Never">
                     <VerticalStackLayout Spacing="12" 
                                          BindableLayout.ItemsSource="{Binding Messages}"
                                          Padding="0,0,0,20">
@@ -147,7 +148,7 @@
                     StrokeShape="RoundRectangle 25"
                     StrokeThickness="1">
                 <Border.BackgroundColor>
-                    <Color>#E81A1035</Color>
+                    <Color>#1A1035</Color>
                 </Border.BackgroundColor>
                 <Border.Stroke>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">

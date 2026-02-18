@@ -6,7 +6,10 @@
     xmlns:views="clr-namespace:AlohaAI.Views"
     Title="AlohaAI"
     Shell.FlyoutBehavior="Disabled"
-    Shell.NavBarIsVisible="False">
+    Shell.NavBarIsVisible="False"
+    Shell.BackgroundColor="Transparent"
+    Shell.NavBarHasShadow="False"
+    BackgroundColor="#120C24">
 
     <TabBar>
         <ShellContent
@@ -21,12 +24,12 @@
             Route="paths" />
         <ShellContent
             Title="Explore"
-            Icon="icon_explore.png"
+            Icon="tab_search.png"
             ContentTemplate="{DataTemplate views:SearchPage}"
             Route="search" />
         <ShellContent
             Title="Profile"
-            Icon="tab_profile.png"
+            Icon="tab_activity.png"
             ContentTemplate="{DataTemplate views:ProfilePage}"
             Route="profile" />
     </TabBar>

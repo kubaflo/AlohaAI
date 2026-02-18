@@ -7,6 +7,7 @@
              x:DataType="vm:LessonViewModel"
              Title="{Binding Title}"
              Shell.NavBarIsVisible="False"
+             Shell.NavBarVisibilityAnimationEnabled="False"
              Shell.TabBarIsVisible="False"
              BackgroundColor="#120C24"
              SafeAreaEdges="None">
@@ -53,26 +54,22 @@
         </Border>
 
         <!-- Everything scrolls -->
-        <ScrollView>
+        <ScrollView VerticalScrollBarVisibility="Never">
             <VerticalStackLayout Spacing="0">
 
                 <!-- Header -->
                 <VerticalStackLayout Padding="20,70,20,16" Spacing="6">
                     <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
-                        <Border BackgroundColor="#C81A1035" StrokeShape="RoundRectangle 14" Padding="0"
+                        <Border BackgroundColor="#80000000" StrokeShape="RoundRectangle 12" Stroke="Transparent"
                                 WidthRequest="36" HeightRequest="36"
                                 HorizontalOptions="Start" VerticalOptions="Center">
-                            <Border.Stroke>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                    <GradientStop Color="#40FFFFFF" Offset="0.0" />
-                                    <GradientStop Color="#10FFFFFF" Offset="1.0" />
-                                </LinearGradientBrush>
-                            </Border.Stroke>
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding GoBackCommand}" />
                             </Border.GestureRecognizers>
-                            <Label Text="←" FontSize="18" TextColor="White"
-                                   HorizontalOptions="Center" VerticalOptions="Center" />
+                            <Path Data="M14,5 L6,12 L14,19" Stroke="White" StrokeThickness="2"
+                                  StrokeLineCap="Round" StrokeLineJoin="Round"
+                                  Aspect="Uniform" HeightRequest="14" WidthRequest="14"
+                                  HorizontalOptions="Center" VerticalOptions="Center" />
                         </Border>
                         <Label Grid.Column="1" Text="{Binding ModuleTitle}" FontSize="22" FontAttributes="Bold"
                                TextColor="White" MaxLines="2" LineBreakMode="WordWrap" VerticalOptions="Center">
@@ -112,7 +109,7 @@
                 <!-- Article Content Card (dark glassmorphism) -->
                 <Border Margin="16,0,16,16" StrokeShape="RoundRectangle 18" StrokeThickness="0.8" Padding="18,16">
                     <Border.BackgroundColor>
-                        <Color>#E81A1035</Color>
+                        <Color>#1A1035</Color>
                     </Border.BackgroundColor>
                     <Border.Stroke>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -137,7 +134,7 @@
                 <!-- Action Card -->
                 <Border Margin="16,0,16,16" StrokeShape="RoundRectangle 18" StrokeThickness="0.8" Padding="18,16">
                     <Border.BackgroundColor>
-                        <Color>#C81A1035</Color>
+                        <Color>#1A1035</Color>
                     </Border.BackgroundColor>
                     <Border.Stroke>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -187,7 +184,7 @@
                 </Border>
 
                 <!-- Bottom spacer -->
-                <BoxView HeightRequest="60" Color="Transparent" />
+                <ContentView HeightRequest="60" />
 
             </VerticalStackLayout>
         </ScrollView>
