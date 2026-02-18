@@ -1,44 +1,75 @@
-# 🌺 AlohaAI
+<p align="center">
+  <img src="docs/screenshots/app-icon.jpeg" alt="AlohaAI" width="180" />
+</p>
 
-**Learn Agentic AI, Machine Learning & AI concepts — one bite-sized lesson at a time.**
+<h1 align="center">🌺 AlohaAI</h1>
 
-AlohaAI is an open-source mobile learning app built with .NET MAUI that teaches AI concepts through interactive lessons, quizzes, progress tracking, and daily learning streaks — inspired by [Enki](https://www.enki.com).
+<p align="center">
+  <strong>Your pocket guide to the world of AI</strong><br/>
+  Learn Agentic AI, Machine Learning & more — one bite-sized lesson at a time.
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/.NET_MAUI-10.0-512BD4?style=flat&logo=dotnet" alt=".NET MAUI" />
+  <img src="https://img.shields.io/badge/Platform-Android_%7C_iOS-green?style=flat" alt="Platforms" />
+  <img src="https://img.shields.io/badge/License-MIT-blue?style=flat" alt="License" />
+  <img src="https://img.shields.io/badge/Content-132_Lessons-orange?style=flat" alt="Lessons" />
+</p>
+
+---
+
+AlohaAI is an open-source mobile learning app built with **.NET MAUI** that teaches AI/ML concepts through interactive lessons, quizzes, progress tracking, and daily streaks. All content is embedded — no internet required.
+
+<p align="center">
+  <img src="docs/screenshots/onboarding-welcome.jpeg" alt="Welcome" width="200" />
+  <img src="docs/screenshots/onboarding-agentic.jpeg" alt="Onboarding" width="200" />
+</p>
+
+## 📱 App Screens
+
+<p align="center">
+  <img src="docs/screenshots/home.jpeg" alt="Home" width="200" />
+  <img src="docs/screenshots/learning-paths.jpeg" alt="Learning Paths" width="200" />
+  <img src="docs/screenshots/explore.jpeg" alt="Explore" width="200" />
+  <img src="docs/screenshots/profile.jpeg" alt="Profile" width="200" />
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/path-detail.jpeg" alt="Path Detail" width="200" />
+  <img src="docs/screenshots/lesson.jpeg" alt="Lesson" width="200" />
+  <img src="docs/screenshots/quiz.jpeg" alt="Quiz" width="200" />
+  <img src="docs/screenshots/settings.jpeg" alt="Settings" width="200" />
+</p>
 
 ## 🎯 Learning Paths
 
-### 🤖 Agentic AI
-- Introduction to AI Agents
-- Model Context Protocol (MCP)
-- Retrieval-Augmented Generation (RAG)
-- Skills & Tools
-- Agent Orchestration
+| Path | Modules | Lessons | Topics |
+|------|---------|---------|--------|
+| 🤖 **Agentic AI** | 6 | 21 | AI Agents, MCP, RAG, Tools, Orchestration |
+| 🧠 **ML Fundamentals** | 5 | 16 | Supervised/Unsupervised Learning, Neural Nets, LLMs |
+| 🚀 **AI in Practice** | 4 | 15 | Cloud AI, Semantic Kernel, Copilot Ecosystem |
+| ✍️ **Prompt Engineering** | 4 | 16 | Prompt Design, CoT, Evaluation, Model Strategy |
+| 👁️ **Vision & Multimodal AI** | 4 | 16 | Computer Vision, Multimodal LLMs, Video Intelligence |
+| 🎨 **Generative AI Studio** | 4 | 16 | Image/Video/Audio Generation, Content Safety |
+| 🛡️ **AI Safety & Security** | 4 | 16 | Alignment, LLM Security, Responsible AI, Compliance |
+| ⚙️ **MLOps Engineering** | 4 | 16 | MLOps Foundations, Serving, Edge/Mobile, Monitoring |
 
-### 🧠 ML Fundamentals
-- What is Machine Learning
-- Supervised Learning
-- Neural Networks
-- LLMs & Foundation Models
-
-### 🚀 AI in Practice
-- Cloud AI Services (Azure AI, Cognitive Services)
-- Semantic Kernel & AI frameworks
-- Copilot Ecosystem & AI-assisted development
+> **132 lessons** · **35 quizzes** · **8 learning paths** · **Fully offline**
 
 ## ✨ Features
 
-- 📖 **Bite-sized lessons** — Learn in 5-minute sessions with Markdown-rendered content
-- 🧩 **Interactive quizzes** — Test your knowledge with A/B/C/D indicators and styled feedback
+- 📖 **Bite-sized lessons** — Learn in 5-minute sessions with rich Markdown content
+- 🧩 **Interactive quizzes** — Multiple-choice questions with explanations and styled feedback
 - 🔥 **Learning streaks** — Track consecutive learning days with daily goals
-- 📊 **Progress tracking** — Per-path progress breakdown on your profile
+- 📊 **Progress tracking** — Per-path and per-module progress on your profile
 - ⭐ **XP & levels** — Earn experience points for completing lessons and quizzes
-- 🏆 **Achievements** — Unlock milestones as you learn (First Steps, Curious Mind, Week Warrior, etc.)
-- 🔍 **Search with filters** — Find lessons with path-based filter chips and browse topics
-- 🎬 **Smooth animations** — Page transitions, XP popups, quiz feedback, onboarding carousel
-- 🌺 **Multi-step onboarding** — Beautiful 4-screen carousel with page indicators and slide animations
-- 🌴 **Tropical sunset theme** — Dark mode with gradient headers and vibrant accent colors
+- 🏆 **Achievements** — Unlock milestones as you learn
+- 🔍 **Search & explore** — Find lessons with path-based filter chips and browse all topics
+- 💡 **Word of the Day** — Daily AI/ML glossary term on the home screen
+- 🌴 **Tropical sunset UI** — Immersive dark theme with gradient backgrounds
 - 📱 **Offline-first** — All content embedded, no internet required
-- 📳 **Haptic feedback** — Tactile responses on quiz answers and lesson completion
-- 🔓 **100% open source** — MIT licensed, community contributions welcome
+- 📳 **Haptic feedback** — Tactile responses on interactions
+- 🔓 **100% open source** — MIT licensed
 
 ## 🛠️ Tech Stack
 
@@ -46,9 +77,9 @@ AlohaAI is an open-source mobile learning app built with .NET MAUI that teaches 
 |---|---|
 | Framework | .NET 10 MAUI |
 | Language | C# |
-| Architecture | MVVM (plain, no framework) |
+| Architecture | MVVM |
 | Navigation | Shell (TabBar + route-based) |
-| Local Storage | SQLite (sqlite-net-pcl) |
+| Local Storage | SQLite |
 | Content Format | JSON + Markdown |
 | Platforms | Android 7.0+ / iOS 16+ |
 
@@ -57,23 +88,19 @@ AlohaAI is an open-source mobile learning app built with .NET MAUI that teaches 
 ### Prerequisites
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0)
-- [MAUI workload](https://learn.microsoft.com/dotnet/maui/get-started/installation): `dotnet workload install maui`
+- MAUI workload: `dotnet workload install maui`
 - Android SDK or Xcode (for iOS)
 
 ### Build & Run
 
 ```bash
-# Clone the repo
 git clone https://github.com/kubaflo/AlohaAI.git
 cd AlohaAI
 
-# Restore packages
-dotnet restore
-
-# Run on Android
+# Android
 dotnet build src/AlohaAI/AlohaAI.csproj -f net10.0-android -t:Run
 
-# Run on iOS (macOS only)
+# iOS (macOS only)
 dotnet build src/AlohaAI/AlohaAI.csproj -f net10.0-ios -t:Run
 ```
 
@@ -81,53 +108,32 @@ dotnet build src/AlohaAI/AlohaAI.csproj -f net10.0-ios -t:Run
 
 ```
 AlohaAI/
-├── src/AlohaAI/          # .NET MAUI app
-│   ├── Models/           # Data models (UserProgress, LearningPath, etc.)
-│   ├── ViewModels/       # MVVM view models (Home, Paths, Search, etc.)
-│   ├── Views/            # XAML pages (8 pages + onboarding)
-│   ├── Services/         # ContentService, ProgressService, StreakService
-│   ├── Converters/       # Value converters
-│   ├── Helpers/          # MarkdownRenderer (tables, code blocks, etc.)
-│   └── Resources/        # Fonts, images, styles
-├── content/              # Learning content (JSON + Markdown)
-│   ├── agentic-ai/       # Agentic AI learning path (5 modules, 18 lessons)
-│   ├── ml-fundamentals/  # ML Fundamentals path (4 modules, 12 lessons)
-│   └── ai-in-practice/   # AI in Practice path (3 modules, 12 lessons)
-└── tests/                # Unit tests (content validation)
+├── src/AlohaAI/           # .NET MAUI app
+│   ├── Models/            # Data models
+│   ├── ViewModels/        # MVVM view models
+│   ├── Views/             # XAML pages
+│   ├── Services/          # Content, Progress, Streak services
+│   ├── Converters/        # Value converters
+│   ├── Helpers/           # Markdown renderer
+│   └── Resources/         # Fonts, images, styles
+├── content/               # Learning content (JSON + Markdown)
+│   ├── agentic-ai/        #   8 paths, each with modules/
+│   ├── ml-fundamentals/   #   containing lessons (.md) and
+│   ├── ai-in-practice/    #   quizzes (.json)
+│   └── ...
+└── tests/                 # Unit tests
 ```
-
-## 📱 App Overview
-
-| Home | Search | Profile |
-|---|---|---|
-| Dashboard with streak, XP, daily goals | Real-time search across all lessons | Per-path progress breakdown |
-
-**42 lessons** • **12 quizzes** • **3 learning paths** • **Fully offline**
-
-## 🎨 Design
-
-AlohaAI features an **immersive tropical sunset UI** inspired by Hawaii's vibrant landscapes:
-
-- **Sunset gradient backgrounds** — Multi-stop gradient (deep navy → purple → coral → sunset orange) across all pages
-- **Glassmorphism cards** — Semi-transparent frosted glass cards with gradient border strokes and soft shadows
-- **Ambient orbs** — Floating radial gradient orbs that add atmospheric depth to every screen
-- **Glowing elements** — Color-matched shadows on icons, progress bars, and CTA buttons
-- **Gradient headers** — Sky blue → purple → deep navy (`#5B9FE6` → `#7B68AE` → `#2D1B69`)
-- **Accent colors** — Hibiscus pink (`#E88BBF`), warm gold XP (`#FFD54F`), sunset streak (`#F5A623`)
-- **Dark mode default** — Deep purple-tinted surfaces (`#0E0A1A` base) for immersive reading
 
 ## 🤝 Contributing
 
 Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-### Adding Content
-
-Lessons are written in Markdown with JSON metadata. See `content/` for the structure. PRs for new lessons, corrections, or translations are especially welcome.
+New lessons are written in Markdown with JSON metadata — check the `content/` directory for examples. PRs for new lessons, corrections, or translations are especially welcome.
 
 ## 📄 License
 
-This project is licensed under the MIT License — see [LICENSE](LICENSE) for details.
+MIT — see [LICENSE](LICENSE) for details.
 
 ---
 
-*Built with 🌺 and .NET MAUI*
+<p align="center"><em>Built with 🌺 and .NET MAUI</em></p>
